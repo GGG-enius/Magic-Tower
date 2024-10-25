@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Button/SelectButton0001.png</file>
+        <file>Button/SelectButton0002.png</file>
+        <file>Background/LayerBG.png</file>
+        <file>Icon/Icon0001.png</file>
+        <file>Background/MainBG.png</file>
+        <file>Background/SelectBorder.png</file>
+        <file>Button/ScrollBar0001.png</file>
+        <file>Button/ScrollBar0002.png</file>
+        <file>Button/DownArrow.png</file>
+        <file>Button/ScrollBar0003.png</file>
+        <file>Button/UpArrow.png</file>
+        <file>Background/TileBG.png</file>
+        <file>Background/TileBG0002.png</file>
+        <file>Guard/GuardBow0001.png</file>
+        <file>Guard/GuardBow0002.png</file>
+        <file>Guard/GuardBow0003.png</file>
+        <file>Guard/GuardBow0004.png</file>
+        <file>Wall/Wall0001.png</file>
+        <file>Wall/Wall0002.png</file>
+        <file>Wall/Wall0003.png</file>
+        <file>Wall/Wall0004.png</file>
+        <file>Wall/Wall0005.png</file>
+        <file>Wall/Wall0006.png</file>
+        <file>Wall/Wall0007.png</file>
+        <file>Wall/Wall0008.png</file>
+        <file>Wall/Wall0009.png</file>
+        <file>Wall/Wall0010.png</file>
+        <file>Floor/Floor0001.png</file>
+        <file>Floor/Floor0002.png</file>
+    </qresource>
+</RCC>

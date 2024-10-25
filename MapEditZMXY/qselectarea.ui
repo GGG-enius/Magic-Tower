@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QSelectArea</class>
+ <widget class="QWidget" name="QSelectArea">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>510</width>
+    <height>760</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>480</width>
+     <height>760</height>
+    </rect>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustIgnored</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>false</bool>
+   </property>
+   <widget class="SelectTile" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>480</width>
+      <height>1100</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QScrollBar" name="ScrollBar">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>0</y>
+     <width>16</width>
+     <height>760</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 整个滚动条区域样式 */
+QScrollBar:vertical {
+  border: none;
+	border-image: url(:/Button/ScrollBar0002.png);
+  width: 16px;
+  /* 滑块活动区域间距，这个间距如果小于add-line和sub-line的高度或宽度滚动滑块将会覆盖add-line和sub-line，所以可以通过margin: 0px 0 0px 0;来隐藏滚动条两头区域*/
+  margin: 16px 0 16px 0;
+border-radius: 2px;
+    border-style: flat;
+}
+/* 滑块区域样式 */
+QScrollBar::handle:vertical {
+  
+	border-image: url(:/Button/ScrollBar0001.png);
+  min-height: 16px;
+  margin: 0 1px 0 1px; 
+}
+QScrollBar::handle:vertical:hover {
+ 
+    border: 1px solid #4C99F8;
+}
+QScrollBar::handle:vertical:pressed {
+  
+    border: 1px solid #4C99F8;
+}
+/* 向上箭头样式 */
+QScrollBar::sub-line:vertical {
+  border: none; 
+background-color: transparent;
+  height: 16px;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+/* 向下箭头样式 */
+QScrollBar::add-line:vertical {
+  border: none;
+  background: transparent;
+  height: 16px;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:vertical {
+	border-image: url(:/Button/UpArrow.png);
+  width: 16;
+  height: 16;
+  
+}
+/* 向下箭头样式 */
+QScrollBar::down-arrow:vertical {
+  
+	border-image: url(:/Button/DownArrow.png);
+  width: 16;
+  height: 16;
+
+}
+/* 滚动条上面和下面区域样式 */
+QScrollBar::sub-page:vertical,
+QScrollBar::add-page:vertical {
+  background: none;
+  width: 0px;
+  height: 0px;
+}
+
+</string>
+   </property>
+   <property name="maximum">
+    <number>342</number>
+   </property>
+   <property name="singleStep">
+    <number>100</number>
+   </property>
+   <property name="pageStep">
+    <number>30</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Orientation::Vertical</enum>
+   </property>
+   <property name="invertedAppearance">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SelectTile</class>
+   <extends>QWidget</extends>
+   <header location="global">selecttile.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

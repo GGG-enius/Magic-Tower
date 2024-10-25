@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1110</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1110</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1110</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MapEdit</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/Icon/Icon0001.png</normaloff>:/Icon/Icon0001.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="LayerFrame" native="true">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>20</y>
+      <width>527</width>
+      <height>194</height>
+     </rect>
+    </property>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>528</width>
+       <height>194</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="LayerGroups">
+      <item>
+       <layout class="QHBoxLayout" name="LayerGroup1">
+        <item>
+         <widget class="QSelectButton" name="layer0" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer1" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer2" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer3" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer4" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer5" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="LayerGroup2">
+        <item>
+         <widget class="QSelectButton" name="layer6" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer7" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer8" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer9" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer10" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer11" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="LayerGroup3">
+        <item>
+         <widget class="QSelectButton" name="layer12" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer13" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer14" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer15" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer16" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer17" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="LayerGroup4">
+        <item>
+         <widget class="QSelectButton" name="layer18" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer19" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer20" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer21" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer22" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSelectButton" name="layer23" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>84</width>
+            <height>43</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="LayerBG" native="true">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>220</y>
+      <width>231</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/Background/LayerBG.png);</string>
+    </property>
+   </widget>
+   <widget class="QSelectArea" name="TileArea" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>510</width>
+      <height>760</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="MapArea" name="Map" native="true">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>320</y>
+      <width>440</width>
+      <height>440</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>269</y>
+      <width>131</width>
+      <height>491</height>
+     </rect>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContents</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>120</width>
+       <height>650</height>
+      </rect>
+     </property>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>111</width>
+        <height>631</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="Infos">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <property name="leftMargin">
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="InfoEdit" name="Info01" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info02" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info03" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info04" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info05" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info06" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info07" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info08" native="true"/>
+       </item>
+       <item>
+        <widget class="InfoEdit" name="Info09" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1110</width>
+     <height>17</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="font">
+    <font>
+     <family>Algerian</family>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Background/TileBG.png);</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QSelectButton</class>
+   <extends>QWidget</extends>
+   <header location="global">qselectbutton.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QSelectArea</class>
+   <extends>QWidget</extends>
+   <header location="global">qselectarea.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>InfoEdit</class>
+   <extends>QWidget</extends>
+   <header location="global">infoedit.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MapArea</class>
+   <extends>QWidget</extends>
+   <header location="global">maparea.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>
