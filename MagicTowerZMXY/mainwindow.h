@@ -11,8 +11,11 @@
 
 #include <QMainWindow>
 #include "Global.h"
-#include "qstory.h"
-#include "qscript.h"
+#include "qtile.h"
+#include "qbackground.h"
+#include <QPainter>
+#include <QPaintEvent>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -26,11 +29,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event)override ;
+
 
 private:
     Ui::MainWindow *ui;
-    QStory* story;
-
+    QBackGround *bg;
+    QTalk* talk;
 };
 #endif // MAINWINDOW_H

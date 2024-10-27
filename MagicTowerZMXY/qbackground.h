@@ -9,15 +9,31 @@
 #ifndef QBACKGROUND_H
 #define QBACKGROUND_H
 
-#include <QObject>
+#include "qinfo.h"  //info——test
+#include <QWidget>
+//#include <QImage>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QRect>//info——test
 #include "Global.h"
-class QBackGround : public QObject
+#include "qtile.h"
+#include "qrole.h"
+#include "qtalk.h"
+class QBackGround : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QBackGround(QObject *parent = nullptr);
-
-signals:
+    QBackGround();
+    virtual ~QBackGround();
+    explicit QBackGround(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *event)override ;
+    //void timerEvent(QTimerEvent *event) override;
+private:
+    QTile *tile;
+    QInfo *info;//info——test
+    QRect MainRect;//info——test
+    QRect InfoRect;//info——test
+    //QTalk *talk;
 };
 
 #endif // QBACKGROUND_H
