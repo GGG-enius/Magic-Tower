@@ -11,36 +11,36 @@
 
 
 //ID
-typedef unsigned int		IDTILE;					///<TILE 就是图块, 图元, 表示图形的最小单位, 如地图就是由图块拼成的
-typedef unsigned int		IDSCENE;                ///<场景ID
-typedef unsigned int		IDSCRIPT;               ///<脚本ID
-typedef unsigned int		IDFUN;                  ///<函数ID
-typedef unsigned int		IDTALK;                 ///<对话ID
+typedef  int		IDTILE;					///<TILE 就是图块, 图元, 表示图形的最小单位, 如地图就是由图块拼成的
+typedef  int		IDSCENE;                ///<场景ID
+typedef  int		IDSCRIPT;               ///<脚本ID
+typedef  int		            IDFUN;                  ///<函数ID
+typedef  int		IDTALK;                 ///<对话ID
 //Script
-typedef unsigned int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号，(x,y)坐标
+typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号，(x,y)坐标
 //Game Const
 #ifdef _DEBUG
 #define TILE_FILE_NAME			"..\\Tile.txt"              ///<图块文件
 #define MAP_FILE_NAME			"..\\Map.txt"               ///<地图文件
 #define NPC_FILE_NAME			"..\\Npc.txt"               ///<NPC文件
-#define STORY_FILE				"..\\故事情节.txt"           ///<故事情节文件
-#define SOUND_INIT_FILE			"..\\Sound_830.wav"			///<游戏开头动画背景音乐
+#define STORY_FILE				":\\res\\story.txt"           ///<故事情节文件
+#define SOUND_INIT_FILE			":\\res\\Sound_830.wav"			///<游戏开头动画背景音乐
 #define SOUND_BG_FILE			"..\\Sound_874.wav"			///<背景音乐
 #define SOUND_FIGHT_FILE		"..\\Sound_13.wav"			///<攻击音乐
 #else
 #define TILE_FILE_NAME			"Tile.txt"
 #define MAP_FILE_NAME			"Map.txt"
 #define NPC_FILE_NAME			"Npc.txt"
-#define STORY_FILE				"故事情节.txt"
-#define SOUND_INIT_FILE			"Sound_830.wav"
+#define STORY_FILE				":/res/story.txt"
+#define SOUND_INIT_FILE			":/res/Sound_830.wav"
 #define SOUND_BG_FILE			"Sound_874.wav"
 #define SOUND_FIGHT_FILE		"Sound_13.wav"
 
 #endif
 
-#define BORDER_COLOR		RGB(200, 100, 0)                ///<边框颜色
-#define STORY_BG_COLOR		RGB(0, 0, 0)                    ///<故事情节背景颜色
-#define STORY_FT_COLOR		RGB(255, 255, 255)              ///<故事情节字体颜色
+#define BORDER_COLOR		QColor((200, 100, 0))             ///<边框颜色
+#define STORY_BG_COLOR		QColor(0, 0 ,0)                   ///<故事情节背景颜色
+#define STORY_FT_COLOR		QColor(255, 255, 255)             ///<故事情节字体颜色
 
 #define MAX_WIDTH			640				///<游戏对话框的宽度
 #define MAX_HEIGHT			480				///<游戏对话框的高度

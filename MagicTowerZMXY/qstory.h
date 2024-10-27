@@ -1,8 +1,8 @@
 /**
 * @file           QStory.h
 * @brief     故事类的头文件
-* @author       ?
-* @date    ?
+* @author
+* @date    2024-10-17
 * @version  1.0
 * @par ?
 */
@@ -11,13 +11,33 @@
 
 #include <QObject>
 #include "Global.h"
-class QStory : public QObject
+#include <QTimer>
+#include <QKeyEvent>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QWidget>
+#include <QSoundEffect>
+
+// #include "mainwindow.h"
+class QStory : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QStory(QObject *parent = nullptr);
+    explicit QStory(QWidget *parent = nullptr);//构造函数
+    void init();//初始化函数
+    void onTimer();//定时器事件处理槽
+    void keyPressEvent(QKeyEvent *event);//键盘事件
+    void paintEvent(QPaintEvent *event);//绘画事件
 
-signals:
+
+private:
+    QTimer *timer;
+    QSoundEffect *startSound;
+    QString storyBuf;
+    // QChar storyBuf[MAX_BUFFER];//故事情节缓冲
+    int storyBufIndex;//故事情节缓冲索引
 };
+
+
 
 #endif // QSTORY_H

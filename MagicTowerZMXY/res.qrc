@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/Map.txt</file>
+        <file>res/Npc.txt</file>
+        <file>res/Sound_13.wav</file>
+        <file>res/Sound_830.wav</file>
+        <file>res/Sound_874.wav</file>
+        <file>res/story.txt</file>
+        <file>res/Tile.txt</file>
+    </qresource>
+</RCC>
