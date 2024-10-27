@@ -28,7 +28,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define SOUND_BG_FILE			"..\\Sound_874.wav"			///<背景音乐
 #define SOUND_FIGHT_FILE		"..\\Sound_13.wav"			///<攻击音乐
 #else
-#define TILE_FILE_NAME			"Tile.txt"
+#define TILE_FILE_NAME			":/res/Tile.txt"
 #define MAP_FILE_NAME			"Map.txt"
 #define NPC_FILE_NAME			"Npc.txt"
 #define STORY_FILE				":/res/story.txt"

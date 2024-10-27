@@ -10,7 +10,8 @@ QTalk::QTalk(QWidget *parent)
     : QWidget{parent}, tileIndex(0), currentIdTalk(0), changeColor(true)
 {
 
-    timerId = startTimer(500); // 500ms定时器
+
+    timerId = startTimer(100); // 500ms定时器
 }
 QTalk::~QTalk() {
     killTimer(timerId);
@@ -56,11 +57,19 @@ void QTalk::draw(QPainter &painter) {
     painter.drawText(rect.right() - TILE_WIDTH-25, rect.bottom() - 20, "space");
 }
 
+void QTalk::paintEvent(QPaintEvent *event)
+{
+    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+    QPainter painter(this);
+    draw(painter);
+}
+
 void QTalk::timerEvent(QTimerEvent *event) {
     if (event->timerId() == timerId) {
         changeColor = !changeColor;
+
+        update();
         qDebug()<<"触发了timer";
-        //update();
     }
 }
 

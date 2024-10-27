@@ -33,7 +33,7 @@ private:
     QInfo *info;//info——test
     QRect MainRect;//info——test
     QRect InfoRect;//info——test
-    //QTalk *talk;
+    QTalk *talk;
 };
 
 #endif // QBACKGROUND_H

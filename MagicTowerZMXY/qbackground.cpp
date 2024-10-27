@@ -52,5 +52,5 @@ void QBackGround::paintEvent(QPaintEvent *event)
     info->onDraw(painter,InfoRect,myStruct,"TEST");
 
     //qtalk测试
-    talk->draw(painter);
+    //talk->draw(painter);
 }
