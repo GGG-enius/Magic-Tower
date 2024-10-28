@@ -66,4 +66,8 @@ void QBackGround::paintEvent(QPaintEvent *event)
 
     //qtalk测试
     //talk->draw(painter);
+<<<<<<< HEAD
 */
+=======
+}
+>>>>>>> 82c74027f78f98f2c68210fa659114b947f112b3

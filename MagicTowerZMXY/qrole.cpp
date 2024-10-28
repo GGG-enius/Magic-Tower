@@ -1,4 +1,4 @@
-#include "qrole.h"
+ #include "qrole.h"
 
 QRole::QRole(QObject *parent)
     : QObject{parent}

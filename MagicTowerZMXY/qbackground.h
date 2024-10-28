@@ -31,10 +31,17 @@ public:
     //void timerEvent(QTimerEvent *event) override;
 private:
     QTile *tile;
+<<<<<<< HEAD
     //QInfo *info;//info——test
     //QRect MainRect;//info——test
     //QRect InfoRect;//info——test
     //QTalk *talk;
+=======
+    QInfo *info;//info——test
+    QRect MainRect;//info——test
+    QRect InfoRect;//info——test
+    QTalk *talk;
+>>>>>>> 82c74027f78f98f2c68210fa659114b947f112b3
 };
 
 #endif // QBACKGROUND_H
