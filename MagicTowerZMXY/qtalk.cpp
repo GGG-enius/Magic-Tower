@@ -10,12 +10,7 @@ QVector<TALK> QTalk::talkData = {
 QTalk::QTalk(QWidget *parent)
     : QWidget{parent}, tileIndex(0), currentIdTalk(0), changeColor(true)
 {
-<<<<<<< HEAD
     TALK_DRAW=0;
-=======
-
-
->>>>>>> 82c74027f78f98f2c68210fa659114b947f112b3
     timerId = startTimer(100); // 500ms定时器
 }
 QTalk::~QTalk() {
@@ -67,12 +62,9 @@ void QTalk::draw(QPainter &painter) {
 
 void QTalk::paintEvent(QPaintEvent *event)
 {
-<<<<<<< HEAD
     if(TALK_DRAW==0){
         return;
     }
-=======
->>>>>>> 82c74027f78f98f2c68210fa659114b947f112b3
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
     draw(painter);
@@ -81,13 +73,8 @@ void QTalk::paintEvent(QPaintEvent *event)
 void QTalk::timerEvent(QTimerEvent *event) {
     if (event->timerId() == timerId) {
         changeColor = !changeColor;
-
         update();
         qDebug()<<"触发了timer";
-<<<<<<< HEAD
-        update();
-=======
->>>>>>> 82c74027f78f98f2c68210fa659114b947f112b3
     }
 }
 

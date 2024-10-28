@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     talk= new QTalk(this);
     //game=new QGame(this);
     //story->STORY_DRAW=1;
-    //bg->BG_DRAW=1;
-    //talk->TALK_DRAW=1;
-    //info->INFO_DRAW=1;
+    bg->BG_DRAW=1;
+    talk->TALK_DRAW=1;
+    info->INFO_DRAW=1;
 }
 MainWindow::~MainWindow()
 {
