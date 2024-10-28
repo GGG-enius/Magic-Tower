@@ -37,11 +37,7 @@ private:
     QString storyBuf;
     // QChar storyBuf[MAX_BUFFER];//故事情节缓冲
     int storyBufIndex;//故事情节缓冲索引
-<<<<<<< Updated upstream
-
-=======
-    QBackGround *background;
->>>>>>> Stashed changes
+    //QBackGround *background;
 };
 
 

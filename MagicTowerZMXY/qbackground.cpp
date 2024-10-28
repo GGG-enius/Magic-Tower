@@ -5,15 +5,14 @@ QBackGround::QBackGround(QWidget *parent)
 {
     BG_DRAW=0;
     tile=new QTile(this);
-<<<<<<< Updated upstream
+
     //info= new QInfo(this);
     //talk=new QTalk(this);
-    tile->initTile();
-=======
-    info= new QInfo(this);
+    //tile->initTile();
+    //info= new QInfo(this);
     //talk=new QTalk(this);
-    role = new QRole(this);
->>>>>>> Stashed changes
+    //role = new QRole(this);
+
 
 }
 QBackGround::~QBackGround() {
