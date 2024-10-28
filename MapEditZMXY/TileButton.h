@@ -3,10 +3,12 @@
 
 #include <QPushButton>
 #include <QPainter>
+#include <QImage>
 #include <QList>
 #include <QMouseEvent>
 /** 总图块数量*/
 #define PIC_TOTEL           230
+#define PIC_ABLE            186             ///<可用图块数量
 //#define PIC_WIDTH		32
 //#define PIC_HEIGHT	32
 
@@ -33,9 +35,11 @@ class TileButton : public QPushButton
 {
     Q_OBJECT
 public:
+    static QString tileURL[PIC_TOTEL];
+    static QImage tilePNG[PIC_TOTEL];
     static int serialID;///<已创建按钮的个数
     static long defaultSerialID;///<默认按钮序列号
-    static NPCINFO npcBuf[174];
+    static NPCINFO npcBuf[PIC_ABLE];
     static int curSelectTileID;
     static int defaultFloorID;
     explicit TileButton(QWidget *parent = nullptr);

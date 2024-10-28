@@ -9,21 +9,13 @@
 
 #include <QByteArray>
 #include <QBuffer>
-QString MainMap::tileURL[PIC_TOTEL]={
-    ":/Guard/GuardBow0001.png",
-    // ":/Guard/GuardBow0002.png",
-    // ":/Guard/GuardBow0003.png",
-    // ":/Guard/GuardBow0004.png",
-    ":/Wall/Wall0007.png",
-    ":/Floor/Floor0002.png"
-};
-QImage MainMap::tilePNG[PIC_TOTEL];
+
 int MainMap::curLayer=0;
 int MainMap::mapBuf[MAP_LAYER][CURMAP_W][CURMAP_H];
 MainMap::MainMap(QWidget *parent)
     :QWidget(parent)
 {
-    memset(MainMap::mapBuf,0,sizeof(MainMap::mapBuf));
+    memset(MainMap::mapBuf,18,sizeof(MainMap::mapBuf));
     this->setFixedSize(MAP_WIDTH*TILE_WIDTH,MAP_HEIGHT*TILE_HEIGHT);
     this->curMapArea=this->rect().adjusted(TILE_WIDTH,TILE_HEIGHT,-TILE_WIDTH,-TILE_HEIGHT);
 
@@ -75,23 +67,40 @@ void MainMap::paintEvent(QPaintEvent *e)
     // else
     // {
     // qDebug()<<this->getCurLayer();
-        for(int i=0;i<13;i++)
+        for(int i=0;i<MAP_HEIGHT;i++)
         {
-            for(int j=0;j<13;j++)
+            for(int j=0;j<MAP_WIDTH;j++)
             {
-                if(i==0||j==0||i==12||j==12)
+                if(i==0||j==0||i==(MAP_HEIGHT-1)||j==(MAP_WIDTH-1))
                 {
-                    backgroundPixmap.load(":/Wall/Wall0007.png");
+                    backgroundPixmap.load(TileButton::tileURL[11]);
                     painter_map.drawPixmap(i*TILE_WIDTH,j*TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT,backgroundPixmap);
+                    if(i==0&&j==0)
+                    {
+                        pngPixmap.load(":/Image/NPC/WuJing.png");
+                        painter_map.drawPixmap(i*TILE_WIDTH,j*TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT,pngPixmap);
+                    }else if(i==0&&j==(MAP_WIDTH-1))
+                    {
+                        pngPixmap.load(":/Image/NPC/XuanZang.png");
+                        painter_map.drawPixmap(i*TILE_WIDTH,j*TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT,pngPixmap);
+                    }else if(i==(MAP_HEIGHT-1)&&j==0)
+                    {
+                        pngPixmap.load(":/Image/NPC/WuKong.png");
+                        painter_map.drawPixmap(i*TILE_WIDTH,j*TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT,pngPixmap);
+                    }else if(i==(MAP_HEIGHT-1)&&j==(MAP_WIDTH-1))
+                    {
+                        pngPixmap.load(":/Image/NPC/WuNeng.png");
+                        painter_map.drawPixmap(i*TILE_WIDTH,j*TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT,pngPixmap);
+                    }
                 }
                 else
                 {
                     int index=MainMap::mapBuf[MainMap::curLayer][j-1][i-1];
                     //QString url=MapArea::tileURL[index];//???
-                    QString url=MainMap::tileURL[index];
+                    QString url=TileButton::tileURL[index];
 
                     // backgroundPixmap.load(url);
-                    backgroundPixmap.load(":/Floor/Floor0002.png");
+                    backgroundPixmap.load(":/Image/Floor/Floor0002.png");
                     painter_map.drawPixmap(i*TILE_WIDTH,j*TILE_HEIGHT,TILE_WIDTH,TILE_HEIGHT,backgroundPixmap);
                     pngPixmap.load(url);
                     // // pngPixmap.load(":/Guard/GuardBow0001.png");
@@ -222,7 +231,7 @@ bool MainMap::readImageFile()
         {
             break;
         }
-        if(!MainMap::tilePNG[i].loadFromData(byteArray,"PNG"))
+        if(!TileButton::tilePNG[i].loadFromData(byteArray,"PNG"))
         {
             break;
         }
@@ -241,19 +250,19 @@ bool MainMap::writeImageFile()
         return false;
     }
 
-    for(int i=0;i<3;i++)
+    for(int i=0;i<PIC_ABLE;i++)
     {
-        QImage image(MainMap::tileURL[i]);
+        QImage image(TileButton::tileURL[i]);
         if(image.isNull())
         {
-            qDebug()<<"failed to load png image"<<MainMap::tileURL[i];
+            qDebug()<<"failed to load png image"<<TileButton::tileURL[i];
             continue;
         }
         QByteArray byteArray;
         QBuffer buffer(&byteArray);
         if(!image.save(&buffer,"PNG"))
         {
-            qDebug()<<"failed to save image to binary"<<MainMap::tileURL[i];
+            qDebug()<<"failed to save image to binary"<<TileButton::tileURL[i];
             continue;
         }
 

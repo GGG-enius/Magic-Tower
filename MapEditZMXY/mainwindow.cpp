@@ -131,23 +131,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->scrollArea->verticalScrollBar()->setSingleStep(80);
     ui->Info01->setInfoName("LEVEL");
-    ui->Info01->setNpcInfo(TileButton::npcBuf[0].nLevel);
+    ui->Info01->setNpcInfo(TileButton::npcBuf[6].nLevel);
     ui->Info02->setInfoName("HP");
-    ui->Info02->setNpcInfo(TileButton::npcBuf[0].nHealth);
+    ui->Info02->setNpcInfo(TileButton::npcBuf[6].nHealth);
     ui->Info03->setInfoName("ATT");
-    ui->Info03->setNpcInfo(TileButton::npcBuf[0].nAttack);
+    ui->Info03->setNpcInfo(TileButton::npcBuf[6].nAttack);
     ui->Info04->setInfoName("DEF");
-    ui->Info04->setNpcInfo(TileButton::npcBuf[0].nDefense);
+    ui->Info04->setNpcInfo(TileButton::npcBuf[6].nDefense);
     ui->Info05->setInfoName("MONEY");
-    ui->Info05->setNpcInfo(TileButton::npcBuf[0].nMoney);
+    ui->Info05->setNpcInfo(TileButton::npcBuf[6].nMoney);
     ui->Info06->setInfoName("EXP");
-    ui->Info06->setNpcInfo(TileButton::npcBuf[0].Experi);
+    ui->Info06->setNpcInfo(TileButton::npcBuf[6].Experi);
     ui->Info07->setInfoName("RKEY");
-    ui->Info07->setNpcInfo(TileButton::npcBuf[0].RedKey);
+    ui->Info07->setNpcInfo(TileButton::npcBuf[6].RedKey);
     ui->Info08->setInfoName("BKEY");
-    ui->Info08->setNpcInfo(TileButton::npcBuf[0].BlueKey);
+    ui->Info08->setNpcInfo(TileButton::npcBuf[6].BlueKey);
     ui->Info09->setInfoName("YKEY");
-    ui->Info09->setNpcInfo(TileButton::npcBuf[0].YelKey);
+    ui->Info09->setNpcInfo(TileButton::npcBuf[6].YelKey);
 
     void (QSelectArea:: *DefaultTileupdated)(void)=&QSelectArea::updateDefault;
     connect(ui->TileArea,DefaultTileupdated,[=](){
@@ -261,8 +261,8 @@ bool MainWindow::writeNpcFile()
     // qDebug()<<"empty";
     QDataStream out(&npcFile);
     out.setVersion(QDataStream::Qt_6_7);
-    out << 174;//结构体数量
-    for(int i=0;i<174;i++)
+    out << PIC_ABLE;//结构体数量
+    for(int i=0;i<PIC_ABLE;i++)
     {    out<<TileButton::npcBuf[i].nLevel
             <<TileButton::npcBuf[i].nHealth
             <<TileButton::npcBuf[i].nAttack
@@ -280,10 +280,10 @@ bool MainWindow::writeNpcFile()
 void MainWindow::paintEvent(QPaintEvent *e)
 {
     QPixmap pix;
-    pix.load(":/Background/MainBG.png");
+    pix.load(":/Image/Background/MainBG.png");
     QPainter painter(this);
     painter.drawPixmap(0,0,this->width(),this->height(),pix);
-    pix.load(":/Background/SelectBorder.png");
+    pix.load(":/Image/Background/SelectBorder.png");
     painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
     painter.drawPixmap(ui->LayerFrame->x()-10,ui->LayerFrame->y()-20,ui->LayerFrame->width()+20,ui->LayerFrame->height()+70,pix);
     QMainWindow::paintEvent(e);

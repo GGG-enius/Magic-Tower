@@ -61,7 +61,7 @@
     <string notr="true">/* 整个滚动条区域样式 */
 QScrollBar:vertical {
   border: none;
-	border-image: url(:/Button/ScrollBar0002.png);
+	border-image: url(:/Image/Button/ScrollBar0002.png);
   width: 16px;
   /* 滑块活动区域间距，这个间距如果小于add-line和sub-line的高度或宽度滚动滑块将会覆盖add-line和sub-line，所以可以通过margin: 0px 0 0px 0;来隐藏滚动条两头区域*/
   margin: 16px 0 16px 0;
@@ -71,7 +71,7 @@ border-radius: 2px;
 /* 滑块区域样式 */
 QScrollBar::handle:vertical {
   
-	border-image: url(:/Button/ScrollBar0001.png);
+	border-image: url(:/Image/Button/ScrollBar0001.png);
   min-height: 16px;
   margin: 0 1px 0 1px; 
 }
@@ -100,7 +100,7 @@ QScrollBar::add-line:vertical {
   subcontrol-origin: margin;
 }
 QScrollBar::up-arrow:vertical {
-	border-image: url(:/Button/UpArrow.png);
+	border-image: url(:/Image/Button/UpArrow.png);
   width: 16;
   height: 16;
   
@@ -108,7 +108,7 @@ QScrollBar::up-arrow:vertical {
 /* 向下箭头样式 */
 QScrollBar::down-arrow:vertical {
   
-	border-image: url(:/Button/DownArrow.png);
+	border-image: url(:/Image/Button/DownArrow.png);
   width: 16;
   height: 16;
 

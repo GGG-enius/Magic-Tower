@@ -1,6 +1,7 @@
 #ifndef SELECTTILE_H
 #define SELECTTILE_H
 #include "TileButton.h"
+#include "mainmap.h"
 #include <QWidget>
 
 namespace Ui {

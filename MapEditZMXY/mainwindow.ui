@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
-    <normaloff>:/Icon/Icon0001.png</normaloff>:/Icon/Icon0001.png</iconset>
+    <normaloff>:/Image/Icon/Icon0001.png</normaloff>:/Image/Icon/Icon0001.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -465,7 +465,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Background/LayerBG.png);</string>
+     <string notr="true">border-image: url(:/Image/Background/LayerBG.png);</string>
     </property>
    </widget>
    <widget class="QSelectArea" name="TileArea" native="true">
@@ -588,7 +588,7 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">border-image: url(:/Background/TileBG.png);</string>
+    <string notr="true">border-image: url(:/Image/Background/TileBG.png);</string>
    </property>
   </widget>
  </widget>

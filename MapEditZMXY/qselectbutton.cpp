@@ -6,8 +6,8 @@
 #include <QFont>
 int QSelectButton::serialID=0;
 // int QSelectButton::nSelect=0;
-QString QSelectButton::normalImgPath=":/Button/SelectButton0001.png";
-QString QSelectButton::pressedImgPath=":/Button/SelectButton0002.png";
+QString QSelectButton::normalImgPath=":/Image/Button/SelectButton0001.png";
+QString QSelectButton::pressedImgPath=":/Image/Button/SelectButton0002.png";
 QSelectButton::QSelectButton(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::QSelectButton)

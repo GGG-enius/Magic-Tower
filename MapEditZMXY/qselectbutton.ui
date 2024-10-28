@@ -25,6 +25,13 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton{border:0px;}
+QPushButton{background-image: url(:/Image/Button/SelectButton0001.png);}
+QPushButton:hover{background-image: url(:/Image/Button/SelectButton0002.png);}
+QPushButton:checked{background-image: url(:/Image/Button/SelectButton0002.png);}
+</string>
+  </property>
   <widget class="QPushButton" name="SelBtn">
    <property name="geometry">
     <rect>
@@ -55,9 +62,9 @@
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{border:0px;}
-QPushButton{background-image:url(:/Button/SelectButton0001.png);}
-QPushButton:hover{background-image:url(:/Button/SelectButton0002.png);}
-QPushButton:checked{background-image:url(:/Button/SelectButton0002.png);}</string>
+QPushButton{border-image: url(:/Image/Button/SelectButton0001.png);}
+QPushButton:hover{border-image: url(:/Image/Button/SelectButton0002.png);}
+QPushButton:checked{border-image: url(:/Image/Button/SelectButton0002.png);}</string>
    </property>
    <property name="text">
     <string>1</string>

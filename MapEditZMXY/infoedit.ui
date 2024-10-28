@@ -56,7 +56,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/Background/LayerBG.png);</string>
+      <string notr="true">border-image: url(:/Image/Background/LayerBG.png);</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
