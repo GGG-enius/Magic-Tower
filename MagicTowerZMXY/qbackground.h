@@ -27,12 +27,13 @@ public:
     virtual ~QBackGround();
     explicit QBackGround(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *event)override ;
+    int BG_DRAW;//出发绘图事件
     //void timerEvent(QTimerEvent *event) override;
 private:
     QTile *tile;
-    QInfo *info;//info——test
-    QRect MainRect;//info——test
-    QRect InfoRect;//info——test
+    //QInfo *info;//info——test
+    //QRect MainRect;//info——test
+    //QRect InfoRect;//info——test
     //QTalk *talk;
 };
 

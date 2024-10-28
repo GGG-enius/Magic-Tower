@@ -61,17 +61,8 @@ void QTile::initTile()
                 tileData[i].setPixel(x, y, qRgb(r, g, b));
             }
         }
-        // for (int y = 0; y < TILE_HEIGHT; ++y) {
-        //     for (int x = 0; x < TILE_WIDTH; ++x) {
-        //         uchar r = static_cast<uchar>(fileData[offset++]);
-        //         uchar g = static_cast<uchar>(fileData[offset++]);
-        //         uchar b = static_cast<uchar>(fileData[offset++]);
-        //         tileData[i].setPixel(x, y, qRgb(r, g, b));
-        //     }
-        // }
     }
 }
-
 
 
 void QTile::draw(QPainter &painter, int x, int y, int idTile) {
@@ -81,6 +72,8 @@ void QTile::draw(QPainter &painter, int x, int y, int idTile) {
         //painter.drawImage(x, y, QImage(":/pictruetest.png"));
     }
 }
+
+
 
 // void QTile::drawEx(QPainter &painter, int x, int y, int idTile, int idRoleTile) {
 

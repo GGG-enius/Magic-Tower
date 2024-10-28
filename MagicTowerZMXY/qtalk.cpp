@@ -1,6 +1,7 @@
 #include "qtalk.h"
 #include <QFont>
 #include <QDebug>
+
 QVector<TALK> QTalk::talkData = {
     {{139, 140}, "仙女：", "魔塔共有20层", "一路小心！"},
     {{TILE_FLOOR, TILE_FLOOR}, "", "", ""}
@@ -9,16 +10,19 @@ QVector<TALK> QTalk::talkData = {
 QTalk::QTalk(QWidget *parent)
     : QWidget{parent}, tileIndex(0), currentIdTalk(0), changeColor(true)
 {
-
-    timerId = startTimer(500); // 500ms定时器
+    TALK_DRAW=0;
+    timerId = startTimer(100); // 500ms定时器
 }
 QTalk::~QTalk() {
     killTimer(timerId);
 }
+
+
 void QTalk::load(IDTALK idTalk) {
     currentIdTalk = idTalk;
     tileIndex = 0;
 }
+
 
 void QTalk::draw(QPainter &painter) {
     QRect rect(300, 200, 6 * TILE_WIDTH, 2 * TILE_HEIGHT);
@@ -56,13 +60,24 @@ void QTalk::draw(QPainter &painter) {
     painter.drawText(rect.right() - TILE_WIDTH-25, rect.bottom() - 20, "space");
 }
 
+void QTalk::paintEvent(QPaintEvent *event)
+{
+    if(TALK_DRAW==0){
+        return;
+    }
+    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+    QPainter painter(this);
+    draw(painter);
+}
+
 void QTalk::timerEvent(QTimerEvent *event) {
     if (event->timerId() == timerId) {
         changeColor = !changeColor;
         qDebug()<<"触发了timer";
-        //update();
+        update();
     }
 }
+
 
 void QTalk::onKeyPressed(int key) {
     if (key == Qt::Key_Space) {

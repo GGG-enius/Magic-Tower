@@ -7,8 +7,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     //QBackgound直接头文件声明+此处引用
+    story=new QStory(this);
+    //story->init();
     bg=new QBackGround(this);
+    info=new QInfo(this);
     talk= new QTalk(this);
+    //game=new QGame(this);
+    //story->STORY_DRAW=1;
+    //bg->BG_DRAW=1;
+    //talk->TALK_DRAW=1;
+    //info->INFO_DRAW=1;
 }
 MainWindow::~MainWindow()
 {

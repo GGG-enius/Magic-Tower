@@ -9,9 +9,29 @@
 #ifndef QGAME_H
 #define QGAME_H
 
+#include <QWidget>
+#include <QKeyEvent>
+#include <QTimer>
+#include <QTimerEvent>
+#include <QPainter>
+#include <QRect>
+#include <QPoint>
 #include <QObject>
+#include <QSoundEffect>
+//#include <QSound>
+
 #include "Global.h"
-//Game State
+#include "qstory.h"
+#include "qtalk.h"
+#include "qrole.h"
+#include "qfight.h"
+#include "qscene.h"
+#include "qnpc.h"
+#include "qbackground.h"
+#include "qinfo.h"
+#include "qscript.h"
+
+
 /**
  * @enum GAMESTATE
  *
@@ -27,14 +47,42 @@ enum GAMESTATE
     GS_FIGHT,///<战斗状态
     GS_OVER///<结束状态
 };
-
-class QGame : public QObject
+class QGame : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QGame(QObject *parent = nullptr);
+    explicit QGame(QWidget *parent = nullptr);
+    ~QGame();
+    void drawGameScene(QPainter &painter);
+    void handleGameKey(int key);
+    void handleNpcInteraction();
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void timerEvent(QTimerEvent *event) override;
+    void procScript();
+    void recurScript();
 
-signals:
+private:
+    GAMESTATE gameState;
+    bool running;
+
+    QSize gameClientSize;
+    //info
+    QRect mainRect;
+    QRect infoRect;
+
+    QPoint currentNpcPosition;
+
+    QImage cacheImage;
+    QImage mapImage;
+
+    QBackGround * background;
+    QScene scene;
+    QFight fight;
+    QTalk * talk;
+    QInfo  * info;
+    QScript script;
+    QStory * story;
 };
-
 #endif // QGAME_H

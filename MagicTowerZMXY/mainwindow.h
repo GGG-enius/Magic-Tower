@@ -15,6 +15,8 @@
 #include "qbackground.h"
 #include <QPainter>
 #include <QPaintEvent>
+#include "qstory.h"
+#include "qgame.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,6 +37,9 @@ public:
 private:
     Ui::MainWindow *ui;
     QBackGround *bg;
-    QTalk* talk;
+    QInfo *info;
+    QTalk * talk;
+    QStory *story;
+    QGame *game;
 };
 #endif // MAINWINDOW_H

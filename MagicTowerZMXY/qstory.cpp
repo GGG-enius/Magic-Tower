@@ -9,6 +9,9 @@
 QStory::QStory(QWidget *parent)
     : QWidget{parent},storyBufIndex(0)
 {
+    //hhz:触发事件暂时不触发
+    STORY_DRAW=0;//1执行，0无法执行
+
     this->setFixedSize(MAX_WIDTH, MAX_HEIGHT);
     this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
     this->setFocus(); // 尝试在构造时设置焦点
@@ -81,6 +84,13 @@ void QStory::keyPressEvent(QKeyEvent *event)
 
 void QStory::paintEvent(QPaintEvent *event)
 {
+    //hhz:添加
+    if(STORY_DRAW==0){
+        return ;
+    }
+    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+
+
     //创建画家
     QPainter painter(this);
 

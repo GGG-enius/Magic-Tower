@@ -1,8 +1,10 @@
 #include "qinfo.h"
 #include <QDebug>
+
 QInfo::QInfo(QWidget *parent)
-    : borderColor(Qt::darkGray), borderWidth(5)
+    :  QWidget{parent},borderColor(Qt::darkGray), borderWidth(5)
 {
+    INFO_DRAW=0;
 }
 QInfo::~QInfo()
 {
@@ -73,4 +75,17 @@ void QInfo::onDraw(QPainter &painter, const QRect &rect, const ROLEINFO &roleInf
     painter.drawText(infoRects[3].left() + nInfoLeft * 2 + 12, infoRects[3].top() + 18, "Q 退出程序");
     painter.drawText(infoRects[3].left() + 12, infoRects[3].top() + 50, "A 读取");
     painter.drawText(infoRects[3].left() + nInfoLeft * 2 + 12, infoRects[3].top() + 50, "R 重新开始");
+}
+void QInfo::paintEvent(QPaintEvent *event)
+{
+    if(INFO_DRAW==0){
+        return;
+    }
+    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+    QPainter painter(this);  
+    MainRect.setRect(250,50,MAP_WIDTH * 32,MAP_HEIGHT * 32);
+    drawBorder(painter,MainRect);
+    ROLEINFO myStruct;
+    InfoRect.setRect(32, 50, 5 * 32,MAP_HEIGHT * 32);
+    onDraw(painter,InfoRect,myStruct,"TEST");
 }

@@ -28,6 +28,7 @@ public:
     void onTimer();//定时器事件处理槽
     void keyPressEvent(QKeyEvent *event);//键盘事件
     void paintEvent(QPaintEvent *event);//绘画事件
+    int STORY_DRAW;    //hhz：触发绘图事件
 
 
 private:
@@ -36,6 +37,7 @@ private:
     QString storyBuf;
     // QChar storyBuf[MAX_BUFFER];//故事情节缓冲
     int storyBufIndex;//故事情节缓冲索引
+
 };
 
 

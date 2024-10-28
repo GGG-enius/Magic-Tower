@@ -3,10 +3,12 @@
 QBackGround::QBackGround(QWidget *parent)
     : QWidget{parent}
 {
+    BG_DRAW=0;
     tile=new QTile(this);
-    info= new QInfo(this);
-    talk=new QTalk(this);
+    //info= new QInfo(this);
+    //talk=new QTalk(this);
     tile->initTile();
+
 }
 QBackGround::~QBackGround() {
 }
@@ -14,6 +16,9 @@ QBackGround::~QBackGround() {
 
 void QBackGround::paintEvent(QPaintEvent *event)
 {
+    if(BG_DRAW==0){
+        return ;
+    }
     //绘制大小
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
@@ -30,27 +35,35 @@ void QBackGround::paintEvent(QPaintEvent *event)
             tile->draw(painter, i * TILE_WIDTH, j * TILE_HEIGHT, TILE_BG);
         }
     }
+}
 
+
+
+
+
+
+
+/*paintEvent————————test
     //背景图片导入:/bg.jpg
     //painter.drawPixmap(0,0,QPixmap(":/bg.jpg"));
     //painter.drawImage(MAX_WIDTH/2,MAX_HEIGHT/2,QImage(":/pictruetest.png"));
-    tile->draw(painter,0,0,138);
+    //tile->draw(painter,0,0,138);
 
 
     //qinfo 测试
     //初始化对象定义
-    MainRect.setRect(250,50,MAP_WIDTH * 32,MAP_HEIGHT * 32);
-    //painter.drawRect(MainRect);
-    if (!info || !tile) {
-        qWarning() << "info or tile is null";
-        return;
-    }
-    info->drawBorder(painter,MainRect);
-    //定义结构体
-    ROLEINFO myStruct;
-    InfoRect.setRect(32, 50, 5 * 32,MAP_HEIGHT * 32);
-    info->onDraw(painter,InfoRect,myStruct,"TEST");
+    // MainRect.setRect(250,50,MAP_WIDTH * 32,MAP_HEIGHT * 32);
+    // //painter.drawRect(MainRect);
+    // if (!info || !tile) {
+    //     qWarning() << "info or tile is null";
+    //     return;
+    // }
+    // info->drawBorder(painter,MainRect);
+    // //定义结构体
+    // ROLEINFO myStruct;
+    // InfoRect.setRect(32, 50, 5 * 32,MAP_HEIGHT * 32);
+    // info->onDraw(painter,InfoRect,myStruct,"TEST");
 
     //qtalk测试
-    talk->draw(painter);
-}
+    //talk->draw(painter);
+*/

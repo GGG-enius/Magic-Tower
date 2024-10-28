@@ -24,12 +24,16 @@ public:
     QInfo();
     virtual ~QInfo();
     explicit QInfo(QWidget *parent = nullptr);
+    int INFO_DRAW;//触发绘图事件
     void drawBorder(QPainter &painter, const QRect &rect);
+    void paintEvent(QPaintEvent *event)override;
     void onDraw(QPainter &painter, const QRect &rect, const ROLEINFO &roleInfo, const QString &sceneName);
 private:
     QTile * tile;
     QColor borderColor;
     int borderWidth;
+    QRect InfoRect;
+    QRect MainRect;
 signals:
 };
 

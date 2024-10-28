@@ -43,6 +43,7 @@ public:
     void draw(QPainter &painter);
     void paintEvent(QPaintEvent *event)override ;
     void timerEvent(QTimerEvent *event) override;
+    int TALK_DRAW;//触发绘图事件
 public slots:
     void onKeyPressed(int key);
 private:
