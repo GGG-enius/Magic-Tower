@@ -38,6 +38,7 @@ void InfoEdit::paintEvent(QPaintEvent *e)
     painter.setPen(pen);
     QRect rect=this->rect().adjusted(1,1,-1,-1);
     painter.drawRect(rect);
+    QWidget::paintEvent(e);
 }
 
 int InfoEdit::getNpcInfo()
