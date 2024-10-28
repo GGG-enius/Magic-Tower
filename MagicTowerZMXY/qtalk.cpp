@@ -55,7 +55,7 @@ void QTalk::draw(QPainter &painter) {
      // 显示闪烁space
     QFont spaceFont("Arial", 10);
     painter.setFont(spaceFont);
-    qDebug()<<"调用颜色";
+    //qDebug()<<"调用颜色";
     painter.setPen(changeColor ? QColor(102, 102, 102) : QColor(255, 255, 255));
     painter.drawText(rect.right() - TILE_WIDTH-25, rect.bottom() - 20, "space");
 }
@@ -74,7 +74,7 @@ void QTalk::timerEvent(QTimerEvent *event) {
     if (event->timerId() == timerId) {
         changeColor = !changeColor;
         update();
-        qDebug()<<"触发了timer";
+        //qDebug()<<"触发了timer";
     }
 }
 

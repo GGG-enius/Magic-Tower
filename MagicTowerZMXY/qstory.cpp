@@ -73,7 +73,7 @@ void QStory::keyPressEvent(QKeyEvent *event)
         // 停止定时器响应空格键
         timer->stop();
         startSound->stop();
-
+        this->hide();
     }
     else
     {

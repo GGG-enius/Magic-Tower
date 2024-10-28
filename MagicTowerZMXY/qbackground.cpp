@@ -1,13 +1,19 @@
 #include "qbackground.h"
-
+#include <QDebug>
 QBackGround::QBackGround(QWidget *parent)
     : QWidget{parent}
 {
     BG_DRAW=0;
     tile=new QTile(this);
+<<<<<<< Updated upstream
     //info= new QInfo(this);
     //talk=new QTalk(this);
     tile->initTile();
+=======
+    info= new QInfo(this);
+    //talk=new QTalk(this);
+    role = new QRole(this);
+>>>>>>> Stashed changes
 
 }
 QBackGround::~QBackGround() {
@@ -52,6 +58,7 @@ void QBackGround::paintEvent(QPaintEvent *event)
 
     //qinfo 测试
     //初始化对象定义
+<<<<<<< Updated upstream
     // MainRect.setRect(250,50,MAP_WIDTH * 32,MAP_HEIGHT * 32);
     // //painter.drawRect(MainRect);
     // if (!info || !tile) {
@@ -64,6 +71,25 @@ void QBackGround::paintEvent(QPaintEvent *event)
     // InfoRect.setRect(32, 50, 5 * 32,MAP_HEIGHT * 32);
     // info->onDraw(painter,InfoRect,myStruct,"TEST");
 
+=======
+    MainRect.setRect(250,50,MAP_WIDTH * 32,MAP_HEIGHT * 32);
+    //painter.drawRect(MainRect);
+    if (!info || !tile) {
+        qWarning() << "info or tile is null";
+        return;
+    }
+    info->drawBorder(painter,MainRect);
+    //定义结构体
+    // ROLEINFO mystruct;
+    // mystruct.nLevel = 1000;
+    InfoRect.setRect(32, 50, 5 * 32,MAP_HEIGHT * 32);
+    //role->SetRoleInfo(mystruct);
+    info->onDraw(painter,InfoRect,role->getRoleInfo(),"TEST");
+    //qrole测试
+    // qDebug()<<role->GetPos();
+    // role->setPos(QPoint(6, 6), 152, true);
+    // qDebug()<<role->GetPos()<<role->GetRoleTileID();
+>>>>>>> Stashed changes
     //qtalk测试
     //talk->draw(painter);
 <<<<<<< HEAD
