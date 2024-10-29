@@ -41,15 +41,19 @@ public:
     virtual ~QTalk();
     void load(IDTALK idTalk);
     void draw(QPainter &painter);
+    void OnTimer(int timerId);
+    void keyPressEvent(QKeyEvent *event);//键盘事件
     void paintEvent(QPaintEvent *event)override ;
     void timerEvent(QTimerEvent *event) override;
+    void initkey();//改变键盘焦点
+    int TALK_TIMER=1;
+    int TALK_DRAW;//触发绘图事件，，0关闭，1打开
+    int TALK_KEY;//触发键盘事件，//原本TALK_KEY=0，关闭
+                                //执行是TALK_KEY=1;打开
+                                //结束TALK_KEY=2；结束参数
 
-    int TALK_DRAW;//触发绘图事件
-
-
-
-public slots:
-    void onKeyPressed(int key);
+// signals:
+//     void dialogEnded(); // 定义一个信号来表示对话结束
 private:
     static QVector<TALK> talkData;
     QTile * tile;

@@ -11,10 +11,13 @@ QStory::QStory(QWidget *parent)
 {
     //hhz:触发事件暂时不触发
     STORY_DRAW=0;//1执行，0无法执行
+    STORY_KEY=0;
 
     this->setFixedSize(MAX_WIDTH, MAX_HEIGHT);
-    this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
-    this->setFocus(); // 尝试在构造时设置焦点
+
+    // //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
+    // this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
+    // this->setFocus(); // 尝试在构造时设置焦点
 
     //将缓冲区初始化为0
     //memset(storyBuf, 0, MAX_BUFFER * sizeof(QChar));
@@ -37,6 +40,10 @@ QStory::QStory(QWidget *parent)
 
 void QStory::init()
 {
+    //hhz:改变键盘焦点
+    //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
+    this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
+    this->setFocus(); // 尝试在构造时设置焦点
     //播放音效
     startSound = new QSoundEffect(this);
     startSound->setSource(QUrl::fromLocalFile(SOUND_INIT_FILE));
@@ -67,13 +74,18 @@ void QStory::onTimer()
 //重载键盘事件
 void QStory::keyPressEvent(QKeyEvent *event)
 {
+    if(STORY_KEY==0){
+        return;
+    }
     if (event->key() == Qt::Key_Space)
     {
-        //qDebug()<<"按下了空格";
+        qDebug()<<"按下了空格";
         // 停止定时器响应空格键
         timer->stop();
         startSound->stop();
         this->hide();
+        STORY_KEY=2;
+        qDebug()<<STORY_KEY;
     }
     else
     {

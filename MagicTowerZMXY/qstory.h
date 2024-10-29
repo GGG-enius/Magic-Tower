@@ -24,11 +24,12 @@ class QStory : public QWidget
     Q_OBJECT
 public:
     explicit QStory(QWidget *parent = nullptr);//构造函数
-    void init();//初始化函数
+    void init();//初始化函数+改变键盘焦点
     void onTimer();//定时器事件处理槽
     void keyPressEvent(QKeyEvent *event);//键盘事件
     void paintEvent(QPaintEvent *event);//绘画事件
     int STORY_DRAW;    //hhz：触发绘图事件
+    int STORY_KEY;   //触发键盘事件，默认0关闭，1运行，2结束
 
 
 private:

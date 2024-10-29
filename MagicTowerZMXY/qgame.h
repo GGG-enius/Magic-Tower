@@ -18,7 +18,7 @@
 #include <QPoint>
 #include <QObject>
 #include <QSoundEffect>
-//#include <QSound>
+//#include <<QtGlobal>
 
 #include "Global.h"
 #include "qstory.h"
@@ -53,6 +53,7 @@ class QGame : public QWidget
 public:
     explicit QGame(QWidget *parent = nullptr);
     ~QGame();
+    void initkeyFocus();
     void drawGameScene(QPainter &painter);
     void handleGameKey(int key);
     void handleNpcInteraction();
@@ -77,6 +78,7 @@ private:
     QImage cacheImage;
     QImage mapImage;
 
+    QTile *tile;
     QBackGround * background;
     QScene scene;
     QFight fight;
@@ -84,5 +86,6 @@ private:
     QInfo  * info;
     QScript script;
     QStory * story;
+    QSoundEffect *Sound;
 };
 #endif // QGAME_H
