@@ -235,12 +235,12 @@ void QGame::timerEvent(QTimerEvent *event)
     //      {
     //         gameState = GS_OVER;
     //      }
-    //     break;
+         break;
     // }
 //调用update()刷新游戏界面。
     update();
 }
-
+}
 
 void QGame::recurScript()
 {

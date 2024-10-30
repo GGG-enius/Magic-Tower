@@ -27,9 +27,10 @@ QRole::QRole(QWidget *parent)
     RoleInfo.nRedKey = 1;
 
     timer_role = new QTimer(this);
-    connect(timer_role, &QTimer::timeout, this, &QRole::onTimer);
+    connect(timer_role, &QTimer::timeout, this, &QRole::roleOnTimer);
 
     this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
+    this->setFocus(); // 尝试在构造时设置焦点
 }
 
 ROLEINFO QRole::getRoleInfo()
@@ -86,7 +87,7 @@ bool QRole::isRoleTileID(IDTILE idTile)
 }
 
 //当定时器被触发时，调用此函数，更改图块索引，实现行走效果
-void QRole::onTimer()
+void QRole::roleOnTimer()
 {
     m_nTileIndex--;
     qDebug()<<"定时器被调用";

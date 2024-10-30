@@ -50,7 +50,7 @@ public:
     bool isRoleTileID(IDTILE idTile);//检查给定的 idTile 是否在角色的图块 ID 列表中
 
     //信号处理函数
-    void onTimer();//定时器处理函数
+    void roleOnTimer();//定时器处理函数
     QPoint getNextPoint(Qt::Key key);//根据按键获取下一个角色的位置
     void moveTo(QPoint ptPos);//将角色移动到指定位置
 private:

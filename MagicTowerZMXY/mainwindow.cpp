@@ -27,7 +27,43 @@ MainWindow::MainWindow(QWidget *parent)
     //info->INFO_DRAW=1;
     //role = new QRole(this);
     //tile = new QTile(this);
-    tile->initTile();
+
+    //tile->initTile();
+
+    //QNpc测试
+    //npc = new QNpc(this);
+    //npc->initNpc();
+    //qDebug()<<npc->m_nTileIndex;
+    // for(int i=0;i<76;i++)
+    // {
+    //         qDebug()<<npc->NpcData[i].npcInfo.nHealth;
+
+    // }
+    // npc->load(83);
+    // qDebug()<<npc->m_idTile[0]<<npc->m_idTile[1];
+    // qDebug()<<npc->m_idScript;
+    // qDebug()<<npc->m_bShow;
+    // qDebug()<<npc->m_npcInfo.nDefense;
+
+    // npc->m_nTileIndex = 0;
+    // npc->m_bShow = false;
+    // npc->m_idTile[0] = 56;
+    // qDebug()<<npc->getTileID();
+
+    // npc->m_idTile[0] = 48;
+    // npc->m_idTile[1] = 171;
+    // IDTILE id[MAX_NPC_TILE];
+    // npc->getNpcTile(id);
+    // qDebug()<<id[0]<<id[1];
+
+    //QFight测试
+    // IDTILE idTile[MAX_NPC_TILE] = {83, 84};
+    // NPCINFO npcInfo = {1, 45, 20, 2, 0, 0, 0, 0, 0};
+    // ROLEINFO roleInfo = {1, 976, 10, 10, 0, 0, 1, 1, 1};
+
+    // fight = new QFight(this);
+    // fight->load(idTile, npcInfo, roleInfo);
+
 }
 MainWindow::~MainWindow()
 {

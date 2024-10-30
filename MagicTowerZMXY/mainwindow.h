@@ -21,6 +21,8 @@
 #include <QKeyEvent>
 #include <QPoint>
 #include <QDebug>
+#include "qnpc.h"
+#include "qfight.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -47,5 +49,7 @@ private:
     QGame *game;
     QRole *role;
     QTile *tile;
+    QNpc *npc;
+    QFight *fight;
 };
 #endif // MAINWINDOW_H

@@ -5,18 +5,14 @@
 #include "qtile.h"
 #include <QDebug>
 #include <QFileInfo>
-QTile::QTile()
-{
-// 在Qt中，我们不需要手动初始化bmif结构体，因为QImage已经为我们处理了图像数据
-}
+
 QImage QTile::tileData[MAX_TILE];
 
-QTile::~QTile() {
-    // Qt的QImage会在析构时自动清理资源
-}
+
 QTile::QTile(QWidget *parent)
-    :QWidget{parent}
+    : QWidget{parent}
 {
+
 }
 void QTile::initTile()
 {

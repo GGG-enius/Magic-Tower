@@ -6,10 +6,8 @@
 class QTile:public QWidget
 {
 public:
-    QTile();
-    virtual ~QTile();
+    explicit QTile(QWidget *parent = nullptr);
     static void initTile(); // 初始化图块数据
-    QTile(QWidget *parent = nullptr);
     void draw(QPainter &painter, int x, int y, int idTile = 0); // 绘制图块
     void drawEx(QPainter &painter, int x, int y, int idTile, int idRoleTile); // 绘制带有角色图块的图块
 

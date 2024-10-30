@@ -52,11 +52,11 @@ void QStory::init()
 
     //设置定时器 每50毫秒触发一次，用于逐步显示文本
     timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &QStory::onTimer);
+    connect(timer, &QTimer::timeout, this, &QStory::storyOnTimer);
     timer->start(50);
 }
 
-void QStory::onTimer()
+void QStory::storyOnTimer()
 {
     storyBufIndex += 1;
     if(storyBufIndex>=MAX_BUFFER)

@@ -30,7 +30,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #else
 #define TILE_FILE_NAME			":/res/Tile.txt"
 #define MAP_FILE_NAME			"Map.txt"
-#define NPC_FILE_NAME			"Npc.txt"
+#define NPC_FILE_NAME			":/res/Npc.txt"
 #define STORY_FILE				":/res/story.txt"
 #define SOUND_INIT_FILE			":/res/Sound_830.wav"
 #define SOUND_BG_FILE			"Sound_874.wav"
