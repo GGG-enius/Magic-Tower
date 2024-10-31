@@ -39,6 +39,8 @@ public:
     virtual bool handleKeyPressEvent(QKeyEvent *event);//键盘事件处理函数
     void paintEvent(QPaintEvent *event);//用于绘制战斗场景
     ROLEINFO getResult();//在战斗结束时可能用于返回一些结果信息
+    int FIGHT_DRAW;//0关闭，1打开，默认0
+    int FIGHT_OVER;//默认1，结束0
 
 private:
     bool bAttack;//主角攻击还是怪物攻击

@@ -85,6 +85,7 @@ void QStory::keyPressEvent(QKeyEvent *event)
         startSound->stop();
         this->hide();
         STORY_KEY=2;
+        STORY_DRAW=0;
         qDebug()<<STORY_KEY;
     }
     else

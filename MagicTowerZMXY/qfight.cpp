@@ -3,6 +3,8 @@
 QFight::QFight(QWidget *parent)
     : QWidget{parent}
 {
+    FIGHT_OVER=1;
+    FIGHT_DRAW=0;
     nTileIndex = 0;
     bAttack = true;
     fightTimer = new QTimer(this);
@@ -58,6 +60,7 @@ bool QFight::fightOnTimer()
     {
         bAttack = true;
         fightTimer->stop();
+        FIGHT_OVER=0;
         return false;//战斗结束
     }
     return true;//战斗未结束
@@ -73,11 +76,18 @@ bool QFight::scenceOnTimer()
 //处理按键事件的逻辑，目前总是返回 TRUE，意味着按键会被处理
 bool QFight::handleKeyPressEvent(QKeyEvent *event)
 {
+    qDebug()<<"shihsishi";
     return true;
 }
 
+// bool QFight::onKeyDown(int key){
+//     return ;
+// }
 void QFight::paintEvent(QPaintEvent *event)
 {
+    if(FIGHT_DRAW==0){
+        return ;
+    }
     QPainter painter(this);
     //CRect：定义绘制区域，起始点为 (100, 100)，区域大小为 15 * TILE_WIDTH 和 8 * TILE_HEIGHT
     QRect rect(QPoint(100, 100), QSize(15 * TILE_WIDTH, 8 * TILE_HEIGHT));

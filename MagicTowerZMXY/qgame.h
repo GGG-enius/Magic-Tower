@@ -80,8 +80,9 @@ private:
 
     QTile *tile;
     QBackGround * background;
+    QNpc *npc;
     QScene scene;
-    QFight fight;
+    QFight* fight;
     QTalk * talk;
     QInfo  * info;
     QScript script;

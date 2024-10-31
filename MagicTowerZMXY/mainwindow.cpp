@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QPen>
 #include <QDebug>
+#include <QPaintEvent>
+#include <QPainter>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -10,25 +12,26 @@ MainWindow::MainWindow(QWidget *parent)
     //QBackgound直接头文件声明+此处引用
 
     //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
-    talk= new QTalk(this);
-    story=new QStory(this);
+    //talk= new QTalk(this);
+    //story=new QStory(this);
 
-    story->init();
-    talk->initkey();
-    bg=new QBackGround(this);
-    info=new QInfo(this);
+    //story->init();
+    //talk->initkey();
+    //bg=new QBackGround(this);
+    //info=new QInfo(this);
 
-    //game=new QGame(this);
+    game=new QGame(this);
+    game->initkeyFocus();
     //story->STORY_DRAW=1;
     //story->STORY_KEY=1;
      //bg->BG_DRAW=1;
-    talk->TALK_DRAW=1;
-    talk->TALK_KEY=1;
+    //talk->TALK_DRAW=1;
+    //talk->TALK_KEY=1;
     //info->INFO_DRAW=1;
     //role = new QRole(this);
     //tile = new QTile(this);
 
-    //tile->initTile();
+    tile->initTile();
 
     //QNpc测试
     //npc = new QNpc(this);
@@ -61,8 +64,10 @@ MainWindow::MainWindow(QWidget *parent)
     // NPCINFO npcInfo = {1, 45, 20, 2, 0, 0, 0, 0, 0};
     // ROLEINFO roleInfo = {1, 976, 10, 10, 0, 0, 1, 1, 1};
 
-    // fight = new QFight(this);
+   // fight = new QFight(this);
     // fight->load(idTile, npcInfo, roleInfo);
+
+    //qgame
 
 }
 MainWindow::~MainWindow()
@@ -72,8 +77,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
+
     //控制原生窗口大小
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+    QPainter painter(this);
+    game->drawGameScene(painter);
     //qrole测试
     // IDTILE idRoleTile = role->getRoleTileID();
     // //qDebug()<<idRoleTile;
