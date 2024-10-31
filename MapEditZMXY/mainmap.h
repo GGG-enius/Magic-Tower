@@ -15,6 +15,8 @@ class MainMap : public QWidget
     Q_OBJECT
 public:
     static int curLayer;
+    static int tileIDMapping[PIC_ABLE][4];
+    static QString tileURL[TILE_IMAGE_TOTAL];
     //临时，后续改成宏定义
     static int mapBuf[MAP_LAYER][CURMAP_W][CURMAP_H];///<卧槽什么情况，这个成员变量直接把Qt干挂了?????!!!!!更加迷惑了突然又可以了，什么情况
 

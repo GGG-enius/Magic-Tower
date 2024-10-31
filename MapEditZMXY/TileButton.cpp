@@ -190,7 +190,7 @@ QString TileButton::tileURL[PIC_TOTEL]={
     ":/Image/Guard/GuardYingDaoLeft0001.png",
     ":/Image/Guard/GuardYingDaoRight0001.png",
 };
-QImage TileButton::tilePNG[PIC_TOTEL];
+QImage TileButton::tilePNG[TILE_IMAGE_TOTAL];
 int TileButton::serialID=0;
 int TileButton::curSelectTileID=6;
 int TileButton::defaultFloorID=18;

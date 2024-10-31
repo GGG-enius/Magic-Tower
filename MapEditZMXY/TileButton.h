@@ -7,8 +7,9 @@
 #include <QList>
 #include <QMouseEvent>
 /** 总图块数量*/
-#define PIC_TOTEL           230
+#define PIC_TOTEL           230             ///<图块封顶数量
 #define PIC_ABLE            186             ///<可用图块数量
+#define TILE_IMAGE_TOTAL    423             ///<所有图块图像数量
 //#define PIC_WIDTH		32
 //#define PIC_HEIGHT	32
 
@@ -36,7 +37,7 @@ class TileButton : public QPushButton
     Q_OBJECT
 public:
     static QString tileURL[PIC_TOTEL];
-    static QImage tilePNG[PIC_TOTEL];
+    static QImage tilePNG[TILE_IMAGE_TOTAL];
     static int serialID;///<已创建按钮的个数
     static long defaultSerialID;///<默认按钮序列号
     static NPCINFO npcBuf[PIC_ABLE];
