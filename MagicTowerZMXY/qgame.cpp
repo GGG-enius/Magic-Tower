@@ -15,7 +15,7 @@ QGame::QGame(QWidget *parent)
     story= new QStory(this);
     // npc=new QNpc(this);
     fight=new QFight(this);
-
+    scene=new QScene(this);
     // Init All Global Data
     QTile::initTile();
     npc->initNpc();;
@@ -59,6 +59,7 @@ void QGame::initkeyFocus(){
 //绘图事件
 void QGame::paintEvent(QPaintEvent *)
 {
+
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
     painter.drawImage(0, 0, cacheImage);
@@ -69,9 +70,10 @@ void QGame::paintEvent(QPaintEvent *)
     {
     case GS_INIT:
         //改留给qstory painter事件的触发条件
-        story->init();
+        // story->init();
         story->STORY_DRAW=1;
-        story->STORY_KEY=1;       
+        story->STORY_KEY=1;
+
         //story.OnDraw(painter);
         break;
     case GS_OVER:
@@ -98,7 +100,7 @@ void QGame::drawGameScene(QPainter &painter)
     info->drawBorder(cachePainter, mainRect);
     //改留给info painter事件的触发条件
     info->INFO_DRAW=1;
-    info->onDraw(cachePainter, infoRect, scene.getRoleInfo(), scene.getSceneName());
+    info->onDraw(cachePainter, infoRect, scene->getRoleInfo(), scene->getSceneName());
     QPainter mapPainter(&mapImage);
 
     //scence绘图事件的触发条件
@@ -120,6 +122,8 @@ void QGame::drawGameScene(QPainter &painter)
 //“S”保存，“A"读取，“R”重新开始未实现
 void QGame::keyPressEvent(QKeyEvent *event)
 {
+    // if()
+    // story->keyPressEvent(event);
     switch (event->key())
     {
     case Qt::Key_Q:
@@ -135,6 +139,7 @@ void QGame::keyPressEvent(QKeyEvent *event)
         initkeyFocus();
         break;
     }
+
     update();
 }
 
@@ -158,10 +163,10 @@ void QGame::handleGameKey(int key)
     case GS_WALK:
         //使用Scene.GetRoleNextPoint(key)获取角色下一步的位置。
 
-        ptCurNpcPos = scene.getRoleNextPoint(key);
+        ptCurNpcPos = scene->getRoleNextPoint(key);
 
         // 检查该位置是否有脚本事件（Scene.GetScriptID(ptCurNpcPos)）
-         if (IDSCRIPT idScript = scene.getScriptID(ptCurNpcPos))
+         if (IDSCRIPT idScript = scene->getScriptID(ptCurNpcPos))
          {
         // 如果存在脚本事件，则加载并执行脚本
            script.loadScript(idScript);
@@ -170,7 +175,7 @@ void QGame::handleGameKey(int key)
          else
          {
         // 如果没有脚本事件，则角色移动到新位置
-            scene.setRolePos(ptCurNpcPos);
+            scene->setRolePos(ptCurNpcPos);
          }
         break;
     case GS_TALK:
@@ -199,7 +204,7 @@ void QGame::handleGameKey(int key)
 //scence
 void QGame::timerEvent(QTimerEvent *event)
 {
-    scene.startSceneTimer();
+    scene->startSceneTimer();
 
 //     scene.OnTimer(event->timerId());
       //不论当前游戏状态是什么，首先调用scene.OnTimer()处理场景相关的定时器事件。
@@ -231,7 +236,7 @@ void QGame::timerEvent(QTimerEvent *event)
 切换状态回GS_WALK。
 执行依赖于脚本的逻辑。
 */
-            scene.hideNpc(ptCurNpcPos);
+            scene->hideNpc(ptCurNpcPos);
             Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
             Sound->play();
             Sound->setLoopCount(QSoundEffect::Infinite);
@@ -239,13 +244,15 @@ void QGame::timerEvent(QTimerEvent *event)
             recurScript();
         }
 //获取并设置角色战斗结果ROLEINFO roleInfo = fight.GetResult()
-        ROLEINFO roleInfo = fight->getResult();
+        // ROLEINFO roleInfo = ;
 //更新角色信息scene.SetRoleInfo(roleInfo)
-        scene.setRoleInfo(roleInfo);
-          if (roleInfo.nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
+        scene->setRoleInfo(fight->getResult());
+          if (fight->getResult().nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
         {                           //检查角色健康状态roleInfo.nHealth：
             gameState = GS_OVER;
         }
+        break;
+    default:
         break;
     }
 
@@ -277,10 +284,10 @@ void QGame::procScript()
         running = false;
         break;
      case SC_SCENEFORWARD:
-        scene.forward();
+        scene->forward();
         break;
      case SC_SCENEBACKWARD:
-        scene.backward();
+        scene->backward();
         break;
      case SC_FIGHT:
         running = false;
@@ -296,7 +303,7 @@ void QGame::procScript()
         handleNpcInteraction();
         break;
      case SC_SETNPCPOS:
-        scene.setNpcPos(ptCurNpcPos, QPoint(Param2, Param3));
+        scene->setNpcPos(ptCurNpcPos, QPoint(Param2, Param3));
         break;
      default:
         break;
@@ -307,8 +314,8 @@ void QGame::procScript()
 //scene
 void QGame::handleNpcInteraction()
 {
-   ROLEINFO roleInfo = scene.getRoleInfo();
-   NPCINFO npcInfo = scene.getNpcInfo(ptCurNpcPos);
+   ROLEINFO roleInfo = scene->getRoleInfo();
+   NPCINFO npcInfo = scene->getNpcInfo(ptCurNpcPos);
     bool npcValid = true;
 
     for (int i = 0; i < sizeof(roleInfo) / sizeof(int); ++i)
@@ -331,7 +338,7 @@ void QGame::handleNpcInteraction()
             int *pNpc = reinterpret_cast<int *>(&npcInfo) + i;
             *pRole += *pNpc;
         }
-        scene.setRoleInfo(roleInfo);
-        scene.hideNpc(ptCurNpcPos);
+        scene->setRoleInfo(roleInfo);
+        scene->hideNpc(ptCurNpcPos);
     }
 }

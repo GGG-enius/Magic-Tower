@@ -59,17 +59,19 @@ public:
     void handleGameKey(int key);
     void handleNpcInteraction();
     friend QDataStream &operator<<(QDataStream &out, const QGame &obj) {
-        out << obj.gameState<<obj.running<<obj.ptCurNpcPos<<obj.scene;
+        out << obj.gameState<<obj.running<<obj.ptCurNpcPos<<(*obj.scene);
         return out;
     }
 
     friend QDataStream &operator>>(QDataStream &in, QGame &obj) {
-        in >> obj.gameState >> obj.running>>obj.ptCurNpcPos>>obj.scene;
+        in >> obj.gameState >> obj.running>>obj.ptCurNpcPos>>(*obj.scene);
         return in;
     }
     Q_ENUM(GAMESTATE)
-protected:
+
     void keyPressEvent(QKeyEvent *event) override;
+protected:
+
     void paintEvent(QPaintEvent *event) override;
     void timerEvent(QTimerEvent *event) override;
     void procScript();
@@ -92,7 +94,7 @@ private:
     QTile *tile;
     QBackGround * background;
     QNpc *npc;
-    QScene scene;
+    QScene* scene;
     QFight* fight;
     QTalk * talk;
     QInfo  * info;

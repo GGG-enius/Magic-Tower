@@ -142,7 +142,7 @@ void QScript::loadNextScript()
     if (m_nScriptIndex == -1) return;
 
     ++m_nCommandIndex;
-    qDebug()<<m_nCommandIndex;
+    // qDebug()<<m_nCommandIndex;
     if (m_nCommandIndex < 4) {
         m_Script = Script[m_nScriptIndex].script[m_nCommandIndex];
     } else {

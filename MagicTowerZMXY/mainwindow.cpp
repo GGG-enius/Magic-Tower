@@ -80,8 +80,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
     //控制原生窗口大小
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
-    QPainter painter(this);
-    game->drawGameScene(painter);
+    // QPainter painter(this);
+    // game->drawGameScene(painter);
     //qrole测试
     // IDTILE idRoleTile = role->getRoleTileID();
     // //qDebug()<<idRoleTile;
@@ -93,6 +93,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
+    game->keyPressEvent(event);
     //qrole测试
     // // 使用 static_cast 将 int 转换为 Qt::Key
     // Qt::Key key = static_cast<Qt::Key>(event->key());

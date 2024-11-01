@@ -91,7 +91,7 @@ void QRole::roleOnTimer()
 {
     m_nTileIndex--;
     // qDebug()<<"定时器被调用";
-    qDebug()<<m_nTileIndex;
+    // qDebug()<<m_nTileIndex;
     //如果图块索引能被 4 整除，则停止定时器，即角色停止行走
     if(m_nTileIndex%4==0)
     {

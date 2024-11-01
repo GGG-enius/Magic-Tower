@@ -210,9 +210,9 @@ void QNpc::hide()
 void QNpc::npcOnTimer()
 {
     //将当前 NPC 实例的图块索引 m_nTileIndex 加 1，并对 MAX_NPC_TILE 取模，以确保索引在有效范围内循环
-    qDebug()<<"触发了定时器，调用了onTimer函数";
+    // qDebug()<<"触发了定时器，调用了onTimer函数";
     m_nTileIndex = (m_nTileIndex + 1) % MAX_NPC_TILE;
-    qDebug()<<m_nTileIndex;
+    // qDebug()<<m_nTileIndex;
 }
 
 

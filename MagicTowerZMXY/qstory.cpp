@@ -42,8 +42,8 @@ void QStory::init()
 {
     //hhz:改变键盘焦点
     //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
-    this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
-    this->setFocus(); // 尝试在构造时设置焦点
+    // this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
+    // this->setFocus(); // 尝试在构造时设置焦点
     //播放音效
     startSound = new QSoundEffect(this);
     startSound->setSource(QUrl::fromLocalFile(SOUND_INIT_FILE));
@@ -86,7 +86,7 @@ void QStory::keyPressEvent(QKeyEvent *event)
         this->hide();
         STORY_KEY=2;
         STORY_DRAW=0;
-        qDebug()<<STORY_KEY;
+        // qDebug()<<STORY_KEY;
     }
     else
     {

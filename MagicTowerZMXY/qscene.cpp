@@ -4,6 +4,8 @@ IDTILE QScene::TileData[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];
 QScene::QScene(QWidget *parent)
     : QWidget{parent}
 {
+    //控制原生窗口大小
+    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     this->m_idScene = 0;
     this->m_idLayerDone = 0;
     memset(roleEntryPos, 0, sizeof(roleExitPos));
