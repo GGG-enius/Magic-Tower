@@ -94,6 +94,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     game->keyPressEvent(event);
+
+
     //qrole测试
     // // 使用 static_cast 将 int 转换为 Qt::Key
     // Qt::Key key = static_cast<Qt::Key>(event->key());

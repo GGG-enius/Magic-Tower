@@ -21,8 +21,8 @@ class QScene : public QWidget
 public:
     explicit QScene(QWidget *parent = nullptr);
     //Data Cache所有NPC的数据缓冲
-    static IDTILE TileData[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];
     void load(IDSCENE sceneID);
+    void initScene();
     void backward();
     void forward();
     QPoint getRoleNextPoint(int key);
@@ -88,6 +88,7 @@ public:
     void stopSceneTimer();
     static void initMap();//  初始化地图数据
 private:
+    static IDTILE TileData[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];
     QString sceneName;
     IDSCENE m_idScene;
     IDSCENE m_idLayerDone;

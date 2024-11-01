@@ -5,10 +5,14 @@
 QGame::QGame(QWidget *parent)
     : QWidget{parent}
 {
-
+    QTile::initTile();
+    QNpc::initNpc();
+    QScene::initMap();
+    QScript::initScript();
+    // npc->initNpc();;
     Sound = new QSoundEffect(this);
 
-    tile=new QTile(this);
+    // tile=new QTile(this);
     background=new QBackGround(this);
     info=new QInfo(this);
     talk=new QTalk(this);
@@ -16,13 +20,13 @@ QGame::QGame(QWidget *parent)
     // npc=new QNpc(this);
     fight=new QFight(this);
     scene=new QScene(this);
+    this->scene->setGeometry(mainRect);
+    scene->initScene();
     // Init All Global Data
-    QTile::initTile();
-    npc->initNpc();;
-    QScript::initScript();
+
 
     //控制键盘焦点
-    initkeyFocus();
+    // initkeyFocus();
 
     // Game Const
     gameState = GS_INIT;
@@ -34,11 +38,12 @@ QGame::QGame(QWidget *parent)
     running = false;
 
     // Create Cache Images
-    cacheImage = QImage(gameClientSize, QImage::Format_RGB32);
-    mapImage = QImage(MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT, QImage::Format_RGB32);
+    // cacheImage = QImage(gameClientSize, QImage::Format_RGB32);
+    // mapImage = QImage(MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT, QImage::Format_RGB32);
 
     // Set Game Window Properties
     setGeometry(0, 0, gameClientSize.width(), gameClientSize.height());
+
 
     // Set up a timer for game updates
     startTimer(1000 / 60); // 60 FPS timer
@@ -62,13 +67,14 @@ void QGame::paintEvent(QPaintEvent *)
 
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
-    painter.drawImage(0, 0, cacheImage);
+    // painter.drawImage(0, 0, cacheImage);
     if(story->STORY_KEY==2 ){
         initkeyFocus();
     }
     switch (gameState)
     {
     case GS_INIT:
+        emit
         //改留给qstory painter事件的触发条件
         // story->init();
         story->STORY_DRAW=1;
@@ -91,39 +97,39 @@ void QGame::paintEvent(QPaintEvent *)
 //scence，fight
 void QGame::drawGameScene(QPainter &painter)
 {
-    QPainter cachePainter(&cacheImage);
+    // QPainter cachePainter(&cacheImage);
 
 
     //改留给bg painter事件的触发条件
     background->BG_DRAW=1;
     //background->OnDraw(cachePainter);
-    info->drawBorder(cachePainter, mainRect);
+    // info->drawBorder(cachePainter, mainRect);
     //改留给info painter事件的触发条件
     info->INFO_DRAW=1;
-    info->onDraw(cachePainter, infoRect, scene->getRoleInfo(), scene->getSceneName());
-    QPainter mapPainter(&mapImage);
+    // info->onDraw(cachePainter, infoRect, scene->getRoleInfo(), scene->getSceneName());
+    // QPainter mapPainter(&mapImage);
 
     //scence绘图事件的触发条件
     //scene.OnDraw(mapPainter);
-    cachePainter.drawImage(mainRect.topLeft(), mapImage);
+    // cachePainter.drawImage(mainRect.topLeft(), mapImage);
 
     if (gameState == GS_TALK)
     {
-        talk->draw(cachePainter);
+        // talk->draw(cachePainter);
     }
     else if (gameState == GS_FIGHT)
     {
         //fight绘图事件的触发条件
         fight->FIGHT_DRAW=1;
     }
-    painter.drawImage(0, 0, cacheImage);
+    // painter.drawImage(0, 0, cacheImage);
 }
 
 //“S”保存，“A"读取，“R”重新开始未实现
 void QGame::keyPressEvent(QKeyEvent *event)
 {
     // if()
-    // story->keyPressEvent(event);
+    story->keyPressEvent(event);
     switch (event->key())
     {
     case Qt::Key_Q:

@@ -88,12 +88,12 @@ private:
 
     QPoint ptCurNpcPos;
 
-    QImage cacheImage;
-    QImage mapImage;
+    // QImage cacheImage;
+    // QImage mapImage;
 
-    QTile *tile;
+    // QTile *tile;
     QBackGround * background;
-    QNpc *npc;
+    // QNpc *npc;
     QScene* scene;
     QFight* fight;
     QTalk * talk;

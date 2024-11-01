@@ -23,6 +23,9 @@ void QBackGround::paintEvent(QPaintEvent *event)
 {
     if(BG_DRAW==0){
         return ;
+    }else
+    {
+
     }
     //绘制大小
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);

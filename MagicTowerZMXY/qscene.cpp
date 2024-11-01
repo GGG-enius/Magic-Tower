@@ -5,7 +5,31 @@ QScene::QScene(QWidget *parent)
     : QWidget{parent}
 {
     //控制原生窗口大小
-    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+    // this->setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+
+
+    //交给QGame启动定时器
+    this->sceneTimer = new QTimer(this);
+    // connect(this->sceneTimer, &QTimer::timeout, this, [=](){
+    //     for(int i = 0; i < MAP_WIDTH; i++)
+    //     {
+    //         for(int j = 0; j < MAP_HEIGHT; j++)
+    //         {
+    //             npc[this->m_idScene][i][j].startNpcTimer();
+    //         }
+    //     }
+    //     role.startRoleTimer();
+    // });
+}
+
+void QScene::load(IDSCENE sceneID)
+{
+    this->m_idScene=sceneID;
+    role.setPos(roleEntryPos[this->m_idScene],roleEntryTile[this->m_idScene]);
+}
+
+void QScene::initScene()
+{
     this->m_idScene = 0;
     this->m_idLayerDone = 0;
     memset(roleEntryPos, 0, sizeof(roleExitPos));
@@ -33,25 +57,6 @@ QScene::QScene(QWidget *parent)
             }
         }
     }
-
-    //交给QGame启动定时器
-    this->sceneTimer = new QTimer(this);
-    connect(this->sceneTimer, &QTimer::timeout, this, [=](){
-        for(int i = 0; i < MAP_WIDTH; i++)
-        {
-            for(int j = 0; j < MAP_HEIGHT; j++)
-            {
-                npc[this->m_idScene][i][j].startNpcTimer();
-            }
-        }
-        role.startRoleTimer();
-    });
-}
-
-void QScene::load(IDSCENE sceneID)
-{
-    this->m_idScene=sceneID;
-    role.setPos(roleEntryPos[this->m_idScene],roleEntryTile[this->m_idScene]);
 }
 
 void QScene::backward()

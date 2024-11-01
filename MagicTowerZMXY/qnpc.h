@@ -38,7 +38,7 @@ public:
     explicit QNpc(QWidget *parent = nullptr);
 
     //类的初始化
-    void initNpc();//用于初始化Npc数据
+    static void initNpc();//用于初始化Npc数据
     void load(IDTILE idTile);//加载指定图块ID的Npc数据
     void load(QNpc &npc);//加载另一个QNpc对象的数据
 
