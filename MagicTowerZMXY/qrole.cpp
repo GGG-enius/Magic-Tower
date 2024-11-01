@@ -3,10 +3,10 @@
 //定义并初始化一个静态数组用于存储角色TILE信息
 //站立，行走1,2, 在战中被打
 IDTILE QRole::idTiles[MAX_ROLE_TILE] = {
-    144, 145, 146, 147,			//左
-    152, 153, 154, 155,			//上
-    148, 149, 150, 151,			//右
-    138, 141, 142, 143,			//下
+    131, 132, 133, 134,			//左
+    127, 128, 129, 130,			//上
+    135, 136, 137, 138,			//右
+    139, 140, 141, 142,			//下
 };
 
 QRole::QRole(QWidget *parent)
@@ -90,7 +90,7 @@ bool QRole::isRoleTileID(IDTILE idTile)
 void QRole::roleOnTimer()
 {
     m_nTileIndex--;
-    qDebug()<<"定时器被调用";
+    // qDebug()<<"定时器被调用";
     qDebug()<<m_nTileIndex;
     //如果图块索引能被 4 整除，则停止定时器，即角色停止行走
     if(m_nTileIndex%4==0)
@@ -99,7 +99,7 @@ void QRole::roleOnTimer()
     }
 }
 
-QPoint QRole::getNextPoint(Qt::Key key)
+QPoint QRole::getNextPoint(int key)
 {
     //初始化一个新的QPoint变量，初值设为当前角色位置m_ptPos
     QPoint r_ptPos = m_ptPos;
@@ -141,6 +141,15 @@ void QRole::moveTo(QPoint ptPos)
     m_ptPos = ptPos;
 }
 
+void QRole::startRoleTimer()
+{
+    this->timer_role->start();
+}
+
+void QRole::stopRoleTimer()
+{
+    this->timer_role->stop();
+}
 
 //获取角色图块ID在idTiles数组中的索引
 //如果存在返回索引 如果不存在返回默认值4

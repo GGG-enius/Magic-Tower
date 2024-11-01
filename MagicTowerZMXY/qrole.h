@@ -12,6 +12,7 @@
 #include <QObject>
 #include "Global.h"
 #include <QPoint>
+#include <QDataStream>
 #include <QRect>
 #include <QTimer>
 #include <QKeyEvent>
@@ -33,6 +34,19 @@ struct ROLEINFO
     int nRedKey;    ///<红钥匙
     int nBlueKey;	///<蓝钥匙
     int nYellowKey;	///<黄钥匙
+
+
+    //数据序列化
+    friend QDataStream &operator<<(QDataStream &out, const ROLEINFO &obj) {
+        out<<obj.nLevel<<obj.nHealth<<obj.nAttack<<obj.nDefense<<obj.nMoney<<obj.nExperience<<obj.nRedKey<<obj.nBlueKey<<obj.nYellowKey;
+
+        return out;
+    }
+    //数据反序列化
+    friend QDataStream &operator>>(QDataStream &in, ROLEINFO &obj) {
+        in>>obj.nLevel>>obj.nHealth>>obj.nAttack>>obj.nDefense>>obj.nMoney>>obj.nExperience>>obj.nRedKey>>obj.nBlueKey>>obj.nYellowKey;
+        return in;
+    }
 };
 
 class QRole : public QWidget
@@ -51,8 +65,23 @@ public:
 
     //信号处理函数
     void roleOnTimer();//定时器处理函数
-    QPoint getNextPoint(Qt::Key key);//根据按键获取下一个角色的位置
+    QPoint getNextPoint(int key);//根据按键获取下一个角色的位置
     void moveTo(QPoint ptPos);//将角色移动到指定位置
+
+    void startRoleTimer();
+    void stopRoleTimer();
+
+    //数据序列化
+    friend QDataStream &operator<<(QDataStream &out, const QRole &obj) {
+        out<<obj.m_ptPos<<obj.RoleInfo<<obj.m_nTileIndex;
+
+        return out;
+    }
+    //数据反序列化
+    friend QDataStream &operator>>(QDataStream &in, QRole &obj) {
+        in>>obj.m_ptPos>>obj.RoleInfo>>obj.m_nTileIndex;
+        return in;
+    }
 private:
     int getTileIndex(IDTILE idTile);//获取给定TILE ID的索引（作为私有函数，只被类内部使用）
 

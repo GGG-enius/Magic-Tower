@@ -25,6 +25,7 @@
 #include "qtalk.h"
 #include "qrole.h"
 #include "qfight.h"
+#include <QDataStream>
 #include "qscene.h"
 #include "qnpc.h"
 #include "qbackground.h"
@@ -57,6 +58,16 @@ public:
     void drawGameScene(QPainter &painter);
     void handleGameKey(int key);
     void handleNpcInteraction();
+    friend QDataStream &operator<<(QDataStream &out, const QGame &obj) {
+        out << obj.gameState<<obj.running<<obj.ptCurNpcPos<<obj.scene;
+        return out;
+    }
+
+    friend QDataStream &operator>>(QDataStream &in, QGame &obj) {
+        in >> obj.gameState >> obj.running>>obj.ptCurNpcPos>>obj.scene;
+        return in;
+    }
+    Q_ENUM(GAMESTATE)
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
@@ -73,7 +84,7 @@ private:
     QRect mainRect;
     QRect infoRect;
 
-    QPoint currentNpcPosition;
+    QPoint ptCurNpcPos;
 
     QImage cacheImage;
     QImage mapImage;

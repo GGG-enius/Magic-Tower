@@ -13,6 +13,7 @@
 #include "qrole.h"
 #include "Global.h"
 #include <QWidget>
+#include <QDataStream>
 #include <QFile>
 #include <QDebug>
 #include <QTimer>
@@ -50,6 +51,31 @@ public:
 
     //定时器处理槽函数
     void npcOnTimer();
+    void startNpcTimer();
+    void stopNpcTimer();
+
+    //数据序列化
+    friend QDataStream &operator<<(QDataStream &out, const QNpc &obj) {
+        out<<MAX_NPC_TILE;
+        for(int i=0;i<MAX_NPC_TILE;i++)
+        {
+            out<<obj.m_idTile[i];
+        }
+        out<<obj.m_idScript<<obj.m_bShow<<obj.m_npcInfo;
+
+        return out;
+    }
+    //数据反序列化
+    friend QDataStream &operator>>(QDataStream &in, QNpc &obj) {
+        int idsize;
+        in>>idsize;
+        for(int i=0;i<idsize;i++)
+        {
+            in>>obj.m_idTile[i];
+        }
+        in >> obj.m_idScript>>obj.m_bShow>>obj.m_npcInfo;
+        return in;
+    }
 private:
     static NPCTILE NpcData[MAX_NPC];//存储所有 NPC 的图块信息
     IDTILE m_idTile[MAX_NPC_TILE];//存储当前Npc图块ID

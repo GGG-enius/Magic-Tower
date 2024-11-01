@@ -28,9 +28,9 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define SOUND_BG_FILE			"..\\Sound_874.wav"			///<背景音乐
 #define SOUND_FIGHT_FILE		"..\\Sound_13.wav"			///<攻击音乐
 #else
-#define TILE_FILE_NAME			":/res/Tile.txt"
-#define MAP_FILE_NAME			"Map.txt"
-#define NPC_FILE_NAME			":/res/Npc.txt"
+#define TILE_FILE_NAME			"../../IOFile/Tile.bin"
+#define MAP_FILE_NAME			"../../IOFile/Map.bin"
+#define NPC_FILE_NAME			"../../IOFile/Npc.bin"
 #define STORY_FILE				":/res/story.txt"
 #define SOUND_INIT_FILE			":/res/Sound_830.wav"
 #define SOUND_BG_FILE			"Sound_874.wav"
@@ -47,12 +47,12 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define MAX_SCENE			24				///<魔塔层数, 也是场景个数
 #define MAP_WIDTH			11				///<每层地图宽11个TILE
 #define MAP_HEIGHT			11				///<每层地图高11个TILE
-#define MAX_TILE			174				///<共计174个TILE
+#define MAX_TILE			423				///<共计174个TILE
 #define MAX_NPC				MAX_TILE		///<游戏最多共有174种NPC, Ps:实际好像100左右
 #define TILE_WIDTH			32				///<每个TILE宽32像索
 #define TILE_HEIGHT			32				///<每个TILE高32像索
 #define MAX_ROLE_TILE		16				///<主角共16个TILE
-#define MAX_NPC_TILE		2				///<每个NPC动画共2TILE
+#define MAX_NPC_TILE		4				///<每个NPC动画共2TILE
 #define MAX_SCRIPT			100				///<最多100个脚本
 #define MAX_COMMAND			20				///<每个脚本中最多20条命令, 实际好像2条, -_-!
 #define MAX_TALK			16				///<最多16条对话
@@ -61,12 +61,12 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define MAX_BUFFER			450				///<故事情节缓冲区大小
 
 //TILE
-#define TILE_BG				156         ///<背景Tile的ID
-#define TILE_FLOOR			68          ///<地板Tile的ID
-#define TILE_CELESTIAL		139			///<仙子Tile的ID
-#define TILE_ROLE			138			///<主角Tile的ID
-#define TILE_ROLE_ENTRY		138			///<主角进入场景时的默认图块
-#define TILE_ROLE_EXIT		138			///<主角退出场景后的默认图块
+#define TILE_BG				7         ///<背景Tile的ID
+#define TILE_FLOOR			18          ///<地板Tile的ID
+#define TILE_CELESTIAL		175			///<仙子Tile的ID
+#define TILE_ROLE			127			///<主角Tile的ID
+#define TILE_ROLE_ENTRY		127			///<主角进入场景时的默认图块
+#define TILE_ROLE_EXIT		127			///<主角退出场景后的默认图块
 
 //Timer
 

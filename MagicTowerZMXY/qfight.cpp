@@ -34,25 +34,25 @@ bool QFight::fightOnTimer()
 
     if(bAttack==true)
     {
-        qDebug()<<"主角攻击回合：";
-        qDebug()<<"主角攻击值:"<<m_RoleInfo.nAttack;
-        qDebug()<<"npc防御值:"<<m_NpcInfo.nDefense;
+        // qDebug()<<"主角攻击回合：";
+        // qDebug()<<"主角攻击值:"<<m_RoleInfo.nAttack;
+        // qDebug()<<"npc防御值:"<<m_NpcInfo.nDefense;
         //如果角色的攻击力大于怪物的防御力，将差值从怪物的生命值中扣除
         if(m_RoleInfo.nAttack - m_NpcInfo.nDefense > 0)
         {
             m_NpcInfo.nHealth -= (m_RoleInfo.nAttack - m_NpcInfo.nDefense);
-            qDebug()<<"npc剩余血量："<<m_NpcInfo.nHealth;
+            // qDebug()<<"npc剩余血量："<<m_NpcInfo.nHealth;
         }
     }
     else//类似地，怪物作为攻击者时使用其攻击和角色的防御力进行比较和计算
     {
-        qDebug()<<"npc攻击回合：";
-        qDebug()<<"npc攻击值："<<m_NpcInfo.nAttack;
-        qDebug()<<"主角防御值："<<m_RoleInfo.nDefense;
+        // qDebug()<<"npc攻击回合：";
+        // qDebug()<<"npc攻击值："<<m_NpcInfo.nAttack;
+        // qDebug()<<"主角防御值："<<m_RoleInfo.nDefense;
         if(m_NpcInfo.nAttack - m_RoleInfo.nDefense > 0)
         {
             m_RoleInfo.nHealth -= (m_NpcInfo.nAttack - m_RoleInfo.nDefense);
-            qDebug()<<"主角剩余血量："<<m_RoleInfo.nHealth;
+            // qDebug()<<"主角剩余血量："<<m_RoleInfo.nHealth;
         }
     }
     bAttack = !bAttack;//每次攻击后，切换到另一方进行攻击
