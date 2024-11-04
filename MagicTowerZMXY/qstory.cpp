@@ -10,9 +10,9 @@ QStory::QStory(QWidget *parent)
     : QWidget{parent},storyBufIndex(0)
 {
     //hhz:触发事件暂时不触发
-    STORY_DRAW=0;//1执行，0无法执行
-    STORY_KEY=0;
-
+    // STORY_DRAW=0;//1执行，0无法执行
+    // STORY_KEY=0;
+    // this->isEnd=false;
     this->setFixedSize(MAX_WIDTH, MAX_HEIGHT);
 
     // //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
@@ -58,11 +58,12 @@ void QStory::init()
 
 void QStory::storyOnTimer()
 {
+
     storyBufIndex += 1;
     if(storyBufIndex>=MAX_BUFFER)
     {
         timer->stop();
-        //qDebug()<<"定时器停止";
+        qDebug()<<"定时器停止";
     }
     else
     {
@@ -74,18 +75,21 @@ void QStory::storyOnTimer()
 //重载键盘事件
 void QStory::keyPressEvent(QKeyEvent *event)
 {
-    if(STORY_KEY==0){
-        return;
-    }
+    // if(STORY_KEY==0){
+    //     return;
+    // }
     if (event->key() == Qt::Key_Space)
     {
-        qDebug()<<"按下了空格";
+        // qDebug()<<"按下了空格";
         // 停止定时器响应空格键
         timer->stop();
         startSound->stop();
-        this->hide();
-        STORY_KEY=2;
-        STORY_DRAW=0;
+        emit this->storyEnd();
+        // this->isEnd=true;
+        // delete this;
+        // this->hide();
+        // STORY_KEY=2;
+        // STORY_DRAW=0;
         // qDebug()<<STORY_KEY;
     }
     else
@@ -98,9 +102,9 @@ void QStory::keyPressEvent(QKeyEvent *event)
 void QStory::paintEvent(QPaintEvent *event)
 {
     //hhz:添加
-    if(STORY_DRAW==0){
-        return ;
-    }
+    // if(STORY_DRAW==0){
+    //     return ;
+    // }
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
 
 
@@ -118,9 +122,15 @@ void QStory::paintEvent(QPaintEvent *event)
 
     //设置背景模式为透明
     //painter.setBackgroundMode(Qt::TransparentMode);
+    changeColor = !changeColor;
 
+    if(!this->timer->isActive())
     //设置文本颜色
-    painter.setPen(STORY_FT_COLOR);
+    {
+        painter.setPen(changeColor ? Qt::black : Qt::white);
+    }else{
+        painter.setPen(Qt::white);
+    }
 
     //设置字体
     QFont font("仿宋体", nFontSize);
@@ -128,9 +138,19 @@ void QStory::paintEvent(QPaintEvent *event)
 
     //绘制故事文本
     painter.drawText(rect, Qt::AlignLeft | Qt::AlignTop, storyBuf.left(storyBufIndex));
-
+    painter.setPen(changeColor ? Qt::red : Qt::white);
     // 在指定位置绘制“按空格跳过”提示文本
     painter.drawText(MAX_WIDTH - 100, MAX_HEIGHT - 25, "按空格跳过");
 }
+
+// bool QStory::isStoryTimerActive()
+// {
+//     return this->timer->isActive();
+// }
+
+// bool QStory::IsStoryEnd() const
+// {
+//     return isEnd;
+// }
 
 

@@ -31,7 +31,7 @@
 #include "qbackground.h"
 #include "qinfo.h"
 #include "qscript.h"
-
+#include <QSize>
 
 /**
  * @enum GAMESTATE
@@ -54,10 +54,13 @@ class QGame : public QWidget
 public:
     explicit QGame(QWidget *parent = nullptr);
     ~QGame();
-    void initkeyFocus();
+
     void drawGameScene(QPainter &painter);
-    void handleGameKey(int key);
+
+    void handleGameKey(QKeyEvent *event);
+
     void handleNpcInteraction();
+
     friend QDataStream &operator<<(QDataStream &out, const QGame &obj) {
         out << obj.gameState<<obj.running<<obj.ptCurNpcPos<<(*obj.scene);
         return out;
@@ -67,20 +70,25 @@ public:
         in >> obj.gameState >> obj.running>>obj.ptCurNpcPos>>(*obj.scene);
         return in;
     }
+
     Q_ENUM(GAMESTATE)
 
     void keyPressEvent(QKeyEvent *event) override;
+
 protected:
 
     void paintEvent(QPaintEvent *event) override;
-    void timerEvent(QTimerEvent *event) override;
+
+    // void timerEvent(QTimerEvent *event) override;
+
     void procScript();
+
     void recurScript();
+
 
 private:
     GAMESTATE gameState;
     bool running;
-
     QSize gameClientSize;
     //info
     QRect mainRect;

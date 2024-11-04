@@ -8,7 +8,7 @@ class QTile:public QWidget
 public:
     explicit QTile(QWidget *parent = nullptr);
     static void initTile(); // 初始化图块数据
-    void draw(QPainter &painter, int x, int y, int idTile = 0); // 绘制图块
+    void draw(QPainter &painter, int x, int y, INDEX idTile = 18); // 绘制图块
     // void drawEx(QPainter &painter, int x, int y, int idTile, int idRoleTile); // 绘制带有角色图块的图块
 
 private:

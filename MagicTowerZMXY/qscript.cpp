@@ -2,11 +2,13 @@
 #include "QMessageBox"
 #include "Global.h"
 #include <QDebug>
+#include <cstring>
 
 QScript::QScript(QWidget *parent)
     : QWidget{parent}
 {
     m_nCommandIndex = 0;
+    m_nScriptIndex=1;
 }
 
 
@@ -17,6 +19,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_NULL,
      {//无
+         {0,0,0,0},
          {SC_NULL, 0, 0, 0},
          {0,0,0,0},
          {0,0,0,0},
@@ -26,6 +29,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_SCENE,
      {//场景
+         {0,0,0,0},
          {SC_NULL, 0, 0, 0},
          {0,0,0,0},
          {0,0,0,0},
@@ -35,6 +39,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_ROLE,
      {//角色
+         {0,0,0,0},
          {SC_NULL,0,0,0},
          {0,0,0,0},
          {0,0,0,0},
@@ -44,6 +49,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_WALL,
      {//墙
+         {0,0,0,0},
          {SC_NULL,0,0,0},
          {0,0,0,0},
          },
@@ -52,6 +58,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_ENTRY,
      {//入口
+         {0,0,0,0},
          {SC_SCENEFORWARD, 0, 0, 0},
          {0,0,0,0},
          {0,0,0,0},
@@ -61,6 +68,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_EXIT,
      {//出门
+         {0,0,0,0},
          {SC_SCENEBACKWARD, 0, 0, 0},
          {0,0,0,0},
          {0,0,0,0},
@@ -70,6 +78,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_NPC,
      {//NPC
+         {0,0,0,0},
          {SC_NPC, 0, 0, 0},
          {0,0,0,0},
          {0,0,0,0},
@@ -79,6 +88,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_MONSTER,
      {//战斗
+         {0,0,0,0},
          {SC_FIGHT, 0, 0, 0},
          {0,0,0,0},
          {0,0,0,0},
@@ -88,8 +98,9 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
     {
      SI_CELESTIAL,
      {//仙子
+         {0,0,0,0},
          {SC_TALK, 0, 50, 100},
-         {SC_SETNPCPOS,0,4,8},
+         {SC_SETNPCPOS,0,1,1},
          {0,0,0,0},
          {0,0,0,0},
          },
@@ -100,6 +111,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
      {//商店
          {0,0,0,0},
          {0,0,0,0},
+         {0,0,0,0},
          },
      },
     //Secret
@@ -108,13 +120,13 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
      {//机关
          {0,0,0,0},
          {0,0,0,0},
+         {0,0,0,0},
          },
      },
     };
 
 void QScript::initScript()
 {
-
 }
 
  void QScript::loadScript(IDSCRIPT idScript)
@@ -130,24 +142,30 @@ void QScript::initScript()
          }
      }
      if (m_nScriptIndex != -1) {
-         m_nCommandIndex = 0;
+         m_nCommandIndex = 1;
          m_Script = Script[m_nScriptIndex].script[m_nCommandIndex];
      } else {
          qWarning() << "Script ID not found!";
+         m_Script = Script[1].script[1];
      }
 }
 
 void QScript::loadNextScript()
 {
-    if (m_nScriptIndex == -1) return;
+    if (m_nScriptIndex <0||m_nScriptIndex>MAX_SCRIPT)
+    {
+        m_Script=Script[1].script[1];
+        return;
+    }
 
     ++m_nCommandIndex;
     // qDebug()<<m_nCommandIndex;
-    if (m_nCommandIndex < 4) {
+    if (m_nCommandIndex < MAX_COMMAND) {
         m_Script = Script[m_nScriptIndex].script[m_nCommandIndex];
     } else {
         qWarning() << "No more commands in script!";
-        m_nCommandIndex =  - 1;  // 保持在最后一个有效命令上
+        m_Script=Script[1].script[1];
+        m_nCommandIndex = 0 ;  // 保持在最后一个有效命令上
     }
 }
 

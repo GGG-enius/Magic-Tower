@@ -2,7 +2,7 @@
 
 //定义并初始化一个静态数组用于存储角色TILE信息
 //站立，行走1,2, 在战中被打
-IDTILE QRole::idTiles[MAX_ROLE_TILE] = {
+INDEX QRole::idTiles[MAX_ROLE_TILE] = {
     131, 132, 133, 134,			//左
     127, 128, 129, 130,			//上
     135, 136, 137, 138,			//右
@@ -22,7 +22,7 @@ QRole::QRole(QWidget *parent)
     RoleInfo.nDefense = 10;
     RoleInfo.nMoney = 0;
     RoleInfo.nExperience = 0;
-    RoleInfo.nYellowKey = 1;
+    RoleInfo.nYellowKey = 99999;
     RoleInfo.nBlueKey = 1;
     RoleInfo.nRedKey = 1;
 
@@ -52,10 +52,10 @@ QPoint QRole::getPos()
 //ptPos表示新的位置。当调用本函数时，这个参数决定角色新的坐标
 //idTile表示角色的当前图块索引类型
 //bTurn表示是否在楼梯切换时改变角色朝向
-void QRole::setPos(QPoint ptPos, IDTILE idTile, bool bTurn)
+void QRole::setPos(QPoint ptPos, INDEX index, bool bTurn)
 {
     //获取对应于idTile的图块索引nTileIndex
-    int nTileIndex = getTileIndex(idTile);
+    int nTileIndex = getTileIndex(index);
     //如果bTurn为true，切换方向，计算m_nTileIndex新值如下
     if(bTurn)
     {
@@ -69,19 +69,17 @@ void QRole::setPos(QPoint ptPos, IDTILE idTile, bool bTurn)
     m_ptPos = ptPos;
 }
 
-IDTILE QRole::getRoleTileID()
+INDEX QRole::getRoleTileID()
 {
     return idTiles[m_nTileIndex];
 }
 
 bool QRole::isRoleTileID(IDTILE idTile)
 {
-    for(int i=0;i<MAX_ROLE_TILE;i++)
+
+    if(TILE_ROLE==idTile)
     {
-        if(idTiles[i]==idTile)
-        {
-            return true;
-        }
+        return true;
     }
     return false;
 }
@@ -99,11 +97,11 @@ void QRole::roleOnTimer()
     }
 }
 
-QPoint QRole::getNextPoint(int key)
+QPoint QRole::getNextPoint(QKeyEvent *event)
 {
     //初始化一个新的QPoint变量，初值设为当前角色位置m_ptPos
     QPoint r_ptPos = m_ptPos;
-    switch(key){
+    switch(event->key()){
         case Qt::Key_Up:
             r_ptPos.setY(r_ptPos.y()-1);
             m_nTileIndex = 6;
@@ -143,7 +141,7 @@ void QRole::moveTo(QPoint ptPos)
 
 void QRole::startRoleTimer()
 {
-    this->timer_role->start();
+    this->timer_role->start(500);
 }
 
 void QRole::stopRoleTimer()
@@ -153,11 +151,11 @@ void QRole::stopRoleTimer()
 
 //获取角色图块ID在idTiles数组中的索引
 //如果存在返回索引 如果不存在返回默认值4
-int QRole::getTileIndex(IDTILE idTile)
+int QRole::getTileIndex(INDEX index)
 {
     for(int i=0;i<MAX_ROLE_TILE;i++)
     {
-        if(idTiles[i]==idTile)
+        if(idTiles[i]==index)
         {
             return i;
         }

@@ -64,11 +64,14 @@ void QTile::initTile()
 
 
 
-void QTile::draw(QPainter &painter, int x, int y, int idTile) {
+void QTile::draw(QPainter &painter, int x, int y, INDEX idTile) {
     painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
     if (idTile >= 0 && idTile < MAX_TILE) {
-        painter.drawImage(x, y, tileData[idTile]);
+        painter.drawImage(x, y, tileData[idTile].scaled(TILE_WIDTH,TILE_HEIGHT,Qt::KeepAspectRatio,Qt::SmoothTransformation));
         //painter.drawImage(x, y, QImage(":/pictruetest.png"));
+    }
+    else{
+        qWarning()<<"TILE index out of range";
     }
 }
 

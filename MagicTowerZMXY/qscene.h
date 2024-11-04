@@ -20,18 +20,18 @@ class QScene : public QWidget
     Q_OBJECT
 public:
     explicit QScene(QWidget *parent = nullptr);
-    //Data Cache所有NPC的数据缓冲
+
     void load(IDSCENE sceneID);
     void initScene();
     void backward();
     void forward();
-    QPoint getRoleNextPoint(int key);
+    QPoint getRoleNextPoint(QKeyEvent *event);
     IDSCENE getSceneID();
     QString getSceneName();
-    IDTILE getRoleTileID();
+    INDEX getRoleTileID();
     QPoint getRolePos();
     ROLEINFO getRoleInfo();
-    void getNpcTile(QPoint curPos,IDTILE idTile[MAX_NPC_TILE],NPCINFO* npcInfo);
+    void getNpcTile(QPoint curPos,INDEX idTile[MAX_NPC_TILE]);
     NPCINFO getNpcInfo(QPoint curPos);
     IDSCRIPT getScriptID(QPoint curPos);
     void setRolePos(QPoint nextPos);
@@ -87,12 +87,15 @@ public:
     void startSceneTimer();
     void stopSceneTimer();
     static void initMap();//  初始化地图数据
+
+    int SCENE_DRAW;
 private:
+    //Data Cache所有NPC的数据缓冲
     static IDTILE TileData[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];
     QString sceneName;
     IDSCENE m_idScene;
     IDSCENE m_idLayerDone;
-    QTile tile;
+    QTile *tile;
     QNpc npc[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];
     QRole role;
     QPoint roleEntryPos[MAX_SCENE];
@@ -101,6 +104,8 @@ private:
     IDTILE roleExitTile[MAX_SCENE];
     QTimer* sceneTimer;
 signals:
+    void startAnimation();
+    void timerScene();
 };
 
 #endif // QSCENE_H

@@ -3,46 +3,35 @@
 QBackGround::QBackGround(QWidget *parent)
     : QWidget{parent}
 {
-    BG_DRAW=0;
+    this->isActive=false;
     tile=new QTile(this);
 
-    //info= new QInfo(this);
-    //talk=new QTalk(this);
-    //tile->initTile();
-    //info= new QInfo(this);
-    //talk=new QTalk(this);
-    //role = new QRole(this);
-
-
-}
-QBackGround::~QBackGround() {
 }
 
 
 void QBackGround::paintEvent(QPaintEvent *event)
 {
-    if(BG_DRAW==0){
-        return ;
-    }else
+    if(this->isActive)
     {
-
-    }
-    //绘制大小
-    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
-    QPainter painter(this);
-    //test_背景大小和宽度
-    // QBrush brush(Qt::green);
-    // painter.setBrush(brush);
-    // painter.drawRect(0,0,MAX_WIDTH,MAX_HEIGHT);
-    // //绘制背景
-    int i, j;
-    for(i = 0; i < MAX_WIDTH / TILE_WIDTH + 1; i++)
-    {
-        for(j = 0; j < MAX_HEIGHT / TILE_HEIGHT; j++)
+        //绘制大小
+        setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+        QPainter painter(this);
+        // //绘制背景
+        int i, j;
+        for(i = 0; i < MAX_WIDTH / TILE_WIDTH + 1; i++)
         {
-            tile->draw(painter, i * TILE_WIDTH, j * TILE_HEIGHT, TILE_BG);
+            for(j = 0; j < MAX_HEIGHT / TILE_HEIGHT; j++)
+            {
+                tile->draw(painter, i * TILE_WIDTH, j * TILE_HEIGHT, TILE_BG);
+            }
         }
     }
+    QWidget::paintEvent(event);
+}
+
+void QBackGround::setActive(bool value)
+{
+    this->isActive=value;
 }
 
 

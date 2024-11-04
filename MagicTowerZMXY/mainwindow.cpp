@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     //info=new QInfo(this);
 
     game=new QGame(this);
-    game->initkeyFocus();
+    // game->initkeyFocus();
     //story->STORY_DRAW=1;
     //story->STORY_KEY=1;
      //bg->BG_DRAW=1;
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     //role = new QRole(this);
     //tile = new QTile(this);
 
-    tile->initTile();
+    // tile->initTile();
 
     //QNpc测试
     //npc = new QNpc(this);
@@ -94,7 +94,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     game->keyPressEvent(event);
-
 
     //qrole测试
     // // 使用 static_cast 将 int 转换为 Qt::Key

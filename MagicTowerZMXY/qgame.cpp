@@ -5,29 +5,78 @@
 QGame::QGame(QWidget *parent)
     : QWidget{parent}
 {
+    // Init All Global Data
     QTile::initTile();
     QNpc::initNpc();
     QScene::initMap();
     QScript::initScript();
+
+
+
+    // connect(this->fight,&QFight::timerFight,[=](){
+
+    // });
+    // connect(this->scene,&QScene::timerScene,[=](){
+
+    // });
+
     // npc->initNpc();;
     Sound = new QSoundEffect(this);
+    story= new QStory(this);
 
     // tile=new QTile(this);
     background=new QBackGround(this);
     info=new QInfo(this);
-    talk=new QTalk(this);
-    story= new QStory(this);
+
+
     // npc=new QNpc(this);
-    fight=new QFight(this);
+
     scene=new QScene(this);
-    this->scene->setGeometry(mainRect);
+    fight=new QFight(this);
+    talk=new QTalk(this);
+    // this->scene->show();
     scene->initScene();
-    // Init All Global Data
 
 
-    //控制键盘焦点
-    // initkeyFocus();
+    connect(this->story,&QStory::storyEnd,[=](){
+        // qDebug()<<"2";
 
+        background->setActive(true);
+        info->setActive(true);
+
+        emit scene->startAnimation();
+
+        Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
+        Sound->play();
+        Sound->setLoopCount(QSoundEffect::Infinite);
+        delete story;
+        // qDebug()<<"1";
+
+        gameState = GS_WALK;
+    });
+
+    connect(this->talk,&QTalk::talkEnd,[=](){
+        gameState = GS_WALK;
+    });
+
+    connect(this->fight,&QFight::fightEnd,[=](){
+
+
+            scene->hideNpc(ptCurNpcPos);
+            Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
+            Sound->play();
+            Sound->setLoopCount(QSoundEffect::Infinite);
+            gameState = GS_WALK;
+
+
+
+                scene->setRoleInfo(fight->getResult());
+                  if (fight->getResult().nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
+                {                           //检查角色健康状态roleInfo.nHealth：
+                    gameState = GS_OVER;
+                }
+
+    });
     // Game Const
     gameState = GS_INIT;
     gameClientSize = QSize(MAX_WIDTH, MAX_HEIGHT);
@@ -37,16 +86,9 @@ QGame::QGame(QWidget *parent)
 
     running = false;
 
-    // Create Cache Images
-    // cacheImage = QImage(gameClientSize, QImage::Format_RGB32);
-    // mapImage = QImage(MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_HEIGHT, QImage::Format_RGB32);
-
     // Set Game Window Properties
     setGeometry(0, 0, gameClientSize.width(), gameClientSize.height());
 
-
-    // Set up a timer for game updates
-    startTimer(1000 / 60); // 60 FPS timer
     story->init();
 }
 
@@ -54,31 +96,24 @@ QGame::~QGame()
 {
 }
 
-//改变键盘焦点
-void QGame::initkeyFocus(){
-
-    this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
-    this->setFocus(); // 尝试在构造时设置焦点
-}
 
 //绘图事件
-void QGame::paintEvent(QPaintEvent *)
+void QGame::paintEvent(QPaintEvent *event)
 {
 
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
     // painter.drawImage(0, 0, cacheImage);
-    if(story->STORY_KEY==2 ){
-        initkeyFocus();
-    }
+    // if(story->STORY_KEY==2 ){
+    //     initkeyFocus();
+    // }
     switch (gameState)
     {
     case GS_INIT:
-        emit
         //改留给qstory painter事件的触发条件
         // story->init();
-        story->STORY_DRAW=1;
-        story->STORY_KEY=1;
+        // story->STORY_DRAW=1;
+        // story->STORY_KEY=1;
 
         //story.OnDraw(painter);
         break;
@@ -89,87 +124,56 @@ void QGame::paintEvent(QPaintEvent *)
         painter.drawText(150, 130, "大侠重新来过吧! ");
         break;
     default:
+        // scene->paintEvent(event);
         drawGameScene(painter);
         break;
     }
+    update();
 }
 
 //scence，fight
 void QGame::drawGameScene(QPainter &painter)
-{
-    // QPainter cachePainter(&cacheImage);
+{    
+    emit info->infoUpdated(scene->getRoleInfo(),scene->getSceneName());
+    scene->SCENE_DRAW=1;
 
-
-    //改留给bg painter事件的触发条件
-    background->BG_DRAW=1;
-    //background->OnDraw(cachePainter);
-    // info->drawBorder(cachePainter, mainRect);
-    //改留给info painter事件的触发条件
-    info->INFO_DRAW=1;
-    // info->onDraw(cachePainter, infoRect, scene->getRoleInfo(), scene->getSceneName());
-    // QPainter mapPainter(&mapImage);
-
-    //scence绘图事件的触发条件
-    //scene.OnDraw(mapPainter);
-    // cachePainter.drawImage(mainRect.topLeft(), mapImage);
-
-    if (gameState == GS_TALK)
-    {
-        // talk->draw(cachePainter);
-    }
-    else if (gameState == GS_FIGHT)
+    if (gameState == GS_FIGHT)
     {
         //fight绘图事件的触发条件
-        fight->FIGHT_DRAW=1;
     }
-    // painter.drawImage(0, 0, cacheImage);
 }
 
 //“S”保存，“A"读取，“R”重新开始未实现
 void QGame::keyPressEvent(QKeyEvent *event)
 {
-    // if()
-    story->keyPressEvent(event);
     switch (event->key())
     {
     case Qt::Key_Q:
-        close();
+        exit(0);
         break;
     case Qt::Key_R:
         // 还未实现
         return;
-    default:
-        handleGameKey(event->key());
-
-        //把键盘事件拉回game
-        initkeyFocus();
+    default:  
+        handleGameKey(event);
         break;
     }
-
     update();
 }
 
 //scence
-void QGame::handleGameKey(int key)
+void QGame::handleGameKey(QKeyEvent *event)
 {
 
     switch (gameState)
     {
     case GS_INIT:
-        //调用story->OnKeyDown(key)来处理按键。如果返回false，表示初始化阶段结束
-        if (story->STORY_KEY == 2)
-        {
-            gameState = GS_WALK;
-
-            Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
-            Sound->play();
-            Sound->setLoopCount(QSoundEffect::Infinite);
-        }
+        story->keyPressEvent(event);
         break;
     case GS_WALK:
         //使用Scene.GetRoleNextPoint(key)获取角色下一步的位置。
 
-        ptCurNpcPos = scene->getRoleNextPoint(key);
+        ptCurNpcPos = scene->getRoleNextPoint(event);
 
         // 检查该位置是否有脚本事件（Scene.GetScriptID(ptCurNpcPos)）
          if (IDSCRIPT idScript = scene->getScriptID(ptCurNpcPos))
@@ -185,22 +189,16 @@ void QGame::handleGameKey(int key)
          }
         break;
     case GS_TALK:
-        talk->initkey();
-        if (talk->TALK_KEY == 2)
-        {
-            gameState = GS_WALK;
-            recurScript();
-            initkeyFocus();
-        }
+        talk->keyPressEvent(event);
+        // recurScript();
         break;
     case GS_FIGHT:
         //调用fight.OnKeyDown(key)处理战斗中的按键
-        if (fight->FIGHT_OVER == 0)
-        {
+
         //如果返回false，表示战斗结束，状态切换回GS_WALK，并执行脚本
             gameState = GS_WALK;
             recurScript();
-        }
+
         break;
     case GS_OVER:
         break;
@@ -208,62 +206,45 @@ void QGame::handleGameKey(int key)
 }
 
 //scence
-void QGame::timerEvent(QTimerEvent *event)
-{
-    scene->startSceneTimer();
+// void QGame::timerEvent(QTimerEvent *event)
+// {
+//     scene->startSceneTimer();
 
-//     scene.OnTimer(event->timerId());
-      //不论当前游戏状态是什么，首先调用scene.OnTimer()处理场景相关的定时器事件。
-     // 这可能用于更新场景动画、计时器或其他持续性事件。
-    switch (gameState)
-    {
-    case GS_INIT:
-        //调用story->OnTimer(event->timerId())处理故事相关的定时器事件
-        if (story->STORY_KEY==2)
-        {
-            gameState = GS_WALK;
-            Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
-            Sound->play();
-            Sound->setLoopCount(QSoundEffect::Infinite);
-            qDebug()<<"timerEvent::GS_INIT";
-        }
-        break;
-    case GS_TALK:
-        //调用talk->OnTimer(event->timerId())处理对话相关的定时器事件
-        talk->OnTimer(event->timerId());
-        break;
-    case GS_FIGHT:
-        //调用fight.OnTimer(event->timerId())处理战斗中的定时器事件
-        if (fight->fightOnTimer() == false)
-        {
-/*
-隐藏当前NPC (scene.HideNpc(ptCurNpcPos))。
-播放背景音乐SOUND_BG_FILE。
-切换状态回GS_WALK。
-执行依赖于脚本的逻辑。
-*/
-            scene->hideNpc(ptCurNpcPos);
-            Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
-            Sound->play();
-            Sound->setLoopCount(QSoundEffect::Infinite);
-            gameState = GS_WALK;
-            recurScript();
-        }
-//获取并设置角色战斗结果ROLEINFO roleInfo = fight.GetResult()
-        // ROLEINFO roleInfo = ;
-//更新角色信息scene.SetRoleInfo(roleInfo)
-        scene->setRoleInfo(fight->getResult());
-          if (fight->getResult().nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
-        {                           //检查角色健康状态roleInfo.nHealth：
-            gameState = GS_OVER;
-        }
-        break;
-    default:
-        break;
-    }
+// //     scene.OnTimer(event->timerId());
+//       //不论当前游戏状态是什么，首先调用scene.OnTimer()处理场景相关的定时器事件。
+//      // 这可能用于更新场景动画、计时器或其他持续性事件。
+//     switch (gameState)
+//     {
+//     // case GS_INIT:
+//     //     //调用story->OnTimer(event->timerId())处理故事相关的定时器事件
+//     //     if(story->IsStoryEnd())
+//     //     {
+//     //         qDebug()<<"2";
+//     //         gameState = GS_WALK;
+//     //         Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
+//     //         Sound->play();
+//     //         Sound->setLoopCount(QSoundEffect::Infinite);
+//     //         delete story;
+//     //         // qDebug()<<"1";
+//     //         // qDebug()<<"timerEvent::GS_INIT";
+//     //     }
 
-    update();//调用update()刷新游戏界面。
-}
+//     //     break;
+//     case GS_TALK:
+//         talk->TALK_DRAW=1;
+//         //调用talk->OnTimer(event->timerId())处理对话相关的定时器事件
+//         talk->OnTimer(event->timerId());
+//         break;
+//     case GS_FIGHT:
+
+//
+//     default:
+
+//         break;
+//     }
+
+//     update();//调用update()刷新游戏界面。
+// }
 
 
 void QGame::recurScript()
@@ -283,7 +264,7 @@ void QGame::procScript()
     SCRIPTPARAM Param1 = script.getScriptInfo().param1;
     SCRIPTPARAM Param2 = script.getScriptInfo().param2;
     SCRIPTPARAM Param3 = script.getScriptInfo().param3;
-
+    INDEX tmp[MAX_NPC_TILE]{0};
       switch (idFun)
       {
       case SC_NULL:
@@ -298,10 +279,12 @@ void QGame::procScript()
      case SC_FIGHT:
         running = false;
         gameState = GS_FIGHT;
-        //fight.load(Scene.GetNpcTile(ptCurNpcPos), Scene.GetNpcInfo(ptCurNpcPos), Scene.GetRoleInfo());
+        scene->getNpcTile(ptCurNpcPos,tmp);
+        fight->load(tmp, scene->getNpcInfo(ptCurNpcPos), scene->getRoleInfo());
         break;
      case SC_TALK:
         running = false;
+        emit talk->talking();
         gameState = GS_TALK;
         talk->load(Param1);
         break;

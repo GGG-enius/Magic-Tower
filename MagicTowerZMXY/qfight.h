@@ -30,7 +30,7 @@ public:
 
     //初始化函数,加载必要数据进行战斗
     //       idTile数组用于保存怪物的 Tile 信息
-    void load(IDTILE idTile[], NPCINFO npcInfo, ROLEINFO roleInfo);
+    void load(INDEX idTile[], NPCINFO npcInfo, ROLEINFO roleInfo);
     //                         npc相关信息        主角相关信息
 
     //信号处理函数
@@ -41,13 +41,18 @@ public:
     ROLEINFO getResult();//在战斗结束时可能用于返回一些结果信息
     int FIGHT_DRAW;//0关闭，1打开，默认0
     int FIGHT_OVER;//默认1，结束0
-
+    void startFightTimer();
+    void stopFightTimer();
+    void startSceneTimer();
+    void stopSceneTimer();
+    bool isFightTimerActive();
+    bool isSceneTimerActive();
 private:
     bool bAttack;//主角攻击还是怪物攻击
 
     //地图相关变量（Tile）
     QTile *tile;//用于处理地图块，可能用于定义战斗场景的不同区域
-    IDTILE m_idTile[MAX_NPC_TILE];//怪物图块信息
+    INDEX m_idTile[MAX_NPC_TILE];//怪物图块信息
     int nTileIndex;//当前操作的怪物索引
 
     //角色与怪物信息
@@ -57,7 +62,10 @@ private:
     //定时器
     QTimer *fightTimer;
     QTimer *scenceTimer;
+    bool isActive;
 signals:
+    void timerFight();
+    void fightEnd();
 };
 
 #endif // QFIGHT_H

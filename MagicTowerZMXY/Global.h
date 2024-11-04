@@ -12,9 +12,10 @@
 
 //ID
 typedef  int		IDTILE;					///<TILE 就是图块, 图元, 表示图形的最小单位, 如地图就是由图块拼成的
+typedef  int        INDEX;                  ///<动画索引
 typedef  int		IDSCENE;                ///<场景ID
 typedef  int		IDSCRIPT;               ///<脚本ID
-typedef  int		            IDFUN;                  ///<函数ID
+typedef  int		IDFUN;                  ///<函数ID
 typedef  int		IDTALK;                 ///<对话ID
 //Script
 typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号，(x,y)坐标
@@ -48,7 +49,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define MAP_WIDTH			11				///<每层地图宽11个TILE
 #define MAP_HEIGHT			11				///<每层地图高11个TILE
 #define MAX_TILE			423				///<共计174个TILE
-#define MAX_NPC				MAX_TILE		///<游戏最多共有174种NPC, Ps:实际好像100左右
+#define MAX_NPC				186      		///<游戏最多共有174种NPC, Ps:实际好像100左右
 #define TILE_WIDTH			32				///<每个TILE宽32像索
 #define TILE_HEIGHT			32				///<每个TILE高32像索
 #define MAX_ROLE_TILE		16				///<主角共16个TILE
@@ -63,10 +64,10 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 //TILE
 #define TILE_BG				7         ///<背景Tile的ID
 #define TILE_FLOOR			18          ///<地板Tile的ID
-#define TILE_CELESTIAL		175			///<仙子Tile的ID
-#define TILE_ROLE			127			///<主角Tile的ID
-#define TILE_ROLE_ENTRY		127			///<主角进入场景时的默认图块
-#define TILE_ROLE_EXIT		127			///<主角退出场景后的默认图块
+#define TILE_CELESTIAL		124			///<仙子Tile的ID
+#define TILE_ROLE			115			///<主角Tile的ID
+#define TILE_ROLE_ENTRY		115			///<主角进入场景时的默认图块
+#define TILE_ROLE_EXIT		115			///<主角退出场景后的默认图块
 
 //Timer
 

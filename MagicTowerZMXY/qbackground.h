@@ -9,37 +9,25 @@
 #ifndef QBACKGROUND_H
 #define QBACKGROUND_H
 
-#include "qinfo.h"  //info——test
 #include <QWidget>
-//#include <QImage>
 #include <QPainter>
 #include <QPaintEvent>
-#include <QRect>//info——test
 #include "Global.h"
 #include "qtile.h"
-#include "qrole.h"
-#include "qtalk.h"
+
 class QBackGround : public QWidget
 {
     Q_OBJECT
 public:
-    QBackGround();
-    virtual ~QBackGround();
     explicit QBackGround(QWidget *parent = nullptr);
+
     void paintEvent(QPaintEvent *event)override ;
-    int BG_DRAW;//出发绘图事件
-        //void timerEvent(QTimerEvent *event) override;
+
+    void setActive(bool value);//槽函数，触发背景绘图
+
 private:
     QTile *tile;
-    //QInfo *info;//info——test
-    //QRect MainRect;//info——test
-    //QRect InfoRect;//info——test
-    //QTalk *talk;
-    QInfo *info;//info——test
-    QRect MainRect;//info——test
-    QRect InfoRect;//info——test
-    QTalk *talk;
-    QRole *role;
+    bool isActive;//背景活动状态标志
 };
 
 #endif // QBACKGROUND_H

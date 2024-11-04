@@ -4,22 +4,23 @@ IDTILE QScene::TileData[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];
 QScene::QScene(QWidget *parent)
     : QWidget{parent}
 {
-    //控制原生窗口大小
-    // this->setFixedSize(MAX_WIDTH,MAX_HEIGHT);
-
-
+    //控制原生窗口大小位置
+    this->setFixedSize(MAP_WIDTH*TILE_WIDTH,MAP_HEIGHT*TILE_WIDTH);
+    this->setGeometry(QRect(250, 50, MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_WIDTH));
+    tile=new QTile(this);
+    SCENE_DRAW=0;
     //交给QGame启动定时器
     this->sceneTimer = new QTimer(this);
-    // connect(this->sceneTimer, &QTimer::timeout, this, [=](){
-    //     for(int i = 0; i < MAP_WIDTH; i++)
-    //     {
-    //         for(int j = 0; j < MAP_HEIGHT; j++)
-    //         {
-    //             npc[this->m_idScene][i][j].startNpcTimer();
-    //         }
-    //     }
-    //     role.startRoleTimer();
-    // });
+    connect(this, &QScene::startAnimation, this, [=](){
+        for(int i = 0; i < MAP_HEIGHT; i++)
+        {
+            for(int j = 0; j < MAP_WIDTH; j++)
+            {
+                npc[this->m_idScene][i][j].startNpcTimer();
+            }
+        }
+        // role.startRoleTimer();
+    });
 }
 
 void QScene::load(IDSCENE sceneID)
@@ -40,13 +41,13 @@ void QScene::initScene()
 
     for(int i = 0; i < MAX_SCENE; i++)
     {
-        for(int j = 0; j < MAP_WIDTH; j++)
+        for(int j = 0; j < MAP_HEIGHT; j++)
         {
-            for(int k = 0; k < MAP_HEIGHT; k++)
+            for(int k = 0; k < MAP_WIDTH; k++)
             {
                 if(role.isRoleTileID(TileData[i][j][k]))		//判断是否是主角
                 {												//是则设置相应入口信息
-                    roleEntryPos[i] = QPoint(j, k);
+                    roleEntryPos[i] = QPoint(k, j);
                     roleEntryTile[i] = TileData[i][j][k];
                     npc[i][j][k].load(TILE_FLOOR);				//相应位置补充地板ID, Ps:正因地板ID唯一, 所以游戏未采用分层结构
                 }
@@ -54,6 +55,7 @@ void QScene::initScene()
                 {
                     npc[i][j][k].load(TileData[i][j][k]);		//相应位置载入相应NPC
                 }
+
             }
         }
     }
@@ -83,9 +85,9 @@ void QScene::forward()
     }
 }
 
-QPoint QScene::getRoleNextPoint(int key)
+QPoint QScene::getRoleNextPoint(QKeyEvent *event)
 {
-    return role.getNextPoint(key);
+    return role.getNextPoint(event);
 }
 
 IDSCENE QScene::getSceneID()
@@ -107,7 +109,7 @@ QString QScene::getSceneName()
     return this->sceneName;
 }
 
-IDTILE QScene::getRoleTileID()
+INDEX QScene::getRoleTileID()
 {
     return role.getRoleTileID();
 }
@@ -122,22 +124,22 @@ ROLEINFO QScene::getRoleInfo()
     return role.getRoleInfo();
 }
 
-void QScene::getNpcTile(QPoint curPos, IDTILE idTile[], NPCINFO *npcInfo)
+void QScene::getNpcTile(QPoint curPos, INDEX idTile[])
 {
-    npc[this->m_idScene][curPos.x()][curPos.y()].getNpcTile(idTile);
-    *npcInfo=npc[this->m_idScene][curPos.x()][curPos.y()].getNpcInfo();
+    npc[this->m_idScene][curPos.y()][curPos.x()].getNpcTile(idTile);
+    // *npcInfo=npc[this->m_idScene][curPos.y()][curPos.x()].getNpcInfo();
 }
 
 
 
 NPCINFO QScene::getNpcInfo(QPoint curPos)
 {
-    return npc[this->m_idScene][curPos.x()][curPos.y()].getNpcInfo();
+    return npc[this->m_idScene][curPos.y()][curPos.x()].getNpcInfo();
 }
 
 IDSCRIPT QScene::getScriptID(QPoint curPos)
 {
-    return npc[this->m_idScene][curPos.x()][curPos.y()].getScriptID();
+    return npc[this->m_idScene][curPos.y()][curPos.x()].getScriptID();
 }
 
 void QScene::setRolePos(QPoint nextPos)
@@ -154,31 +156,37 @@ void QScene::setNpcPos(QPoint curPos, QPoint newPos)
 {
     if(curPos!=newPos)
     {
-        npc[this->m_idScene][newPos.x()][newPos.y()].load(npc[this->m_idScene][curPos.x()][curPos.y()]);
-        npc[this->m_idScene][curPos.x()][curPos.y()].load(TILE_FLOOR);
+        npc[this->m_idScene][newPos.y()][newPos.x()].load(npc[this->m_idScene][curPos.y()][curPos.x()]);
+        npc[this->m_idScene][curPos.y()][curPos.x()].load(TILE_FLOOR);
     }
 }
 
 void QScene::hideNpc(QPoint pos)
 {
-    npc[this->m_idScene][pos.x()][pos.y()].hide();
+    npc[this->m_idScene][pos.y()][pos.x()].hide();
 }
 
 void QScene::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
-    for(int i = 0; i < MAP_WIDTH; i++)
+    if(SCENE_DRAW)
     {
-        for(int j = 0; j < MAP_HEIGHT; j++)
+        QPainter painter(this);
+
+        for(int i = 0; i < MAP_HEIGHT; i++)
         {
-            this->tile.draw(painter, i * TILE_WIDTH, j * TILE_HEIGHT, npc[this->m_idScene][i][j].getTileID());
+            for(int j = 0; j <MAP_WIDTH ; j++)
+            {
+                this->tile->draw(painter, j * TILE_WIDTH, i * TILE_HEIGHT, npc[this->m_idScene][i][j].getTileID());
+            }
         }
+
+        QPoint curPos=role.getPos();
+        IDTILE roleTile=role.getRoleTileID();
+        this->tile->draw(painter,curPos.x()*TILE_WIDTH,curPos.y()*TILE_HEIGHT,roleTile);
+
+        QWidget::paintEvent(event);
     }
 
-    QPoint curPos=role.getPos();
-    IDTILE roleTile=role.getRoleTileID();
-    this->tile.draw(painter,curPos.x()*TILE_WIDTH,curPos.y()*TILE_HEIGHT,roleTile);
-    QWidget::paintEvent(event);
 }
 
 void QScene::startSceneTimer()
