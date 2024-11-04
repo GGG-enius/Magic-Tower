@@ -85,7 +85,9 @@ bool QFight::scenceOnTimer()
 //处理按键事件的逻辑，目前总是返回 TRUE，意味着按键会被处理
 bool QFight::handleKeyPressEvent(QKeyEvent *event)
 {
-    qDebug()<<"shihsishi";
+    if(this->isActive==false){
+        return false;
+    }
     return true;
 }
 

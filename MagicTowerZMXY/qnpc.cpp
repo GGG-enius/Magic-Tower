@@ -223,7 +223,7 @@ void QNpc::initNpc()
         return;
     }
     QDataStream in(&npcFile);
-    in.setVersion(QDataStream::Qt_6_7);
+    in.setVersion(QDataStream::Qt_6_5);
     quint32 size;
     in>>size;//读取结构体数量
     for(quint32 i=0;i<size;i++)

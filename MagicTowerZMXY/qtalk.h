@@ -44,6 +44,7 @@ public:
     void OnTimer();
     void keyPressEvent(QKeyEvent *event);//键盘事件
     void paintEvent(QPaintEvent *event)override ;
+    bool handleKeyPressEvent(QKeyEvent *event);
 
 private:
     static QVector<TALK> talkData;

@@ -190,15 +190,18 @@ void QGame::handleGameKey(QKeyEvent *event)
         break;
     case GS_TALK:
         talk->keyPressEvent(event);
-        // recurScript();
+        if(talk->handleKeyPressEvent(event)==false){
+        recurScript();
+        }
         break;
     case GS_FIGHT:
         //调用fight.OnKeyDown(key)处理战斗中的按键
 
         //如果返回false，表示战斗结束，状态切换回GS_WALK，并执行脚本
+        if(fight->handleKeyPressEvent(event)==false){
             gameState = GS_WALK;
             recurScript();
-
+        }
         break;
     case GS_OVER:
         break;
@@ -317,7 +320,6 @@ void QGame::handleNpcInteraction()
             break;
         }
     }
-
     if (npcValid)
     {
         for (int i = 0; i < sizeof(roleInfo) / sizeof(int); ++i)

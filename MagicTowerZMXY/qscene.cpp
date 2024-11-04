@@ -209,7 +209,7 @@ void QScene::initMap()
         return;
     }
     QDataStream in(&mapFile);
-    in.setVersion(QDataStream::Qt_6_7);
+    in.setVersion(QDataStream::Qt_6_5);
     int dim1,dim2,dim3;
     in>>dim1>>dim2>>dim3;//读取维度信息
     for(int i=0;i<dim1;i++)

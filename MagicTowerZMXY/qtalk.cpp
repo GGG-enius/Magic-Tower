@@ -110,5 +110,11 @@ void QTalk::paintEvent(QPaintEvent *event)
     }
     QWidget::paintEvent(event);
 }
-
+bool QTalk::handleKeyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Space){
+        return false;
+    }
+    return true;
+}
 

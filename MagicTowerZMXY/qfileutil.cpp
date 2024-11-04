@@ -13,7 +13,7 @@ void QFileUtil::saveGame(const QGame &obj, const QString &fileName)
         return;
     }
     QDataStream out(&file);
-    out.setVersion(QDataStream::Qt_6_7); // 确保版本兼容性
+    out.setVersion(QDataStream::Qt_6_5); // 确保版本兼容性
     out << obj;
     file.close();
 }
@@ -26,7 +26,7 @@ void QFileUtil::loadGame(QGame &obj, const QString &fileName)
         return;
     }
     QDataStream in(&file);
-    in.setVersion(QDataStream::Qt_6_7); // 确保版本兼容性
+    in.setVersion(QDataStream::Qt_6_5); // 确保版本兼容性
     in >> obj;
     file.close();
 }
