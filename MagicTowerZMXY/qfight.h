@@ -21,6 +21,7 @@
 #include <QRect>
 #include <QPoint>
 #include <QSize>
+#include <QSoundEffect>
 class QFight : public QWidget
 {
     Q_OBJECT
@@ -39,17 +40,15 @@ public:
     virtual bool handleKeyPressEvent(QKeyEvent *event);//键盘事件处理函数
     void paintEvent(QPaintEvent *event);//用于绘制战斗场景
     ROLEINFO getResult();//在战斗结束时可能用于返回一些结果信息
-    int FIGHT_DRAW;//0关闭，1打开，默认0
-    int FIGHT_OVER;//默认1，结束0
+
     void startFightTimer();
     void stopFightTimer();
     void startSceneTimer();
     void stopSceneTimer();
-    bool isFightTimerActive();
-    bool isSceneTimerActive();
+
 private:
     bool bAttack;//主角攻击还是怪物攻击
-
+    QSoundEffect * fightSound;
     //地图相关变量（Tile）
     QTile *tile;//用于处理地图块，可能用于定义战斗场景的不同区域
     INDEX m_idTile[MAX_NPC_TILE];//怪物图块信息
@@ -64,7 +63,6 @@ private:
     QTimer *scenceTimer;
     bool isActive;
 signals:
-    void timerFight();
     void fightEnd();
 };
 

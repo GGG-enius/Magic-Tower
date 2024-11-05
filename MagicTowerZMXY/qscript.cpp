@@ -79,6 +79,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
      SI_NPC,
      {//NPC
          {0,0,0,0},
+         {SC_TALK, 0, 50, 100},
          {SC_NPC, 0, 0, 0},
          {0,0,0,0},
          {0,0,0,0},
@@ -120,6 +121,24 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
      {//机关
          {0,0,0,0},
          {0,0,0,0},
+         {0,0,0,0},
+         },
+     },
+    //Door
+    {
+     SI_DOOR,
+     {//门
+         {0,0,0,0},
+         {SC_DOOR,0,0,0},
+         {0,0,0,0},
+         },
+     },
+    //Object
+    {
+     SI_OBJECT,
+     {//物品
+         {0,0,0,0},
+         {SC_OBJECT, 0, 0, 0},
          {0,0,0,0},
          },
      },

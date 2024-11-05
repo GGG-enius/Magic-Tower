@@ -9,16 +9,19 @@ QFight::QFight(QWidget *parent)
     fightTimer = new QTimer(this);
     scenceTimer = new QTimer(this);
     tile = new QTile(this);
-    // tile->initTile();
+
+    this->fightSound = new QSoundEffect(this);
+
+
     connect(fightTimer, &QTimer::timeout, [=](){
         this->fightOnTimer();
-        this->show();
     });
     connect(scenceTimer, &QTimer::timeout, this, &QFight::scenceOnTimer);
     connect(this,&QFight::fightEnd,[=](){
         this->hide();
-        qDebug()<<"|||||||||||||||||";
+        // qDebug()<<"|||||||||||||||||";
         this->isActive=false;
+        this->fightSound->stop();
     });
 }
 
@@ -30,8 +33,13 @@ void QFight::load(INDEX idTile[], NPCINFO npcInfo, ROLEINFO roleInfo)
     }
     m_RoleInfo = roleInfo;
     m_NpcInfo = npcInfo;
+    this->show();
     this->startFightTimer();
+    this->startSceneTimer();
     this->isActive=true;
+    this->fightSound->setSource(QUrl::fromLocalFile(SOUND_FIGHT_FILE));
+    this->fightSound->play();
+    this->fightSound->setLoopCount(QSoundEffect::Infinite);
 }
 
 //战斗计时，更改生命数值，实现战斗
@@ -68,7 +76,7 @@ bool QFight::fightOnTimer()
         bAttack = true;
         this->stopFightTimer();
         this->stopSceneTimer();
-        qDebug()<<"--------------------------";
+        // qDebug()<<"--------------------------";f
         emit this->fightEnd();
         return false;//战斗结束
     }
@@ -83,7 +91,7 @@ bool QFight::scenceOnTimer()
 }
 
 //处理按键事件的逻辑，目前总是返回 TRUE，意味着按键会被处理
-bool QFight::handleKeyPressEvent(QKeyEvent *event)
+bool QFight::handleKeyPressEvent(QKeyEvent *)
 {
     if(this->isActive==false){
         return false;
@@ -91,9 +99,6 @@ bool QFight::handleKeyPressEvent(QKeyEvent *event)
     return true;
 }
 
-// bool QFight::onKeyDown(int key){
-//     return ;
-// }
 void QFight::paintEvent(QPaintEvent *event)
 {
     if(this->isActive)
@@ -163,6 +168,7 @@ void QFight::paintEvent(QPaintEvent *event)
         painter.drawLine(rect.right() - 1 * TILE_WIDTH, 100 + TILE_HEIGHT * 5 - 4, rect.right() - 6 * TILE_WIDTH, 100 + TILE_HEIGHT * 5 - 4);
         painter.drawLine(rect.right() - 1 * TILE_WIDTH, 100 + TILE_HEIGHT * 7 - 4, rect.right() - 6 * TILE_WIDTH, 100 + TILE_HEIGHT * 7 - 4);
     }
+    QWidget::paintEvent(event);
 }
 
 ROLEINFO QFight::getResult()
@@ -191,14 +197,6 @@ void QFight::stopSceneTimer()
     this->scenceTimer->stop();
 }
 
-bool QFight::isFightTimerActive()
-{
-    return this->fightTimer->isActive();
-}
 
-bool QFight::isSceneTimerActive()
-{
-    return this->fightTimer->isActive();
-}
 
 

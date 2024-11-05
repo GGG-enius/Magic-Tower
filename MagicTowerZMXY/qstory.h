@@ -28,22 +28,17 @@ public:
     void storyOnTimer();//定时器事件处理槽
     void keyPressEvent(QKeyEvent *event);//键盘事件
     void paintEvent(QPaintEvent *event);//绘画事件
-    // int STORY_DRAW;    //hhz：触发绘图事件
-    // int STORY_KEY;   //触发键盘事件，默认0关闭，1运行，2结束
-
-    // bool isStoryTimerActive();
-    // bool IsStoryEnd() const;//判断是否要切场景
 
 private:
     QTimer *timer;
     QSoundEffect *startSound;
     QString storyBuf;
-    // QChar storyBuf[MAX_BUFFER];//故事情节缓冲
+
     int storyBufIndex;//故事情节缓冲索引
-    // bool isEnd;     //故事结束换场景标志
+
 
     bool changeColor;
-    //QBackGround *background;
+
 signals:
     void storyEnd();
 };

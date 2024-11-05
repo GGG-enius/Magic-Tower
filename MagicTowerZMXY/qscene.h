@@ -84,11 +84,9 @@ public:
         in>>obj.role;
         return in;
     }
-    void startSceneTimer();
-    void stopSceneTimer();
-    static void initMap();//  初始化地图数据
 
-    int SCENE_DRAW;
+    static void initMap();//  初始化地图数据
+    void startPtPosAnimation(int layer,int y,int x);
 private:
     //Data Cache所有NPC的数据缓冲
     static IDTILE TileData[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];
@@ -102,10 +100,12 @@ private:
     QPoint roleExitPos[MAX_SCENE];
     IDTILE roleEntryTile[MAX_SCENE];
     IDTILE roleExitTile[MAX_SCENE];
-    QTimer* sceneTimer;
+
+    bool isActive;
 signals:
     void startAnimation();
-    void timerScene();
+    void stopAnimation();
+    void stopDoorAnimation();
 };
 
 #endif // QSCENE_H

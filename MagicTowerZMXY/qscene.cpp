@@ -7,19 +7,29 @@ QScene::QScene(QWidget *parent)
     //控制原生窗口大小位置
     this->setFixedSize(MAP_WIDTH*TILE_WIDTH,MAP_HEIGHT*TILE_WIDTH);
     this->setGeometry(QRect(250, 50, MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_WIDTH));
+
+    this->isActive=false;
+
     tile=new QTile(this);
-    SCENE_DRAW=0;
-    //交给QGame启动定时器
-    this->sceneTimer = new QTimer(this);
+
     connect(this, &QScene::startAnimation, this, [=](){
+        this->isActive=true;
+
         for(int i = 0; i < MAP_HEIGHT; i++)
         {
             for(int j = 0; j < MAP_WIDTH; j++)
             {
-                npc[this->m_idScene][i][j].startNpcTimer();
+                if(npc[this->m_idScene][i][j].isAutoAnimation())
+                {
+                    npc[this->m_idScene][i][j].startNpcTimer();
+                }
             }
         }
         // role.startRoleTimer();
+    });
+    connect(this,&QScene::stopAnimation,[=](){
+        this->isActive=false;
+        this->hide();
     });
 }
 
@@ -168,7 +178,7 @@ void QScene::hideNpc(QPoint pos)
 
 void QScene::paintEvent(QPaintEvent *event)
 {
-    if(SCENE_DRAW)
+    if(this->isActive)
     {
         QPainter painter(this);
 
@@ -181,23 +191,15 @@ void QScene::paintEvent(QPaintEvent *event)
         }
 
         QPoint curPos=role.getPos();
-        IDTILE roleTile=role.getRoleTileID();
+        INDEX roleTile=role.getRoleTileID();
         this->tile->draw(painter,curPos.x()*TILE_WIDTH,curPos.y()*TILE_HEIGHT,roleTile);
 
         QWidget::paintEvent(event);
     }
-
+    QWidget::paintEvent(event);
 }
 
-void QScene::startSceneTimer()
-{
-    this->sceneTimer->start();
-}
 
-void QScene::stopSceneTimer()
-{
-    this->sceneTimer->stop();
-}
 
 
 //ZMXY版读取地图数据
@@ -225,7 +227,14 @@ void QScene::initMap()
     mapFile.close();
     // qDebug()<<"3";
 }
-// void QScene::timerEvent(QTimerEvent *event)
-// {
 
-// }
+void QScene::startPtPosAnimation(int layer, int y, int x)
+{
+    connect(&npc[layer][y][x],&QNpc::stopDoorAnimation,[=]()
+    {
+        this->hideNpc(QPoint(x,y));
+        emit this->stopDoorAnimation();
+    });
+    npc[layer][y][x].setDoorFlag();
+    npc[layer][y][x].startNpcTimer();
+}

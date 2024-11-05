@@ -33,9 +33,16 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define MAP_FILE_NAME			"../../IOFile/Map.bin"
 #define NPC_FILE_NAME			"../../IOFile/Npc.bin"
 #define STORY_FILE				":/res/story.txt"
-#define SOUND_INIT_FILE			":/res/Sound_830.wav"
-#define SOUND_BG_FILE			"Sound_874.wav"
-#define SOUND_FIGHT_FILE		"Sound_13.wav"
+#define SOUND_START             ":/res/wav/Sound_800.wav"           ///<开始界面音乐
+#define SOUND_INIT_FILE			":/res/wav/Sound_830.wav"           ///<剧情音乐
+#define SOUND_BG_FILE1			":/res/wav/Sound_801.wav"           ///<背景音乐1
+#define SOUND_BG_FILE2			":/res/wav/Sound_802.wav"           ///<背景音乐2
+#define SOUND_BG_FILE3			":/res/wav/Sound_803.wav"           ///<背景音乐3
+#define SOUND_BG_FILE4			":/res/wav/Sound_804.wav"           ///<背景音乐4
+#define SOUND_BG_FILE5			":/res/wav/Sound_805.wav"           ///<背景音乐5
+#define SOUND_BG_FILE6			":/res/wav/Sound_806.wav"           ///<背景音乐6
+#define SOUND_BG_FILE7			":/res/wav/Sound_807.wav"           ///<背景音乐7
+#define SOUND_FIGHT_FILE		":/res/wav/Sound_13.wav"            ///<打斗音乐
 
 #endif
 
@@ -92,7 +99,8 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define SI_CELESTIAL		8			///<仙子
 #define SI_SHOP				9			///<商店
 #define SI_SECRET			10			///<机关
-
+#define SI_DOOR             11          ///<门
+#define SI_OBJECT           12          ///<物品
 
 //Game Script Command
 #define SC_NULL				0			///<无, 用于停止脚本循环
@@ -102,8 +110,8 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define SC_SETNPCPOS		2			///<仙子
 #define SC_FIGHT			12			///<战斗
 #define SC_TALK				-1			///<对话
-
-
+#define SC_OBJECT           13          ///<物品
+#define SC_DOOR             14          ///<门
 //暂定脚本，后续可能还有存档读档脚本
 #define SC_LOADSCENE		4
 #define SC_HIDENPC			5

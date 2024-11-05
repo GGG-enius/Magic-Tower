@@ -1,11 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/Map.txt</file>
-        <file>res/Npc.txt</file>
-        <file>res/Sound_13.wav</file>
-        <file>res/Sound_830.wav</file>
-        <file>res/Sound_874.wav</file>
         <file>res/story.txt</file>
-        <file>res/Tile.txt</file>
+        <file>res/wav/Sound_13.wav</file>
+        <file>res/wav/Sound_800.wav</file>
+        <file>res/wav/Sound_801.wav</file>
+        <file>res/wav/Sound_802.wav</file>
+        <file>res/wav/Sound_803.wav</file>
+        <file>res/wav/Sound_804.wav</file>
+        <file>res/wav/Sound_805.wav</file>
+        <file>res/wav/Sound_806.wav</file>
+        <file>res/wav/Sound_807.wav</file>
+        <file>res/wav/Sound_830.wav</file>
+        <file>res/Icon/Icon0001.png</file>
     </qresource>
 </RCC>

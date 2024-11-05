@@ -11,32 +11,22 @@ QGame::QGame(QWidget *parent)
     QScene::initMap();
     QScript::initScript();
 
+    this->scriptFlag=false;
 
-
-    // connect(this->fight,&QFight::timerFight,[=](){
-
-    // });
-    // connect(this->scene,&QScene::timerScene,[=](){
-
-    // });
-
-    // npc->initNpc();;
     Sound = new QSoundEffect(this);
     story= new QStory(this);
 
-    // tile=new QTile(this);
     background=new QBackGround(this);
     info=new QInfo(this);
-
-
-    // npc=new QNpc(this);
 
     scene=new QScene(this);
     fight=new QFight(this);
     talk=new QTalk(this);
-    // this->scene->show();
-    scene->initScene();
 
+    scene->initScene();
+    connect(this->scene,&QScene::stopDoorAnimation,[=](){
+        this->scriptFlag=false;
+    });
 
     connect(this->story,&QStory::storyEnd,[=](){
         // qDebug()<<"2";
@@ -46,36 +36,35 @@ QGame::QGame(QWidget *parent)
 
         emit scene->startAnimation();
 
-        Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
+        Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
         Sound->play();
         Sound->setLoopCount(QSoundEffect::Infinite);
         delete story;
         // qDebug()<<"1";
 
         gameState = GS_WALK;
+        this->update();
     });
 
     connect(this->talk,&QTalk::talkEnd,[=](){
         gameState = GS_WALK;
+        this->update();
     });
 
-    connect(this->fight,&QFight::fightEnd,[=](){
+    connect(this->fight,&QFight::fightEnd,[=](){ 
+        scene->hideNpc(ptCurNpcPos);
+        Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
+        Sound->play();
+        Sound->setLoopCount(QSoundEffect::Infinite);
+        gameState = GS_WALK;
 
-
-            scene->hideNpc(ptCurNpcPos);
-            Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
-            Sound->play();
-            Sound->setLoopCount(QSoundEffect::Infinite);
-            gameState = GS_WALK;
-
-
-
-                scene->setRoleInfo(fight->getResult());
-                  if (fight->getResult().nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
-                {                           //检查角色健康状态roleInfo.nHealth：
-                    gameState = GS_OVER;
-                }
-
+        scene->setRoleInfo(fight->getResult());
+        if (fight->getResult().nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
+        {                           //检查角色健康状态roleInfo.nHealth：
+            gameState = GS_OVER;
+        }
+        this->update();
+        this->Sound->play();
     });
     // Game Const
     gameState = GS_INIT;
@@ -103,45 +92,28 @@ void QGame::paintEvent(QPaintEvent *event)
 
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
-    // painter.drawImage(0, 0, cacheImage);
-    // if(story->STORY_KEY==2 ){
-    //     initkeyFocus();
-    // }
+
     switch (gameState)
     {
     case GS_INIT:
-        //改留给qstory painter事件的触发条件
-        // story->init();
-        // story->STORY_DRAW=1;
-        // story->STORY_KEY=1;
-
-        //story.OnDraw(painter);
         break;
     case GS_OVER:
         painter.fillRect(rect(), Qt::white);
         painter.setPen(Qt::black);
         painter.drawText(100, 100, "胜败乃兵家常事, ");
         painter.drawText(150, 130, "大侠重新来过吧! ");
+        background->setActive(false);
+        info->setActive(false);
+        emit scene->stopAnimation();
         break;
     default:
-        // scene->paintEvent(event);
-        drawGameScene(painter);
+        emit info->infoUpdated(scene->getRoleInfo(),scene->getSceneName());
         break;
     }
     update();
 }
 
-//scence，fight
-void QGame::drawGameScene(QPainter &painter)
-{    
-    emit info->infoUpdated(scene->getRoleInfo(),scene->getSceneName());
-    scene->SCENE_DRAW=1;
 
-    if (gameState == GS_FIGHT)
-    {
-        //fight绘图事件的触发条件
-    }
-}
 
 //“S”保存，“A"读取，“R”重新开始未实现
 void QGame::keyPressEvent(QKeyEvent *event)
@@ -172,21 +144,25 @@ void QGame::handleGameKey(QKeyEvent *event)
         break;
     case GS_WALK:
         //使用Scene.GetRoleNextPoint(key)获取角色下一步的位置。
+        if(isScripting())
+            return;
+        else
+        {
+            ptCurNpcPos = scene->getRoleNextPoint(event);
 
-        ptCurNpcPos = scene->getRoleNextPoint(event);
-
-        // 检查该位置是否有脚本事件（Scene.GetScriptID(ptCurNpcPos)）
-         if (IDSCRIPT idScript = scene->getScriptID(ptCurNpcPos))
-         {
-        // 如果存在脚本事件，则加载并执行脚本
-           script.loadScript(idScript);
-            recurScript();
-         }
-         else
-         {
-        // 如果没有脚本事件，则角色移动到新位置
-            scene->setRolePos(ptCurNpcPos);
-         }
+            // 检查该位置是否有脚本事件（Scene.GetScriptID(ptCurNpcPos)）
+            if (IDSCRIPT idScript = scene->getScriptID(ptCurNpcPos))
+            {
+                // 如果存在脚本事件，则加载并执行脚本
+                script.loadScript(idScript);
+                recurScript();
+            }
+            else
+            {
+                // 如果没有脚本事件，则角色移动到新位置
+                scene->setRolePos(ptCurNpcPos);
+            }
+        }
         break;
     case GS_TALK:
         talk->keyPressEvent(event);
@@ -208,47 +184,6 @@ void QGame::handleGameKey(QKeyEvent *event)
     }
 }
 
-//scence
-// void QGame::timerEvent(QTimerEvent *event)
-// {
-//     scene->startSceneTimer();
-
-// //     scene.OnTimer(event->timerId());
-//       //不论当前游戏状态是什么，首先调用scene.OnTimer()处理场景相关的定时器事件。
-//      // 这可能用于更新场景动画、计时器或其他持续性事件。
-//     switch (gameState)
-//     {
-//     // case GS_INIT:
-//     //     //调用story->OnTimer(event->timerId())处理故事相关的定时器事件
-//     //     if(story->IsStoryEnd())
-//     //     {
-//     //         qDebug()<<"2";
-//     //         gameState = GS_WALK;
-//     //         Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE));
-//     //         Sound->play();
-//     //         Sound->setLoopCount(QSoundEffect::Infinite);
-//     //         delete story;
-//     //         // qDebug()<<"1";
-//     //         // qDebug()<<"timerEvent::GS_INIT";
-//     //     }
-
-//     //     break;
-//     case GS_TALK:
-//         talk->TALK_DRAW=1;
-//         //调用talk->OnTimer(event->timerId())处理对话相关的定时器事件
-//         talk->OnTimer(event->timerId());
-//         break;
-//     case GS_FIGHT:
-
-//
-//     default:
-
-//         break;
-//     }
-
-//     update();//调用update()刷新游戏界面。
-// }
-
 
 void QGame::recurScript()
 {
@@ -258,6 +193,11 @@ void QGame::recurScript()
         procScript();
         script.loadNextScript();
     }
+}
+
+bool QGame::isScripting()
+{
+    return this->scriptFlag;
 }
 
 //scene,fight
@@ -282,6 +222,7 @@ void QGame::procScript()
      case SC_FIGHT:
         running = false;
         gameState = GS_FIGHT;
+        this->Sound->stop();
         scene->getNpcTile(ptCurNpcPos,tmp);
         fight->load(tmp, scene->getNpcInfo(ptCurNpcPos), scene->getRoleInfo());
         break;
@@ -291,9 +232,21 @@ void QGame::procScript()
         gameState = GS_TALK;
         talk->load(Param1);
         break;
-     case SC_NPC:
-        handleNpcInteraction();
+     case SC_OBJECT:
+        if(handleObjectInteraction())
+        {
+            scene->hideNpc(ptCurNpcPos);
+        }
         break;
+     case SC_DOOR:
+         this->scriptFlag=true;
+         if(handleObjectInteraction())
+         {
+             scene->startPtPosAnimation(scene->getSceneID(),ptCurNpcPos.y(),ptCurNpcPos.x());
+         }else{
+             this->scriptFlag=false;
+         }
+         break;
      case SC_SETNPCPOS:
         scene->setNpcPos(ptCurNpcPos, QPoint(Param2, Param3));
         break;
@@ -304,10 +257,10 @@ void QGame::procScript()
 }
 
 //scene
-void QGame::handleNpcInteraction()
+bool QGame::handleObjectInteraction()
 {
-   ROLEINFO roleInfo = scene->getRoleInfo();
-   NPCINFO npcInfo = scene->getNpcInfo(ptCurNpcPos);
+    ROLEINFO roleInfo = scene->getRoleInfo();
+    NPCINFO npcInfo = scene->getNpcInfo(ptCurNpcPos);
     bool npcValid = true;
 
     for (int i = 0; i < sizeof(roleInfo) / sizeof(int); ++i)
@@ -330,6 +283,6 @@ void QGame::handleNpcInteraction()
             *pRole += *pNpc;
         }
         scene->setRoleInfo(roleInfo);
-        scene->hideNpc(ptCurNpcPos);
     }
+    return npcValid;
 }

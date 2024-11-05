@@ -40,10 +40,6 @@ QStory::QStory(QWidget *parent)
 
 void QStory::init()
 {
-    //hhz:改变键盘焦点
-    //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
-    // this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
-    // this->setFocus(); // 尝试在构造时设置焦点
     //播放音效
     startSound = new QSoundEffect(this);
     startSound->setSource(QUrl::fromLocalFile(SOUND_INIT_FILE));
@@ -75,9 +71,7 @@ void QStory::storyOnTimer()
 //重载键盘事件
 void QStory::keyPressEvent(QKeyEvent *event)
 {
-    // if(STORY_KEY==0){
-    //     return;
-    // }
+
     if (event->key() == Qt::Key_Space)
     {
         // qDebug()<<"按下了空格";
@@ -85,12 +79,7 @@ void QStory::keyPressEvent(QKeyEvent *event)
         timer->stop();
         startSound->stop();
         emit this->storyEnd();
-        // this->isEnd=true;
-        // delete this;
-        // this->hide();
-        // STORY_KEY=2;
-        // STORY_DRAW=0;
-        // qDebug()<<STORY_KEY;
+
     }
     else
     {
@@ -101,12 +90,9 @@ void QStory::keyPressEvent(QKeyEvent *event)
 
 void QStory::paintEvent(QPaintEvent *event)
 {
-    //hhz:添加
-    // if(STORY_DRAW==0){
-    //     return ;
-    // }
-    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
 
+    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+    qDebug()<<"??";
 
     //创建画家
     QPainter painter(this);
@@ -143,14 +129,6 @@ void QStory::paintEvent(QPaintEvent *event)
     painter.drawText(MAX_WIDTH - 100, MAX_HEIGHT - 25, "按空格跳过");
 }
 
-// bool QStory::isStoryTimerActive()
-// {
-//     return this->timer->isActive();
-// }
 
-// bool QStory::IsStoryEnd() const
-// {
-//     return isEnd;
-// }
 
 

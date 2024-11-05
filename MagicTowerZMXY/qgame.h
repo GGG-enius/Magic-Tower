@@ -59,7 +59,7 @@ public:
 
     void handleGameKey(QKeyEvent *event);
 
-    void handleNpcInteraction();
+    bool handleObjectInteraction();
 
     friend QDataStream &operator<<(QDataStream &out, const QGame &obj) {
         out << obj.gameState<<obj.running<<obj.ptCurNpcPos<<(*obj.scene);
@@ -79,16 +79,15 @@ protected:
 
     void paintEvent(QPaintEvent *event) override;
 
-    // void timerEvent(QTimerEvent *event) override;
-
     void procScript();
 
     void recurScript();
 
-
+    bool isScripting();
 private:
     GAMESTATE gameState;
     bool running;
+    bool scriptFlag;
     QSize gameClientSize;
     //info
     QRect mainRect;
@@ -96,12 +95,10 @@ private:
 
     QPoint ptCurNpcPos;
 
-    // QImage cacheImage;
-    // QImage mapImage;
 
     // QTile *tile;
     QBackGround * background;
-    // QNpc *npc;
+
     QScene* scene;
     QFight* fight;
     QTalk * talk;
@@ -109,5 +106,6 @@ private:
     QScript script;
     QStory * story;
     QSoundEffect *Sound;
+
 };
 #endif // QGAME_H

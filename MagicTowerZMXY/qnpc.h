@@ -76,6 +76,8 @@ public:
         in >> obj.m_idScript>>obj.m_bShow>>obj.m_npcInfo;
         return in;
     }
+    bool isAutoAnimation();
+    void setDoorFlag();
 private:
     static NPCTILE NpcData[MAX_NPC];//存储所有 NPC 的图块信息
     INDEX m_idTile[MAX_NPC_TILE];//存储当前Npc图块ID
@@ -83,9 +85,10 @@ private:
     IDSCRIPT m_idScript;//当前Npc的脚本ID
     bool m_bShow;//用于记录Npc显示状态
     NPCINFO m_npcInfo;//当前Npc属性
-
     QTimer *npcTimer;
+    bool doorFlag;
 signals:
+    void stopDoorAnimation();
 };
 
 #endif // QNPC_H

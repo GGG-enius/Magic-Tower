@@ -25,7 +25,7 @@ QTalk::QTalk(QWidget *parent)
     connect(this,&QTalk::talking,[=](){
         this->show();
         this->isActive=true;
-        this->timerTalk->start(100);
+        this->timerTalk->start(300);
         // qDebug()<<"|||||||||||||||||||||||";
     });
 
