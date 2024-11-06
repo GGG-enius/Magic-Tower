@@ -43,7 +43,11 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define SOUND_BG_FILE6			":/res/wav/Sound_806.wav"           ///<背景音乐6
 #define SOUND_BG_FILE7			":/res/wav/Sound_807.wav"           ///<背景音乐7
 #define SOUND_FIGHT_FILE		":/res/wav/Sound_13.wav"            ///<打斗音乐
-
+#define SOUND_OBJGECT_FILE      ":/res/wav/Sound_11.wav"            ///<拾取音效
+#define SOUND_FIGHT_FILE2       ":/res/wav/Sound_14.wav"            ///<战斗音效2
+#define SOUND_VICTORY_FILE      ":/res/wav/Sound_15.wav"            ///<胜利音效
+#define SOUND_DOOR_FILE         ":/res/wav/Sound_12.wav"            ///<开门音效
+#define SOUND_DEFEATED_FILE     ":/res/wav/Sound_16.wav"            ///<失败音效
 #endif
 
 #define BORDER_COLOR		QColor(200, 100, 0)             ///<边框颜色

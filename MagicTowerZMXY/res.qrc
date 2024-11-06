@@ -12,5 +12,10 @@
         <file>res/wav/Sound_807.wav</file>
         <file>res/wav/Sound_830.wav</file>
         <file>res/Icon/Icon0001.png</file>
+        <file>res/wav/Sound_11.wav</file>
+        <file>res/wav/Sound_12.wav</file>
+        <file>res/wav/Sound_14.wav</file>
+        <file>res/wav/Sound_15.wav</file>
+        <file>res/wav/Sound_16.wav</file>
     </qresource>
 </RCC>

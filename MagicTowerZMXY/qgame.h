@@ -105,7 +105,9 @@ private:
     QInfo  * info;
     QScript script;
     QStory * story;
-    QSoundEffect *Sound;
-
+    QSoundEffect *mainSound;
+    QSoundEffect *soundObject;
+    QSoundEffect *soundVictory;
+    QSoundEffect *soundDefeated;
 };
 #endif // QGAME_H

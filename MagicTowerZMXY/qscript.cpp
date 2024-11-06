@@ -101,7 +101,7 @@ SCRIPTS QScript::Script[MAX_SCRIPT] =
      {//仙子
          {0,0,0,0},
          {SC_TALK, 0, 50, 100},
-         {SC_SETNPCPOS,0,1,1},
+         {SC_SETNPCPOS,0,4,9},
          {0,0,0,0},
          {0,0,0,0},
          },

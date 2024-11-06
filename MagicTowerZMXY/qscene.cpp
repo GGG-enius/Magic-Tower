@@ -9,7 +9,7 @@ QScene::QScene(QWidget *parent)
     this->setGeometry(QRect(250, 50, MAP_WIDTH * TILE_WIDTH, MAP_HEIGHT * TILE_WIDTH));
 
     this->isActive=false;
-
+    this->Sound = new QSoundEffect(this);
     tile=new QTile(this);
 
     connect(this, &QScene::startAnimation, this, [=](){
@@ -234,7 +234,12 @@ void QScene::startPtPosAnimation(int layer, int y, int x)
     {
         this->hideNpc(QPoint(x,y));
         emit this->stopDoorAnimation();
+        this->Sound->stop();
     });
+
     npc[layer][y][x].setDoorFlag();
+    this->Sound->setSource(QUrl::fromLocalFile(SOUND_DOOR_FILE));
+    this->Sound->play();
     npc[layer][y][x].startNpcTimer();
+
 }

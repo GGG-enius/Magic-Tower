@@ -12,6 +12,7 @@
 #include <QWidget>
 #include <QTimer>
 #include <QDataStream>
+#include <QSoundEffect>
 #include "Global.h"
 #include "qnpc.h"
 #include "qtile.h"
@@ -100,7 +101,7 @@ private:
     QPoint roleExitPos[MAX_SCENE];
     IDTILE roleEntryTile[MAX_SCENE];
     IDTILE roleExitTile[MAX_SCENE];
-
+    QSoundEffect *Sound;
     bool isActive;
 signals:
     void startAnimation();

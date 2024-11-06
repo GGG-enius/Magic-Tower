@@ -59,7 +59,7 @@ void QStory::storyOnTimer()
     if(storyBufIndex>=MAX_BUFFER)
     {
         timer->stop();
-        qDebug()<<"定时器停止";
+        // qDebug()<<"定时器停止";
     }
     else
     {
@@ -92,7 +92,7 @@ void QStory::paintEvent(QPaintEvent *event)
 {
 
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
-    qDebug()<<"??";
+    // qDebug()<<"??";
 
     //创建画家
     QPainter painter(this);

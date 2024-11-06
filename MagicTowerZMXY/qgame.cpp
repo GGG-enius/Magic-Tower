@@ -13,7 +13,10 @@ QGame::QGame(QWidget *parent)
 
     this->scriptFlag=false;
 
-    Sound = new QSoundEffect(this);
+    mainSound = new QSoundEffect(this);
+    soundObject = new QSoundEffect(this);
+    soundVictory= new QSoundEffect(this);
+    soundDefeated= new QSoundEffect(this);
     story= new QStory(this);
 
     background=new QBackGround(this);
@@ -36,9 +39,9 @@ QGame::QGame(QWidget *parent)
 
         emit scene->startAnimation();
 
-        Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
-        Sound->play();
-        Sound->setLoopCount(QSoundEffect::Infinite);
+        mainSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
+        mainSound->play();
+        mainSound->setLoopCount(QSoundEffect::Infinite);
         delete story;
         // qDebug()<<"1";
 
@@ -53,18 +56,26 @@ QGame::QGame(QWidget *parent)
 
     connect(this->fight,&QFight::fightEnd,[=](){ 
         scene->hideNpc(ptCurNpcPos);
-        Sound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
-        Sound->play();
-        Sound->setLoopCount(QSoundEffect::Infinite);
+
+
         gameState = GS_WALK;
 
         scene->setRoleInfo(fight->getResult());
         if (fight->getResult().nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
         {                           //检查角色健康状态roleInfo.nHealth：
             gameState = GS_OVER;
+            this->mainSound->stop();
+            this->soundDefeated->setSource(QUrl::fromLocalFile(SOUND_DEFEATED_FILE));
+            this->soundDefeated->play();
+
+        }else{
+            this->soundVictory->setSource(QUrl::fromLocalFile(SOUND_VICTORY_FILE));
+            this->soundVictory->play();
+            mainSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
+            mainSound->play();
+            mainSound->setLoopCount(QSoundEffect::Infinite);
         }
         this->update();
-        this->Sound->play();
     });
     // Game Const
     gameState = GS_INIT;
@@ -222,7 +233,7 @@ void QGame::procScript()
      case SC_FIGHT:
         running = false;
         gameState = GS_FIGHT;
-        this->Sound->stop();
+        this->mainSound->stop();
         scene->getNpcTile(ptCurNpcPos,tmp);
         fight->load(tmp, scene->getNpcInfo(ptCurNpcPos), scene->getRoleInfo());
         break;
@@ -235,6 +246,8 @@ void QGame::procScript()
      case SC_OBJECT:
         if(handleObjectInteraction())
         {
+            soundObject->setSource(QUrl::fromLocalFile(SOUND_OBJGECT_FILE));
+            soundObject->play();
             scene->hideNpc(ptCurNpcPos);
         }
         break;
