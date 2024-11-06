@@ -19,7 +19,7 @@ public:
     void paintEvent(QPaintEvent* e);
     int getNpcInfo();
     void setNpcInfo(int info);
-
+    void setMinNum(int value);
 private:
     Ui::InfoEdit *ui;
 signals:

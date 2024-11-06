@@ -139,14 +139,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->Info04->setInfoName("DEF");
     ui->Info04->setNpcInfo(TileButton::npcBuf[6].nDefense);
     ui->Info05->setInfoName("MONEY");
+    ui->Info05->setMinNum(-666);
     ui->Info05->setNpcInfo(TileButton::npcBuf[6].nMoney);
     ui->Info06->setInfoName("EXP");
     ui->Info06->setNpcInfo(TileButton::npcBuf[6].Experi);
     ui->Info07->setInfoName("RKEY");
+    ui->Info07->setMinNum(-1);
     ui->Info07->setNpcInfo(TileButton::npcBuf[6].RedKey);
     ui->Info08->setInfoName("BKEY");
+    ui->Info08->setMinNum(-1);
     ui->Info08->setNpcInfo(TileButton::npcBuf[6].BlueKey);
     ui->Info09->setInfoName("YKEY");
+    ui->Info09->setMinNum(-1);
     ui->Info09->setNpcInfo(TileButton::npcBuf[6].YelKey);
 
     void (QSelectArea:: *DefaultTileupdated)(void)=&QSelectArea::updateDefault;

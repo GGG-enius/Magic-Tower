@@ -50,3 +50,9 @@ void InfoEdit::setNpcInfo(int info)
 {
     ui->spinBox->setValue(info);
 }
+
+void InfoEdit::setMinNum(int value)
+{
+    ui->spinBox->setMinimum(value);
+    ui->horizontalSlider->setMinimum(value);
+}
