@@ -9,6 +9,8 @@
 
 #include <QByteArray>
 #include <QBuffer>
+QPoint MainMap::stairEntryBuf[MAP_LAYER];
+QPoint MainMap::stairExitBuf[MAP_LAYER];
 int MainMap::tileIDMapping[PIC_ABLE][4]={
     {0,0,0,0},
     {1,1,1,1},
@@ -737,11 +739,25 @@ void MainMap::mousePressEvent(QMouseEvent *e)
             // qDebug()<<"layer: "<<MainMap::curLayer;
             // qDebug()<<"id:    "<<TileButton::curSelectTileID;
             // qDebug()<<mapBuf[this->getCurLayer()][y][x];
+            if(TileButton::curSelectTileID==15)
+            {
+                MainMap::stairEntryBuf[MainMap::curLayer]=QPoint(x,y);
+            }else if(TileButton::curSelectTileID==16)
+            {
+                MainMap::stairExitBuf[MainMap::curLayer]=QPoint(x,y);
+            }
         }
         else if(e->button()==Qt::RightButton)
         {
             this->mapBuf[MainMap::curLayer][y][x]=TileButton::defaultFloorID;
             // qDebug()<<mapBuf[this->getCurLayer()][y][x];
+            if(TileButton::defaultFloorID==15)
+            {
+                MainMap::stairEntryBuf[MainMap::curLayer]=QPoint(x,y);
+            }else if(TileButton::defaultFloorID==16)
+            {
+                MainMap::stairExitBuf[MainMap::curLayer]=QPoint(x,y);
+            }
         }
         // qDebug()<<"层:"<<this->getCurLayer();
         // qDebug()<<"坐标:"<<x<<","<<y;
@@ -764,11 +780,25 @@ void MainMap::mouseMoveEvent(QMouseEvent *e)
         {
             this->mapBuf[MainMap::curLayer][y][x]=TileButton::curSelectTileID;
             // qDebug()<<mapBuf[this->getCurLayer()][y][x];
+            if(TileButton::curSelectTileID==15)
+            {
+                MainMap::stairEntryBuf[MainMap::curLayer]=QPoint(x,y);
+            }else if(TileButton::curSelectTileID==16)
+            {
+                MainMap::stairExitBuf[MainMap::curLayer]=QPoint(x,y);
+            }
         }
         else if(e->buttons() & Qt::RightButton)
         {
             this->mapBuf[MainMap::curLayer][y][x]=TileButton::defaultFloorID;
             // qDebug()<<mapBuf[this->getCurLayer()][y][x];
+            if(TileButton::defaultFloorID==15)
+            {
+                MainMap::stairEntryBuf[MainMap::curLayer]=QPoint(x,y);
+            }else if(TileButton::defaultFloorID==16)
+            {
+                MainMap::stairExitBuf[MainMap::curLayer]=QPoint(x,y);
+            }
         }
         //qDebug()<<"层:"<<this->getCurLayer();
         // qDebug()<<"坐标:"<<x<<","<<y;
@@ -935,6 +965,46 @@ bool MainMap::writeMapFile()
         }
     }
     mapFile.close();
+    return true;
+}
+
+bool MainMap::readStairFile()
+{
+    QFile stairFile(STAIR_FILE_NAME);
+    if(!stairFile.open(QIODeviceBase::ReadOnly)){
+        return false;
+    }
+    QDataStream in(&stairFile);
+    in.setVersion(QDataStream::Qt_6_7);
+    int layer;
+    in>>layer;//读取维度信息
+    for(int i=0;i<layer;i++)
+    {
+        in>>MainMap::stairEntryBuf[i];
+        in>>MainMap::stairExitBuf[i];
+    }
+    stairFile.close();
+    return true;
+}
+
+bool MainMap::writeStairFile()
+{
+    QFile stairFile("../../IOFile/Stair.bin");
+    if(!stairFile.open(QIODeviceBase::WriteOnly)){
+        qDebug()<<stairFile.errorString();
+        return false;
+    }
+    // qDebug()<<"empty";
+    QDataStream out(&stairFile);
+    out.setVersion(QDataStream::Qt_6_7);
+    out << MAP_LAYER;//写入维度信息
+
+    for(int i=0;i<MAP_LAYER;i++)
+    {
+        out<<MainMap::stairEntryBuf[i];
+        out<<MainMap::stairExitBuf[i];
+    }
+    stairFile.close();
     return true;
 }
 

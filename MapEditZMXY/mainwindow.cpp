@@ -65,7 +65,15 @@ MainWindow::MainWindow(QWidget *parent)
         ui->statusbar->showMessage("[system]load tile_data failed",5000);
         // qDebug()<<"error";
     }
-
+    if(MainMap::readStairFile())
+    {
+        ui->statusbar->showMessage("[system]load stair_data succeed",5000);
+        // qDebug()<<"OKt";
+    }else
+    {
+        ui->statusbar->showMessage("[system]load stair_data failed",5000);
+        // qDebug()<<"error";
+    }
     // if(MainWindow::writeNpcFile())
     // {
     //     qDebug()<<"wwOK";
@@ -316,6 +324,13 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         if(MainMap::writeImageFile())
         {
             // qDebug()<<"tile";
+        }else
+        {
+            // qDebug()<<"error";
+        }
+        if(MainMap::writeStairFile())
+        {
+            // qDebug()<<"stair";
         }else
         {
             // qDebug()<<"error";
