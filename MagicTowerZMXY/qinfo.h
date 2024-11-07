@@ -39,6 +39,16 @@ public:
     void setSceneName(const QString &newSceneName);
 
     void setActive(bool value);
+
+    friend QDataStream &operator<<(QDataStream &out, const QInfo &obj) {
+        out << obj.isActive;
+        return out;
+    }
+
+    friend QDataStream &operator>>(QDataStream &in, QInfo &obj) {
+        in >> obj.isActive;
+        return in;
+    }
 private:
     QTile * tile;
     QColor borderColor;

@@ -9,19 +9,8 @@
 QStory::QStory(QWidget *parent)
     : QWidget{parent},storyBufIndex(0)
 {
-    //hhz:触发事件暂时不触发
-    // STORY_DRAW=0;//1执行，0无法执行
-    // STORY_KEY=0;
-    // this->isEnd=false;
+
     this->setFixedSize(MAX_WIDTH, MAX_HEIGHT);
-
-    // //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
-    // this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
-    // this->setFocus(); // 尝试在构造时设置焦点
-
-    //将缓冲区初始化为0
-    //memset(storyBuf, 0, MAX_BUFFER * sizeof(QChar));
-
     //尝试打开故事文件
     QFile storyFile(STORY_FILE);
     //                                        以文本模式打开
@@ -88,10 +77,10 @@ void QStory::keyPressEvent(QKeyEvent *event)
     }
 }
 
-void QStory::paintEvent(QPaintEvent *event)
+void QStory::paintEvent(QPaintEvent *)
 {
+    changeColor = !changeColor;
 
-    setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     // qDebug()<<"??";
 
     //创建画家
@@ -106,17 +95,10 @@ void QStory::paintEvent(QPaintEvent *event)
     //缩小绘制区域
     rect.adjust(50, 50, -25, -25);
 
-    //设置背景模式为透明
-    //painter.setBackgroundMode(Qt::TransparentMode);
-    changeColor = !changeColor;
 
-    if(!this->timer->isActive())
-    //设置文本颜色
-    {
-        painter.setPen(changeColor ? Qt::black : Qt::white);
-    }else{
-        painter.setPen(Qt::white);
-    }
+
+    painter.setPen(Qt::white);
+
 
     //设置字体
     QFont font("仿宋体", nFontSize);
@@ -124,7 +106,9 @@ void QStory::paintEvent(QPaintEvent *event)
 
     //绘制故事文本
     painter.drawText(rect, Qt::AlignLeft | Qt::AlignTop, storyBuf.left(storyBufIndex));
+
     painter.setPen(changeColor ? Qt::red : Qt::white);
+
     // 在指定位置绘制“按空格跳过”提示文本
     painter.drawText(MAX_WIDTH - 100, MAX_HEIGHT - 25, "按空格跳过");
 }

@@ -9,98 +9,114 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //QBackgound直接头文件声明+此处引用
+    this->mainSound= new QSoundEffect(this);
+    this->mainSound->setSource(QUrl::fromLocalFile(SOUND_START));
+    this->mainSound->play();
+    this->mainSound->setLoopCount(QSoundEffect::Infinite);
+    this->startMenu=new StartMenu(this);
+    this->startMenu->show();
 
-    //该处改变焦点会覆盖上一个声明的焦点ps：qtalk
-    //talk= new QTalk(this);
-    //story=new QStory(this);
+    connect(this->startMenu,&StartMenu::newStart,[=](){
+        this->mainSound->stop();
 
-    //story->init();
-    //talk->initkey();
-    //bg=new QBackGround(this);
-    //info=new QInfo(this);
-
-    game=new QGame(this);
-    // game->initkeyFocus();
-    //story->STORY_DRAW=1;
-    //story->STORY_KEY=1;
-     //bg->BG_DRAW=1;
-    //talk->TALK_DRAW=1;
-    //talk->TALK_KEY=1;
-    //info->INFO_DRAW=1;
-    //role = new QRole(this);
-    //tile = new QTile(this);
-
-    // tile->initTile();
-
-    //QNpc测试
-    //npc = new QNpc(this);
-    //npc->initNpc();
-    //qDebug()<<npc->m_nTileIndex;
-    // for(int i=0;i<76;i++)
-    // {
-    //         qDebug()<<npc->NpcData[i].npcInfo.nHealth;
-
-    // }
-    // npc->load(83);
-    // qDebug()<<npc->m_idTile[0]<<npc->m_idTile[1];
-    // qDebug()<<npc->m_idScript;
-    // qDebug()<<npc->m_bShow;
-    // qDebug()<<npc->m_npcInfo.nDefense;
-
-    // npc->m_nTileIndex = 0;
-    // npc->m_bShow = false;
-    // npc->m_idTile[0] = 56;
-    // qDebug()<<npc->getTileID();
-
-    // npc->m_idTile[0] = 48;
-    // npc->m_idTile[1] = 171;
-    // IDTILE id[MAX_NPC_TILE];
-    // npc->getNpcTile(id);
-    // qDebug()<<id[0]<<id[1];
-
-    //QFight测试
-    // IDTILE idTile[MAX_NPC_TILE] = {83, 84};
-    // NPCINFO npcInfo = {1, 45, 20, 2, 0, 0, 0, 0, 0};
-    // ROLEINFO roleInfo = {1, 976, 10, 10, 0, 0, 1, 1, 1};
-
-   // fight = new QFight(this);
-    // fight->load(idTile, npcInfo, roleInfo);
-
-    //qgame
-
+        //延时进入到游戏主场景场景
+        QTimer::singleShot(200,this,[=](){
+            game=new QGame(this);
+            game->initGame(true);
+            this->startMenu->hide();
+            delete this->startMenu;
+            game->show();
+        });
+    });
+    connect(this->startMenu,&StartMenu::continueGame,[=](){
+        this->mainSound->stop();
+        //延时进入到游戏主场景场景
+        QTimer::singleShot(200,this,[=](){
+            game=new QGame(this);
+            QFileUtil::loadGame(*game,GAMEDATA_FILE_NAME);
+            game->initGame(false);
+            QTimer::singleShot(100,this,[=](){
+            this->startMenu->hide();
+            delete this->startMenu;
+            game->show();
+            });
+        });
+    });
 }
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void MainWindow::paintEvent(QPaintEvent *event)
+void MainWindow::paintEvent(QPaintEvent *)
 {
-
     //控制原生窗口大小
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
-    // QPainter painter(this);
-    // game->drawGameScene(painter);
-    //qrole测试
-    // IDTILE idRoleTile = role->getRoleTileID();
-    // //qDebug()<<idRoleTile;
-    // QPoint ptRolePos = role->getPos();
-    // //qDebug()<<ptRolePos;
-    // QPainter painter(this);
-    // tile->draw(painter, ptRolePos.x()*TILE_WIDTH, ptRolePos.y()*TILE_HEIGHT, idRoleTile);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    game->keyPressEvent(event);
+    if(!this->startMenu->isStartMenuActive())
+    {
+        if(this->game&&this->game->isStorying())
+        {
+            // qDebug()<<"???";
+            switch(event->key())
+            {
+            case Qt::Key_Space:
+                // qDebug()<<"sapce";
+                game->m_keyPressEvent(event);
+                break;
+            }
+        }else if(this->game&&this->game->isGameOver())
+        {
+            switch(event->key())
+            {
+            case Qt::Key_R:
+                delete game;
+                game = new QGame(this);
+                game->initGame(true);
+                game->show();
+                break;
+            case Qt::Key_Q:
+                exit(0);
+            }
+        }
+        else{
+            // qDebug()<<"\\\\\\\\\\]";
+            switch(event->key())
+            {
+            case Qt::Key_Q:
+                //保存游戏
+                QFileUtil::saveGame(*game,GAMEDATA_FILE_NAME);
+                qDebug()<<"保存成功";
+                exit(0);
+                break;
+            case Qt::Key_S:
+                QFileUtil::saveGame(*game,GAMEDATA_FILE_NAME);
+                qDebug()<<"保存成功";
+                break;
+            case Qt::Key_A:
+                delete game;
+                game = new QGame(this);
+                QFileUtil::loadGame(*game,GAMEDATA_FILE_NAME);
+                game->initGame(false);
+                game->show();
+                qDebug()<<"读取成功";
+                break;
+            default:
+                if(!game->m_keyPressEvent(event))
+                {
+                    delete game;
+                    game = new QGame(this);
+                    game->initGame(true);
+                    game->show();
+                }
+                break;
+            }
+        }
+    }
+    else{
 
-    //qrole测试
-    // // 使用 static_cast 将 int 转换为 Qt::Key
-    // Qt::Key key = static_cast<Qt::Key>(event->key());
-    // QPoint newPoint = role->getNextPoint(key);
-    // qDebug() << "New position:" << newPoint;
-    // //qDebug()<<role->getTileIndex(role->getRoleTileID());
-    // role->moveTo(newPoint);
-    // QWidget::keyPressEvent(event);
+    }
 }

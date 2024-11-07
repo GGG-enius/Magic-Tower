@@ -29,7 +29,7 @@ QScene::QScene(QWidget *parent)
     });
     connect(this,&QScene::stopAnimation,[=](){
         this->isActive=false;
-        this->hide();
+        //this->hide();
     });
 }
 
@@ -168,6 +168,11 @@ void QScene::setNpcPos(QPoint curPos, QPoint newPos)
     {
         npc[this->m_idScene][newPos.y()][newPos.x()].load(npc[this->m_idScene][curPos.y()][curPos.x()]);
         npc[this->m_idScene][curPos.y()][curPos.x()].load(TILE_FLOOR);
+        if(!npc[this->m_idScene][newPos.y()][newPos.x()].isNpcTimerActive())
+        {
+            // qDebug()<<"active";
+            npc[this->m_idScene][newPos.y()][newPos.x()].startNpcTimer();
+        }
     }
 }
 

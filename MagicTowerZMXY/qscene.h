@@ -55,7 +55,7 @@ public:
                 }
             }
         }
-        out<<obj.m_idScene<<obj.m_idLayerDone<<MAX_SCENE;
+        out<<obj.m_idScene<<obj.m_idLayerDone<<obj.isActive<<MAX_SCENE;
         for(int i=0;i<MAX_SCENE;i++)
         {
             out<<obj.roleEntryPos[i]<<obj.roleExitPos[i]<<obj.roleEntryTile[i]<<obj.roleExitTile[i];
@@ -77,7 +77,7 @@ public:
                 }
             }
         }
-        in>>obj.m_idScene>>obj.m_idLayerDone>>sceneSize;
+        in>>obj.m_idScene>>obj.m_idLayerDone>>obj.isActive>>sceneSize;
         for(int i=0;i<sceneSize;i++)
         {
             in>>obj.roleEntryPos[i]>>obj.roleExitPos[i]>>obj.roleEntryTile[i]>>obj.roleExitTile[i];

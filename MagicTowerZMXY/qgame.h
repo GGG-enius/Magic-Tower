@@ -62,19 +62,21 @@ public:
     bool handleObjectInteraction();
 
     friend QDataStream &operator<<(QDataStream &out, const QGame &obj) {
-        out << obj.gameState<<obj.running<<obj.ptCurNpcPos<<(*obj.scene);
+        out << obj.gameState<<false<<obj.running<<obj.ptCurNpcPos<<(*obj.scene)<<(*obj.background)<<(*obj.info);
         return out;
     }
 
     friend QDataStream &operator>>(QDataStream &in, QGame &obj) {
-        in >> obj.gameState >> obj.running>>obj.ptCurNpcPos>>(*obj.scene);
+        in >> obj.gameState >>obj.scriptFlag>> obj.running>>obj.ptCurNpcPos>>(*obj.scene)>>(*obj.background)>>(*obj.info);
         return in;
     }
 
     Q_ENUM(GAMESTATE)
 
-    void keyPressEvent(QKeyEvent *event) override;
-
+    bool m_keyPressEvent(QKeyEvent *event);
+    bool isStorying();
+    bool isGameOver();
+    void initGame(bool value);
 protected:
 
     void paintEvent(QPaintEvent *event) override;
@@ -88,6 +90,8 @@ private:
     GAMESTATE gameState;
     bool running;
     bool scriptFlag;
+    bool storyFlag;
+    bool gameOver;
     QSize gameClientSize;
     //info
     QRect mainRect;
@@ -95,6 +99,8 @@ private:
 
     QPoint ptCurNpcPos;
 
+
+    ROLEINFO temp;
 
     // QTile *tile;
     QBackGround * background;

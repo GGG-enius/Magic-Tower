@@ -17,5 +17,8 @@
         <file>res/wav/Sound_14.wav</file>
         <file>res/wav/Sound_15.wav</file>
         <file>res/wav/Sound_16.wav</file>
+        <file>res/Image/Button/button1.png</file>
+        <file>res/Image/Button/button2.png</file>
+        <file>res/Image/BG/startBG.png</file>
     </qresource>
 </RCC>

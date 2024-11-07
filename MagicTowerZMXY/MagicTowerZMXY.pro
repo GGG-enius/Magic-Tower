@@ -22,7 +22,8 @@ SOURCES += \
     qscript.cpp \
     qstory.cpp \
     qtalk.cpp \
-    qtile.cpp
+    qtile.cpp \
+    startmenu.cpp
 
 HEADERS += \
     Global.h \
@@ -38,10 +39,12 @@ HEADERS += \
     qscript.h \
     qstory.h \
     qtalk.h \
-    qtile.h
+    qtile.h \
+    startmenu.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    startmenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -12,17 +12,15 @@
 #include <QMainWindow>
 #include "Global.h"
 #include "qtile.h"
-#include "qbackground.h"
 #include <QPainter>
 #include <QPaintEvent>
-#include "qstory.h"
+#include "qfileutil.h"
 #include "qgame.h"
-#include "qrole.h"
+#include "startmenu.h"
 #include <QKeyEvent>
 #include <QPoint>
 #include <QDebug>
-#include "qnpc.h"
-#include "qfight.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -42,14 +40,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QBackGround *bg;
-    QInfo *info;
-    QTalk * talk;
-    QStory *story;
     QGame *game;
-    QRole *role;
-    QTile *tile;
-    QNpc *npc;
-    QFight *fight;
+    StartMenu* startMenu;
+    QSoundEffect* mainSound;
 };
 #endif // MAINWINDOW_H

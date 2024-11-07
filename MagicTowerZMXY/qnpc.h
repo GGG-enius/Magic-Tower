@@ -53,7 +53,7 @@ public:
     void npcOnTimer();
     void startNpcTimer();
     void stopNpcTimer();
-
+    bool isNpcTimerActive();
     //数据序列化
     friend QDataStream &operator<<(QDataStream &out, const QNpc &obj) {
         out<<MAX_NPC_TILE;
@@ -61,7 +61,7 @@ public:
         {
             out<<obj.m_idTile[i];
         }
-        out<<obj.m_idScript<<obj.m_bShow<<obj.m_npcInfo;
+        out<<obj.m_idScript<<obj.m_bShow<<obj.m_npcInfo<<obj.doorFlag<<0;///<最后零代表图块索引置零
 
         return out;
     }
@@ -73,7 +73,7 @@ public:
         {
             in>>obj.m_idTile[i];
         }
-        in >> obj.m_idScript>>obj.m_bShow>>obj.m_npcInfo;
+        in >> obj.m_idScript>>obj.m_bShow>>obj.m_npcInfo>>obj.doorFlag>>obj.m_nTileIndex;
         return in;
     }
     bool isAutoAnimation();

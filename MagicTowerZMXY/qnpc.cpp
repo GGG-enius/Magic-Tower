@@ -369,6 +369,11 @@ void QNpc::stopNpcTimer()
     this->npcTimer->stop();
 }
 
+bool QNpc::isNpcTimerActive()
+{
+    return this->npcTimer->isActive();
+}
+
 bool QNpc::isAutoAnimation()
 {
     if(this->m_bShow&&(this->m_idScript==SI_MONSTER||this->m_idScript==SI_CELESTIAL||

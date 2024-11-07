@@ -10,9 +10,9 @@ QGame::QGame(QWidget *parent)
     QNpc::initNpc();
     QScene::initMap();
     QScript::initScript();
-
+    this->gameOver=false;
     this->scriptFlag=false;
-
+    this->storyFlag=false;
     mainSound = new QSoundEffect(this);
     soundObject = new QSoundEffect(this);
     soundVictory= new QSoundEffect(this);
@@ -27,13 +27,17 @@ QGame::QGame(QWidget *parent)
     talk=new QTalk(this);
 
     scene->initScene();
+
+    this->temp = scene->getRoleInfo();
+
     connect(this->scene,&QScene::stopDoorAnimation,[=](){
         this->scriptFlag=false;
+        scene->setRoleInfo(this->temp);
     });
 
     connect(this->story,&QStory::storyEnd,[=](){
         // qDebug()<<"2";
-
+        this->storyFlag=false;
         background->setActive(true);
         info->setActive(true);
 
@@ -54,7 +58,7 @@ QGame::QGame(QWidget *parent)
         this->update();
     });
 
-    connect(this->fight,&QFight::fightEnd,[=](){ 
+    connect(this->fight,&QFight::fightEnd,[=](){
         scene->hideNpc(ptCurNpcPos);
 
 
@@ -63,6 +67,7 @@ QGame::QGame(QWidget *parent)
         scene->setRoleInfo(fight->getResult());
         if (fight->getResult().nHealth <= 0)//如果健康值小于等于0，游戏状态切换到GS_OVER
         {                           //检查角色健康状态roleInfo.nHealth：
+            this->gameOver=true;
             gameState = GS_OVER;
             this->mainSound->stop();
             this->soundDefeated->setSource(QUrl::fromLocalFile(SOUND_DEFEATED_FILE));
@@ -77,8 +82,7 @@ QGame::QGame(QWidget *parent)
         }
         this->update();
     });
-    // Game Const
-    gameState = GS_INIT;
+
     gameClientSize = QSize(MAX_WIDTH, MAX_HEIGHT);
     //info内容
     infoRect = QRect(32, 50, 5 * 32, MAP_HEIGHT * 32);
@@ -89,7 +93,6 @@ QGame::QGame(QWidget *parent)
     // Set Game Window Properties
     setGeometry(0, 0, gameClientSize.width(), gameClientSize.height());
 
-    story->init();
 }
 
 QGame::~QGame()
@@ -100,7 +103,7 @@ QGame::~QGame()
 //绘图事件
 void QGame::paintEvent(QPaintEvent *event)
 {
-
+    QFont font("仿宋体", 12);
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
 
@@ -116,6 +119,12 @@ void QGame::paintEvent(QPaintEvent *event)
         background->setActive(false);
         info->setActive(false);
         emit scene->stopAnimation();
+
+
+        painter.setFont(font);
+        painter.setPen(Qt::black);
+
+        painter.drawText(MAX_WIDTH - 145, MAX_HEIGHT - 10, "按键盘R键重新开始");
         break;
     default:
         emit info->infoUpdated(scene->getRoleInfo(),scene->getSceneName());
@@ -127,22 +136,54 @@ void QGame::paintEvent(QPaintEvent *event)
 
 
 //“S”保存，“A"读取，“R”重新开始未实现
-void QGame::keyPressEvent(QKeyEvent *event)
-{
+bool QGame::m_keyPressEvent(QKeyEvent *event)
+{   
     switch (event->key())
-    {
-    case Qt::Key_Q:
-        exit(0);
-        break;
+    {     
     case Qt::Key_R:
-        // 还未实现
-        return;
-    default:  
+        return false;
+    default:
         handleGameKey(event);
         break;
     }
     update();
+    return true;
 }
+
+bool QGame::isStorying()
+{
+    return this->storyFlag;
+}
+
+bool QGame::isGameOver()
+{
+    return this->gameOver;
+}
+
+void QGame::initGame(bool value)
+{
+    if(value)
+    {
+        // Game Const
+        gameState = GS_INIT;
+        this->storyFlag=true;
+        story->init();
+    }
+    else
+    {
+        emit scene->startAnimation();
+
+        mainSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
+        mainSound->play();
+        mainSound->setLoopCount(QSoundEffect::Infinite);
+        delete story;
+        // qDebug()<<"1";
+
+        gameState = GS_WALK;
+        this->update();
+    }
+}
+
 
 //scence
 void QGame::handleGameKey(QKeyEvent *event)
@@ -246,6 +287,7 @@ void QGame::procScript()
      case SC_OBJECT:
         if(handleObjectInteraction())
         {
+            scene->setRoleInfo(this->temp);
             soundObject->setSource(QUrl::fromLocalFile(SOUND_OBJGECT_FILE));
             soundObject->play();
             scene->hideNpc(ptCurNpcPos);
@@ -262,6 +304,7 @@ void QGame::procScript()
          break;
      case SC_SETNPCPOS:
         scene->setNpcPos(ptCurNpcPos, QPoint(Param2, Param3));
+
         break;
      default:
         break;
@@ -272,13 +315,13 @@ void QGame::procScript()
 //scene
 bool QGame::handleObjectInteraction()
 {
-    ROLEINFO roleInfo = scene->getRoleInfo();
+    this->temp = scene->getRoleInfo();
     NPCINFO npcInfo = scene->getNpcInfo(ptCurNpcPos);
     bool npcValid = true;
 
-    for (int i = 0; i < sizeof(roleInfo) / sizeof(int); ++i)
+    for (int i = 0; i < sizeof(this->temp) / sizeof(int); ++i)
     {
-        int *pRole = reinterpret_cast<int *>(&roleInfo) + i;
+        int *pRole = reinterpret_cast<int *>(&this->temp) + i;
         int *pNpc = reinterpret_cast<int *>(&npcInfo) + i;
         if ((*pRole) + (*pNpc) < 0)
         {
@@ -288,14 +331,12 @@ bool QGame::handleObjectInteraction()
     }
     if (npcValid)
     {
-        for (int i = 0; i < sizeof(roleInfo) / sizeof(int); ++i)
+        for (int i = 0; i < sizeof(this->temp) / sizeof(int); ++i)
         {
-
-            int *pRole = reinterpret_cast<int *>(&roleInfo) + i;
+            int *pRole = reinterpret_cast<int *>(&this->temp) + i;
             int *pNpc = reinterpret_cast<int *>(&npcInfo) + i;
             *pRole += *pNpc;
         }
-        scene->setRoleInfo(roleInfo);
     }
     return npcValid;
 }

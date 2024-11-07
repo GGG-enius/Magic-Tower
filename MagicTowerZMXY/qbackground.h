@@ -13,6 +13,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include "Global.h"
+#include <QDataStream>
 #include "qtile.h"
 
 class QBackGround : public QWidget
@@ -25,6 +26,15 @@ public:
 
     void setActive(bool value);//槽函数，触发背景绘图
 
+    friend QDataStream &operator<<(QDataStream &out, const QBackGround &obj) {
+        out << obj.isActive;
+        return out;
+    }
+
+    friend QDataStream &operator>>(QDataStream &in, QBackGround &obj) {
+        in >> obj.isActive;
+        return in;
+    }
 private:
     QTile *tile;
     bool isActive;//背景活动状态标志
