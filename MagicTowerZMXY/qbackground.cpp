@@ -14,7 +14,7 @@ void QBackGround::paintEvent(QPaintEvent *event)
     if(this->isActive)
     {
         //绘制大小
-        setFixedSize(MAX_WIDTH,MAX_HEIGHT);
+        setFixedSize(MAX_WIDTH,458);
         QPainter painter(this);
         // //绘制背景
         int i, j;

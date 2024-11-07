@@ -45,6 +45,8 @@ void QScene::initScene()
     this->m_idLayerDone = 0;
     memset(roleEntryPos, 0, sizeof(roleExitPos));
     memset(roleExitPos, 0, sizeof(roleExitPos));
+
+    this->readStairFile();
     memset(roleEntryTile, TILE_ROLE_ENTRY, sizeof(roleExitTile));
     memset(roleExitTile, TILE_ROLE_EXIT, sizeof(roleExitTile));
 
@@ -73,7 +75,7 @@ void QScene::initScene()
 
 void QScene::backward()
 {
-    roleEntryPos[this->m_idScene]=role.getPos();
+    //roleEntryPos[this->m_idScene]=role.getPos();
     roleEntryTile[this->m_idScene]=role.getRoleTileID();
     (this->m_idScene-1<0)?1:this->m_idScene--;
     role.setPos(roleExitPos[this->m_idScene],roleExitTile[this->m_idScene]);
@@ -81,7 +83,7 @@ void QScene::backward()
 
 void QScene::forward()
 {
-    roleExitPos[this->m_idScene]=role.getPos();
+    //roleExitPos[this->m_idScene]=role.getPos();
     roleExitTile[this->m_idScene]=role.getRoleTileID();
     (this->m_idScene+1>23)?1:this->m_idScene++;
     if(this->m_idScene>this->m_idLayerDone)
@@ -247,4 +249,22 @@ void QScene::startPtPosAnimation(int layer, int y, int x)
     this->Sound->play();
     npc[layer][y][x].startNpcTimer();
 
+}
+
+void QScene::readStairFile()
+{
+    QFile stairFile(STAIR_FILE_NAME);
+    if(!stairFile.open(QIODeviceBase::ReadOnly)){
+        qDebug()<<"file error";
+    }
+    QDataStream in(&stairFile);
+    in.setVersion(QDataStream::Qt_6_7);
+    int layer;
+    in>>layer;//读取维度信息
+    for(int i=0;i<layer;i++)
+    {
+        in>>this->roleEntryPos[i];
+        in>>this->roleExitPos[i];
+    }
+    stairFile.close();
 }

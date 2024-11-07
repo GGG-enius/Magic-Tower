@@ -103,6 +103,9 @@ private:
     IDTILE roleExitTile[MAX_SCENE];
     QSoundEffect *Sound;
     bool isActive;
+
+
+    void readStairFile();
 signals:
     void startAnimation();
     void stopAnimation();

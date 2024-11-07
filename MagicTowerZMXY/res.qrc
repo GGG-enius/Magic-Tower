@@ -20,5 +20,6 @@
         <file>res/Image/Button/button1.png</file>
         <file>res/Image/Button/button2.png</file>
         <file>res/Image/BG/startBG.png</file>
+        <file>res/Image/BG/TileBG.png</file>
     </qresource>
 </RCC>

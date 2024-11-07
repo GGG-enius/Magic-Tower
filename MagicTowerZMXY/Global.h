@@ -32,6 +32,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define TILE_FILE_NAME			"../../IOFile/Tile.bin"
 #define MAP_FILE_NAME			"../../IOFile/Map.bin"
 #define NPC_FILE_NAME			"../../IOFile/Npc.bin"
+#define STAIR_FILE_NAME         "../../IOFile/Stair.bin"
 #define GAMEDATA_FILE_NAME      "../../IOFile/GameData.bin"
 #define STORY_FILE				":/res/story.txt"
 #define SOUND_START             ":/res/wav/Sound_800.wav"           ///<开始界面音乐
