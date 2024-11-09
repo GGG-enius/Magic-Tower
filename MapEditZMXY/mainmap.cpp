@@ -127,7 +127,7 @@ int MainMap::tileIDMapping[PIC_ABLE][4]={
     {124,124,124,124},
     {125,125,125,125},
     {126,126,126,126},
-    {18,18,18,18},         ///<角色16块单独存放,这里用地板替代 {127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142},
+    {18,18,18,18},         ///<角色16块单独存放,这里用地板替代 {127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,423,424,425,426,427,428,429,430}
     {143,144,145,146},
     {147,148,149,150},
     {151,152,153,154},
@@ -198,6 +198,7 @@ int MainMap::tileIDMapping[PIC_ABLE][4]={
     {411,412,413,414},
     {415,416,417,418},
     {419,420,421,422}
+
 };
 QString MainMap::tileURL[TILE_IMAGE_TOTAL]={
     ":/Image/Wall/Wall0001.png",
@@ -623,6 +624,22 @@ QString MainMap::tileURL[TILE_IMAGE_TOTAL]={
     ":/Image/Guard/GuardYingDaoRight0002.png",
     ":/Image/Guard/GuardYingDaoRight0003.png",
     ":/Image/Guard/GuardYingDaoRight0004.png",
+    ":/Image/Role/WuKong0017.png",
+    ":/Image/Role/WuKong0018.png",
+    ":/Image/Role/WuKong0019.png",
+    ":/Image/Role/WuKong0020.png",
+    ":/Image/Role/WuKong0021.png",
+    ":/Image/Role/WuKong0022.png",
+    ":/Image/Role/WuKong0023.png",
+    ":/Image/Role/WuKong0024.png",
+    ":/Image/Role/WuKong0025.png",
+    ":/Image/Role/WuKong0026.png",
+    ":/Image/Role/WuKong0027.png",
+    ":/Image/Role/WuKong0028.png",
+    ":/Image/Role/WuKong0029.png",
+    ":/Image/Role/WuKong0030.png",
+    ":/Image/Role/WuKong0031.png",
+    ":/Image/Role/WuKong0032.png"
 };
 int MainMap::curLayer=0;
 int MainMap::mapBuf[MAP_LAYER][CURMAP_W][CURMAP_H];

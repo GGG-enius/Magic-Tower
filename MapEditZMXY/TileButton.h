@@ -9,7 +9,7 @@
 /** 总图块数量*/
 #define PIC_TOTEL           230             ///<图块封顶数量
 #define PIC_ABLE            186             ///<可用图块数量
-#define TILE_IMAGE_TOTAL    423             ///<所有图块图像数量
+#define TILE_IMAGE_TOTAL    439             ///<所有图块图像数量
 //#define PIC_WIDTH		32
 //#define PIC_HEIGHT	32
 
