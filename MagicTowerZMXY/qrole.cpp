@@ -7,6 +7,11 @@ INDEX QRole::idTiles[MAX_ROLE_TILE] = {
     127, 128, 129, 130,			//上
     135, 136, 137, 138,			//右
     139, 140, 141, 142,			//下
+    423, 424, 425, 426,         //待机右
+    427, 428, 429, 430,         //待机左
+    431, 432, 433, 434,         //上左
+    435, 436, 437, 438          //下左
+
 };
 
 QRole::QRole(QWidget *parent)
@@ -25,10 +30,24 @@ QRole::QRole(QWidget *parent)
     RoleInfo.nYellowKey = 31;
     RoleInfo.nBlueKey = 1;
     RoleInfo.nRedKey = 1;
-
+    this->isleft=false;
     timer_role = new QTimer(this);
+    animationTimer=new QTimer(this);
+    connect(animationTimer,&QTimer::timeout,[=](){
+        int tmp = (m_nTileIndex)%3;
+        // qDebug()<<m_nTileIndex;
+        if(isleft)
+        {
+            m_nTileIndex=(tmp+19);
+            // qDebug()<<m_nTileIndex;
+        }else{
+            m_nTileIndex=(tmp+16);
+            // qDebug()<<m_nTileIndex;
+        }
+        m_nTileIndex++;
+    });
     connect(timer_role, &QTimer::timeout, this, &QRole::roleOnTimer);
-
+    m_nTileIndex=16;
     this->setFocusPolicy(Qt::StrongFocus); // 设置窗口可以获取焦点
     this->setFocus(); // 尝试在构造时设置焦点
 }
@@ -94,6 +113,14 @@ void QRole::roleOnTimer()
     if(m_nTileIndex%4==0)
     {
         timer_role->stop();
+        if(m_nTileIndex==0){
+            this->isleft=true;
+            m_nTileIndex=21;
+        }else if(m_nTileIndex==8){
+            this->isleft=false;
+            m_nTileIndex=16;
+        }
+        this->startRoleTimer();
     }
 }
 
@@ -104,10 +131,18 @@ QPoint QRole::getNextPoint(QKeyEvent *event)
     switch(event->key()){
         case Qt::Key_Up:
             r_ptPos.setY(r_ptPos.y()-1);
+            if(this->isleft)
+            {
+                m_nTileIndex=25;
+            }else
             m_nTileIndex = 6;
             break;
         case Qt::Key_Down:
             r_ptPos.setY(r_ptPos.y() + 1);
+            if(this->isleft)
+            {
+                m_nTileIndex=29;
+            }else
             m_nTileIndex = 14;
             break;
         case Qt::Key_Left:
@@ -121,6 +156,7 @@ QPoint QRole::getNextPoint(QKeyEvent *event)
         default:
             return m_ptPos;//按键不匹配任何方向键
     }
+    this->stopRoleTimer();
     //触发行走定时器
     timer_role->start(200);
     //检查新坐标r_ptPos是否在m_rtWalk区域内
@@ -141,12 +177,12 @@ void QRole::moveTo(QPoint ptPos)
 
 void QRole::startRoleTimer()
 {
-    this->timer_role->start(500);
+    this->animationTimer->start(150);
 }
 
 void QRole::stopRoleTimer()
 {
-    this->timer_role->stop();
+    this->animationTimer->stop();
 }
 
 //获取角色图块ID在idTiles数组中的索引

@@ -25,7 +25,7 @@ QScene::QScene(QWidget *parent)
                 }
             }
         }
-        // role.startRoleTimer();
+        role.startRoleTimer();
     });
     connect(this,&QScene::stopAnimation,[=](){
         this->isActive=false;

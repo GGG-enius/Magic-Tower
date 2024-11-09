@@ -61,11 +61,11 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define MAX_SCENE			24				///<魔塔层数, 也是场景个数
 #define MAP_WIDTH			11				///<每层地图宽11个TILE
 #define MAP_HEIGHT			11				///<每层地图高11个TILE
-#define MAX_TILE			423				///<共计174个TILE
+#define MAX_TILE			439				///<共计174个TILE
 #define MAX_NPC				186      		///<游戏最多共有174种NPC, Ps:实际好像100左右
 #define TILE_WIDTH			32				///<每个TILE宽32像索
 #define TILE_HEIGHT			32				///<每个TILE高32像索
-#define MAX_ROLE_TILE		16				///<主角共16个TILE
+#define MAX_ROLE_TILE		32				///<主角共16个TILE
 #define MAX_NPC_TILE		4				///<每个NPC动画共2TILE
 #define MAX_SCRIPT			100				///<最多100个脚本
 #define MAX_COMMAND			20				///<每个脚本中最多20条命令, 实际好像2条, -_-!

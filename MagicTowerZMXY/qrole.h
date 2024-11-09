@@ -95,6 +95,8 @@ private:
     int m_nTileIndex;//当前角色 TILE 的索引
 
     QTimer *timer_role;
+    QTimer *animationTimer;
+    bool isleft;
 signals:
     void timerRole();
 };

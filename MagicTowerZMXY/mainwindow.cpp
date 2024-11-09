@@ -89,12 +89,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             case Qt::Key_Q:
                 //保存游戏
                 QFileUtil::saveGame(*game,GAMEDATA_FILE_NAME);
-                qDebug()<<"保存成功";
+                // qDebug()<<"保存成功";
                 exit(0);
                 break;
             case Qt::Key_S:
                 QFileUtil::saveGame(*game,GAMEDATA_FILE_NAME);
-                qDebug()<<"保存成功";
+                // qDebug()<<"保存成功";
                 break;
             case Qt::Key_A:
                 delete game;
@@ -102,7 +102,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                 QFileUtil::loadGame(*game,GAMEDATA_FILE_NAME);
                 game->initGame(false);
                 game->show();
-                qDebug()<<"读取成功";
+                // qDebug()<<"读取成功";
                 break;
             default:
                 if(!game->m_keyPressEvent(event))
