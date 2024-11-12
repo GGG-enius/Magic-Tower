@@ -22,12 +22,12 @@ QRole::QRole(QWidget *parent)
     m_nTileIndex = 4;//初始化玩家角色最初站立状态
     //初始化角色属性结构体成员
     RoleInfo.nLevel = 1;
-    RoleInfo.nHealth = 1;
-    RoleInfo.nAttack = 1111;
-    RoleInfo.nDefense = 0;
-    RoleInfo.nMoney = 0;
+    RoleInfo.nHealth = 1000;
+    RoleInfo.nAttack = 10;
+    RoleInfo.nDefense = 10;
+    RoleInfo.nMoney = 10;
     RoleInfo.nExperience = 0;
-    RoleInfo.nYellowKey = 31;
+    RoleInfo.nYellowKey = 1;
     RoleInfo.nBlueKey = 1;
     RoleInfo.nRedKey = 1;
     this->isleft=false;
