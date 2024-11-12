@@ -62,8 +62,10 @@ private:
     QTimer *fightTimer;
     QTimer *scenceTimer;
     bool isActive;
+    int originalHealth;//战斗开始时主角生命值
 signals:
     void fightEnd();
+    void fightHealthChanged(int healthDeta);
 };
 
 #endif // QFIGHT_H

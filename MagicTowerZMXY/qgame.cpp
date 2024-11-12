@@ -83,6 +83,9 @@ QGame::QGame(QWidget *parent)
         this->update();
     });
 
+    //状态栏信号和槽
+    connect(fight, &QFight::fightHealthChanged, this, &QGame::onFightEnd);
+
     gameClientSize = QSize(MAX_WIDTH, MAX_HEIGHT);
     //info内容
     infoRect = QRect(32, 50, 5 * 32, MAP_HEIGHT * 32);
@@ -252,6 +255,12 @@ bool QGame::isScripting()
     return this->scriptFlag;
 }
 
+void QGame::onFightEnd(int healthDeta)
+{
+    QString message = QString("本次战斗消耗%1生命值").arg(healthDeta);
+    emit updateStatusBar(message);
+}
+
 //scene,fight
 void QGame::procScript()
 {
@@ -337,6 +346,37 @@ bool QGame::handleObjectInteraction()
             int *pNpc = reinterpret_cast<int *>(&npcInfo) + i;
             *pRole += *pNpc;
         }
+        if(npcInfo.nHealth)
+        {
+            QString message = QString("获得血瓶，生命值+%1").arg(npcInfo.nHealth);
+            emit updateStatusBar(message);
+        }
+        if(npcInfo.nAttack)
+        {
+            QString message = QString("获得红宝石，攻击力+%1").arg(npcInfo.nAttack);
+            emit updateStatusBar(message);
+        }
+        if(npcInfo.nDefense)
+        {
+            QString message = QString("获得紫宝石，防御力+%1").arg(npcInfo.nDefense);
+            emit updateStatusBar(message);
+        }
+        if(npcInfo.nRedKey)
+        {
+            QString message = QString("获得红钥匙");
+            emit updateStatusBar(message);
+        }
+        if(npcInfo.nYellowKey)
+        {
+            QString message = QString("获得黄钥匙");
+            emit updateStatusBar(message);
+        }
+        if(npcInfo.nBlueKey)
+        {
+            QString message = QString("获得蓝钥匙");
+            emit updateStatusBar(message);
+        }
     }
     return npcValid;
 }
+

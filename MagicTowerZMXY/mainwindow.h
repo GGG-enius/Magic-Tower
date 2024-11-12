@@ -20,7 +20,7 @@
 #include <QKeyEvent>
 #include <QPoint>
 #include <QDebug>
-
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -37,11 +37,14 @@ public:
     ~MainWindow();
     void paintEvent(QPaintEvent *event)override ;
     void keyPressEvent(QKeyEvent *event);
-
+    //状态栏更新槽函数
+    void handleStatusBarUpdate(const QString &message); // 状态栏更新槽函数
 private:
     Ui::MainWindow *ui;
     QGame *game;
     StartMenu* startMenu;
     QSoundEffect* mainSound;
+    QLabel* statusBarRoleInfo;
+
 };
 #endif // MAINWINDOW_H

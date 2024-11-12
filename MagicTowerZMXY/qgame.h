@@ -32,7 +32,9 @@
 #include "qinfo.h"
 #include "qscript.h"
 #include <QSize>
-
+#include <QStatusBar>
+#include <QLabel>
+#include <QFont>
 /**
  * @enum GAMESTATE
  *
@@ -115,5 +117,11 @@ private:
     QSoundEffect *soundObject;
     QSoundEffect *soundVictory;
     QSoundEffect *soundDefeated;
+
+    //状态栏槽函数
+    void onFightEnd(int healthDeta);//战斗结束更新状态栏
+signals:
+    //发送状态栏更新信号
+    void updateStatusBar(const QString &message);
 };
 #endif // QGAME_H

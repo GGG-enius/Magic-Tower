@@ -10,18 +10,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->mainSound= new QSoundEffect(this);
+    game = new QGame(this);
     this->mainSound->setSource(QUrl::fromLocalFile(SOUND_START));
     this->mainSound->play();
     this->mainSound->setLoopCount(QSoundEffect::Infinite);
     this->startMenu=new StartMenu(this);
     this->startMenu->show();
-
     connect(this->startMenu,&StartMenu::newStart,[=](){
         this->mainSound->stop();
 
         //延时进入到游戏主场景场景
         QTimer::singleShot(200,this,[=](){
-            game=new QGame(this);
+            //game=new QGame(this);
             game->initGame(true);
             this->startMenu->hide();
             delete this->startMenu;
@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
         this->mainSound->stop();
         //延时进入到游戏主场景场景
         QTimer::singleShot(200,this,[=](){
-            game=new QGame(this);
+            //game=new QGame(this);
             QFileUtil::loadGame(*game,GAMEDATA_FILE_NAME);
             game->initGame(false);
             QTimer::singleShot(100,this,[=](){
@@ -42,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent)
             });
         });
     });
+    //qgame和主窗口连接更新状态栏
+    connect(game, &QGame::updateStatusBar, this, &MainWindow::handleStatusBarUpdate);
 }
 MainWindow::~MainWindow()
 {
@@ -120,3 +122,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     }
 }
+
+void MainWindow::handleStatusBarUpdate(const QString &message)
+{
+    ui->statusbar->showMessage(message, 5000);
+}
+
+
+

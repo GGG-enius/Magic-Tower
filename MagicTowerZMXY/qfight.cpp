@@ -33,6 +33,7 @@ void QFight::load(INDEX idTile[], NPCINFO npcInfo, ROLEINFO roleInfo)
     }
     m_RoleInfo = roleInfo;
     m_NpcInfo = npcInfo;
+    originalHealth = roleInfo.nHealth;
     this->show();
     this->startFightTimer();
     this->startSceneTimer();
@@ -78,6 +79,8 @@ bool QFight::fightOnTimer()
         this->stopSceneTimer();
         // qDebug()<<"--------------------------";f
         emit this->fightEnd();
+        int healthDeta = originalHealth - m_RoleInfo.nHealth;
+        emit this->fightHealthChanged(healthDeta);
         return false;//战斗结束
     }
     return true;//战斗未结束
@@ -178,7 +181,7 @@ ROLEINFO QFight::getResult()
 
 void QFight::startFightTimer()
 {
-    fightTimer->start(300);
+    fightTimer->start(100);
 }
 
 void QFight::stopFightTimer()

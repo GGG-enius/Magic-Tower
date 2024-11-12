@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/story.txt</file>
         <file>res/wav/Sound_13.wav</file>
         <file>res/wav/Sound_800.wav</file>
         <file>res/wav/Sound_801.wav</file>
@@ -21,5 +20,6 @@
         <file>res/Image/Button/button2.png</file>
         <file>res/Image/BG/startBG.png</file>
         <file>res/Image/BG/TileBG.png</file>
+        <file>res/story.txt</file>
     </qresource>
 </RCC>
