@@ -85,6 +85,7 @@ QGame::QGame(QWidget *parent)
 
     //状态栏信号和槽
     connect(fight, &QFight::fightHealthChanged, this, &QGame::onFightEnd);
+    connect(scene, &QScene::layerChanged, this, &QGame::onLayerChanged);
 
     gameClientSize = QSize(MAX_WIDTH, MAX_HEIGHT);
     //info内容
@@ -261,6 +262,11 @@ void QGame::onFightEnd(int healthDeta)
     emit updateStatusBar(message);
 }
 
+void QGame::onLayerChanged(const QString &message)
+{
+    emit updateStatusBar(message);
+}
+
 //scene,fight
 void QGame::procScript()
 {
@@ -346,34 +352,55 @@ bool QGame::handleObjectInteraction()
             int *pNpc = reinterpret_cast<int *>(&npcInfo) + i;
             *pRole += *pNpc;
         }
-        if(npcInfo.nHealth)
+        if(npcInfo.nHealth>0)
         {
             QString message = QString("获得血瓶，生命值+%1").arg(npcInfo.nHealth);
             emit updateStatusBar(message);
         }
-        if(npcInfo.nAttack)
+        if(npcInfo.nAttack>0)
         {
-            QString message = QString("获得红宝石，攻击力+%1").arg(npcInfo.nAttack);
-            emit updateStatusBar(message);
+            if(npcInfo.nAttack==10)
+            {
+                QString message = QString("获得红宝石，攻击力+%1").arg(npcInfo.nAttack);
+                emit updateStatusBar(message);
+            }
+            else
+            {
+                QString message = QString("获得武器，攻击力+%1").arg(npcInfo.nAttack);
+                emit updateStatusBar(message);
+            }
         }
-        if(npcInfo.nDefense)
+        if(npcInfo.nDefense>0)
         {
-            QString message = QString("获得紫宝石，防御力+%1").arg(npcInfo.nDefense);
-            emit updateStatusBar(message);
+            if(npcInfo.nDefense==10)
+            {
+                QString message = QString("获得紫宝石，防御力+%1").arg(npcInfo.nDefense);
+                emit updateStatusBar(message);
+            }
+            else
+            {
+                QString message = QString("获得盔甲，防御力力+%1").arg(npcInfo.nDefense);
+                emit updateStatusBar(message);
+            }
         }
-        if(npcInfo.nRedKey)
+        if(npcInfo.nRedKey>0)
         {
             QString message = QString("获得红钥匙");
             emit updateStatusBar(message);
         }
-        if(npcInfo.nYellowKey)
+        if(npcInfo.nYellowKey>0)
         {
             QString message = QString("获得黄钥匙");
             emit updateStatusBar(message);
         }
-        if(npcInfo.nBlueKey)
+        if(npcInfo.nBlueKey>0)
         {
             QString message = QString("获得蓝钥匙");
+            emit updateStatusBar(message);
+        }
+        if(npcInfo.nHealth>0&&npcInfo.nAttack>0&&npcInfo.nDefense>0)
+        {
+            QString message = QString("生命值+%1,攻击力+%2,,防御力+%3").arg(npcInfo.nHealth).arg(npcInfo.nAttack).arg(npcInfo.nDefense);
             emit updateStatusBar(message);
         }
     }

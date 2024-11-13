@@ -79,6 +79,7 @@ void QScene::backward()
     roleEntryTile[this->m_idScene]=role.getRoleTileID();
     (this->m_idScene-1<0)?1:this->m_idScene--;
     role.setPos(roleExitPos[this->m_idScene],roleExitTile[this->m_idScene]);
+    emit layerChanged("下了一层楼");
 }
 
 void QScene::forward()
@@ -95,6 +96,7 @@ void QScene::forward()
     {
         role.setPos(roleEntryPos[this->m_idScene],roleEntryTile[this->m_idScene],true);
     }
+    emit layerChanged("上了一层楼");
 }
 
 QPoint QScene::getRoleNextPoint(QKeyEvent *event)

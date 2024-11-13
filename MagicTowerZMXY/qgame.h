@@ -120,6 +120,7 @@ private:
 
     //状态栏槽函数
     void onFightEnd(int healthDeta);//战斗结束更新状态栏
+    void onLayerChanged(const QString &message);//上下楼更新状态栏槽函数
 signals:
     //发送状态栏更新信号
     void updateStatusBar(const QString &message);

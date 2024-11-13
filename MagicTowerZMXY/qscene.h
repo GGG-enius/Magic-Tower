@@ -110,6 +110,7 @@ signals:
     void startAnimation();
     void stopAnimation();
     void stopDoorAnimation();
+    void layerChanged(const QString &message);
 };
 
 #endif // QSCENE_H
