@@ -34,6 +34,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define NPC_FILE_NAME			"../../IOFile/Npc.bin"
 #define STAIR_FILE_NAME         "../../IOFile/Stair.bin"
 #define GAMEDATA_FILE_NAME      "../../IOFile/GameData.bin"
+#define XIEMU_FILE              "../../End/End.mp4"
 #define STORY_FILE				":/res/story.txt"
 #define SOUND_START             ":/res/wav/Sound_800.wav"           ///<开始界面音乐
 #define SOUND_INIT_FILE			":/res/wav/Sound_830.wav"           ///<剧情音乐
@@ -43,7 +44,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define SOUND_BG_FILE4			":/res/wav/Sound_804.wav"           ///<背景音乐4
 #define SOUND_BG_FILE5			":/res/wav/Sound_805.wav"           ///<背景音乐5
 #define SOUND_BG_FILE6			":/res/wav/Sound_806.wav"           ///<背景音乐6
-#define SOUND_BG_FILE7			":/res/wav/Sound_807.wav"           ///<背景音乐7
+#define SOUND_BG_FILE7			":/res/wav/Sound_807.wav"           ///<结尾音乐
 #define SOUND_FIGHT_FILE		":/res/wav/Sound_13.wav"            ///<打斗音乐
 #define SOUND_OBJGECT_FILE      ":/res/wav/Sound_11.wav"            ///<拾取音效
 #define SOUND_FIGHT_FILE2       ":/res/wav/Sound_14.wav"            ///<战斗音效2
@@ -56,12 +57,14 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define STORY_BG_COLOR		QColor(0, 0 ,0)                   ///<故事情节背景颜色
 #define STORY_FT_COLOR		QColor(255, 255, 255)             ///<故事情节字体颜色
 
+#define FINAL_BOSS_1        142             ///<终极Boss图块索引
+#define FINAL_BOSS_2        143             ///<终极Boss图块索引
 #define MAX_WIDTH			640				///<游戏对话框的宽度
 #define MAX_HEIGHT			480				///<游戏对话框的高度
 #define MAX_SCENE			24				///<魔塔层数, 也是场景个数
 #define MAP_WIDTH			11				///<每层地图宽11个TILE
 #define MAP_HEIGHT			11				///<每层地图高11个TILE
-#define MAX_TILE			439				///<共计174个TILE
+#define MAX_TILE			443				///<共计174个TILE
 #define MAX_NPC				186      		///<游戏最多共有174种NPC, Ps:实际好像100左右
 #define TILE_WIDTH			32				///<每个TILE宽32像索
 #define TILE_HEIGHT			32				///<每个TILE高32像索

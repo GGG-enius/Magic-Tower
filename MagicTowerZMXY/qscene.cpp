@@ -11,10 +11,11 @@ QScene::QScene(QWidget *parent)
     this->isActive=false;
     this->Sound = new QSoundEffect(this);
     tile=new QTile(this);
-
+    role.startRoleTimer();
     connect(this, &QScene::startAnimation, this, [=](){
         this->isActive=true;
 
+        //潜在隐患,同时有24*11*11个定时器同时工作
         for(int i = 0; i < MAP_HEIGHT; i++)
         {
             for(int j = 0; j < MAP_WIDTH; j++)
@@ -25,7 +26,7 @@ QScene::QScene(QWidget *parent)
                 }
             }
         }
-        role.startRoleTimer();
+
     });
     connect(this,&QScene::stopAnimation,[=](){
         this->isActive=false;
@@ -43,8 +44,8 @@ void QScene::initScene()
 {
     this->m_idScene = 0;
     this->m_idLayerDone = 0;
-    memset(roleEntryPos, 0, sizeof(roleExitPos));
-    memset(roleExitPos, 0, sizeof(roleExitPos));
+    // memset(roleEntryPos, 0, sizeof(roleExitPos));
+    // memset(roleExitPos, 0, sizeof(roleExitPos));
 
     this->readStairFile();
     memset(roleEntryTile, TILE_ROLE_ENTRY, sizeof(roleExitTile));
@@ -77,7 +78,11 @@ void QScene::backward()
 {
     //roleEntryPos[this->m_idScene]=role.getPos();
     roleEntryTile[this->m_idScene]=role.getRoleTileID();
-    (this->m_idScene-1<0)?1:this->m_idScene--;
+    if(this->m_idScene-1<0){}
+    else{
+        this->stopNpcTimer();
+        this->m_idScene--;
+    }
     role.setPos(roleExitPos[this->m_idScene],roleExitTile[this->m_idScene]);
     emit layerChanged("下了一层楼");
 }
@@ -86,7 +91,11 @@ void QScene::forward()
 {
     //roleExitPos[this->m_idScene]=role.getPos();
     roleExitTile[this->m_idScene]=role.getRoleTileID();
-    (this->m_idScene+1>23)?1:this->m_idScene++;
+    if(this->m_idScene+1>23){
+    }else{
+        this->stopNpcTimer();
+        this->m_idScene++;
+    }
     if(this->m_idScene>this->m_idLayerDone)
     {
         this->m_idLayerDone=this->m_idScene;
@@ -138,12 +147,12 @@ ROLEINFO QScene::getRoleInfo()
     return role.getRoleInfo();
 }
 
-void QScene::getNpcTile(QPoint curPos, INDEX idTile[])
+void QScene::getNpcTile(QPoint curPos, INDEX idTile[],IDTILE& id)
 {
     npc[this->m_idScene][curPos.y()][curPos.x()].getNpcTile(idTile);
+    id=npc[this->m_idScene][curPos.y()][curPos.x()].id();
     // *npcInfo=npc[this->m_idScene][curPos.y()][curPos.x()].getNpcInfo();
 }
-
 
 
 NPCINFO QScene::getNpcInfo(QPoint curPos)
@@ -251,6 +260,20 @@ void QScene::startPtPosAnimation(int layer, int y, int x)
     this->Sound->play();
     npc[layer][y][x].startNpcTimer();
 
+}
+
+void QScene::stopNpcTimer()
+{
+    for(int i = 0; i < MAP_HEIGHT; i++)
+    {
+        for(int j = 0; j < MAP_WIDTH; j++)
+        {
+            if(npc[this->m_idScene][i][j].isAutoAnimation())
+            {
+                npc[this->m_idScene][i][j].stopNpcTimer();
+            }
+        }
+    }
 }
 
 void QScene::readStairFile()

@@ -32,7 +32,7 @@ public:
     INDEX getRoleTileID();
     QPoint getRolePos();
     ROLEINFO getRoleInfo();
-    void getNpcTile(QPoint curPos,INDEX idTile[MAX_NPC_TILE]);
+    void getNpcTile(QPoint curPos,INDEX idTile[MAX_NPC_TILE],IDTILE& id);
     NPCINFO getNpcInfo(QPoint curPos);
     IDSCRIPT getScriptID(QPoint curPos);
     void setRolePos(QPoint nextPos);
@@ -88,6 +88,7 @@ public:
 
     static void initMap();//  初始化地图数据
     void startPtPosAnimation(int layer,int y,int x);
+    void stopNpcTimer();
 private:
     //Data Cache所有NPC的数据缓冲
     static IDTILE TileData[MAX_SCENE][MAP_WIDTH][MAP_HEIGHT];

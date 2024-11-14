@@ -21,5 +21,7 @@
         <file>res/Image/BG/startBG.png</file>
         <file>res/Image/BG/TileBG.png</file>
         <file>res/story.txt</file>
+        <file>res/Image/Button/button3.png</file>
+        <file>res/Image/BG/GameOver.png</file>
     </qresource>
 </RCC>

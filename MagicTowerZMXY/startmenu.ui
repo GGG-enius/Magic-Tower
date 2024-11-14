@@ -76,6 +76,9 @@ QPushButton:hover{
 	border-image: url(:/res/Image/Button/button1.png);}
 QPushButton:checked{
 border-image: url(:/res/Image/Button/button1.png);
+}
+QPushButton:disabled{
+border-image: url(:/res/Image/Button/button3.png);
 }</string>
    </property>
    <property name="text">

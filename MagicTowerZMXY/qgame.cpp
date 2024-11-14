@@ -74,11 +74,20 @@ QGame::QGame(QWidget *parent)
             this->soundDefeated->play();
 
         }else{
-            this->soundVictory->setSource(QUrl::fromLocalFile(SOUND_VICTORY_FILE));
-            this->soundVictory->play();
-            mainSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
-            mainSound->play();
-            mainSound->setLoopCount(QSoundEffect::Infinite);
+            if((this->scene->getSceneID()==MAX_SCENE-1)&&(ptCurNpcID==FINAL_BOSS_1||ptCurNpcID==FINAL_BOSS_2))
+            {
+                this->mainSound->stop();
+                // background->setActive(false);
+                // info->setActive(false);
+                emit this->victory();
+            }else
+            {
+                this->soundVictory->setSource(QUrl::fromLocalFile(SOUND_VICTORY_FILE));
+                this->soundVictory->play();
+                mainSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
+                mainSound->play();
+                mainSound->setLoopCount(QSoundEffect::Infinite);
+            }
         }
         this->update();
     });
@@ -105,30 +114,33 @@ QGame::~QGame()
 
 
 //绘图事件
-void QGame::paintEvent(QPaintEvent *event)
+void QGame::paintEvent(QPaintEvent *)
 {
-    QFont font("仿宋体", 12);
+    // QFont font("仿宋体", 12);
     setFixedSize(MAX_WIDTH,MAX_HEIGHT);
     QPainter painter(this);
-
+    QPixmap pixmap;
     switch (gameState)
     {
     case GS_INIT:
         break;
     case GS_OVER:
-        painter.fillRect(rect(), Qt::white);
-        painter.setPen(Qt::black);
-        painter.drawText(100, 100, "胜败乃兵家常事, ");
-        painter.drawText(150, 130, "大侠重新来过吧! ");
+
+        pixmap.load(":/res/Image/BG/GameOver.png");
+        painter.drawPixmap(0,0,this->width(),this->height(),pixmap);
+        // painter.fillRect(rect(), Qt::white);
+        // painter.setPen(Qt::black);
+        // painter.drawText(100, 100, "胜败乃兵家常事, ");
+        // painter.drawText(150, 130, "请休养数日，再来闯关，师傅等你来救！! ");
         background->setActive(false);
         info->setActive(false);
         emit scene->stopAnimation();
 
 
-        painter.setFont(font);
-        painter.setPen(Qt::black);
+        // painter.setFont(font);
+        // painter.setPen(Qt::black);
 
-        painter.drawText(MAX_WIDTH - 145, MAX_HEIGHT - 10, "按键盘R键重新开始");
+        // painter.drawText(MAX_WIDTH - 145, MAX_HEIGHT - 10, "按键盘R键重新开始");
         break;
     default:
         emit info->infoUpdated(scene->getRoleInfo(),scene->getSceneName());
@@ -282,15 +294,17 @@ void QGame::procScript()
         break;
      case SC_SCENEFORWARD:
         scene->forward();
+        emit scene->startAnimation();
         break;
      case SC_SCENEBACKWARD:
         scene->backward();
+        emit scene->startAnimation();
         break;
      case SC_FIGHT:
         running = false;
         gameState = GS_FIGHT;
         this->mainSound->stop();
-        scene->getNpcTile(ptCurNpcPos,tmp);
+        scene->getNpcTile(ptCurNpcPos,tmp,ptCurNpcID);
         fight->load(tmp, scene->getNpcInfo(ptCurNpcPos), scene->getRoleInfo());
         break;
      case SC_TALK:
@@ -314,6 +328,7 @@ void QGame::procScript()
          {
              scene->startPtPosAnimation(scene->getSceneID(),ptCurNpcPos.y(),ptCurNpcPos.x());
          }else{
+             emit updateStatusBar("没有钥匙");
              this->scriptFlag=false;
          }
          break;

@@ -21,6 +21,7 @@
 #include <QPoint>
 #include <QDebug>
 #include <QLabel>
+#include "end.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -39,12 +40,16 @@ public:
     void keyPressEvent(QKeyEvent *event);
     //状态栏更新槽函数
     void handleStatusBarUpdate(const QString &message); // 状态栏更新槽函数
+    bool eventFilter(QObject* obj,QEvent* event);
+    bool isFileEmpty(const QString &filePath);
 private:
     Ui::MainWindow *ui;
     QGame *game;
+    End* end;
     StartMenu* startMenu;
     QSoundEffect* mainSound;
     QLabel* statusBarRoleInfo;
+    QSoundEffect* endSound;
 
 };
 #endif // MAINWINDOW_H

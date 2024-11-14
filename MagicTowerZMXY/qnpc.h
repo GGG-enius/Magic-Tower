@@ -61,7 +61,7 @@ public:
         {
             out<<obj.m_idTile[i];
         }
-        out<<obj.m_idScript<<obj.m_bShow<<obj.m_npcInfo<<obj.doorFlag<<0;///<最后零代表图块索引置零
+        out<<obj.m_id<<obj.m_idScript<<obj.m_bShow<<obj.m_npcInfo<<obj.doorFlag<<0;///<最后零代表图块索引置零
 
         return out;
     }
@@ -73,14 +73,16 @@ public:
         {
             in>>obj.m_idTile[i];
         }
-        in >> obj.m_idScript>>obj.m_bShow>>obj.m_npcInfo>>obj.doorFlag>>obj.m_nTileIndex;
+        in >>obj.m_id>> obj.m_idScript>>obj.m_bShow>>obj.m_npcInfo>>obj.doorFlag>>obj.m_nTileIndex;
         return in;
     }
     bool isAutoAnimation();
     void setDoorFlag();
+    IDTILE id() const;
 private:
     static NPCTILE NpcData[MAX_NPC];//存储所有 NPC 的图块信息
     INDEX m_idTile[MAX_NPC_TILE];//存储当前Npc图块ID
+    IDTILE m_id;//当前图块索引
     int m_nTileIndex;//当前Npc图块索引
     IDSCRIPT m_idScript;//当前Npc的脚本ID
     bool m_bShow;//用于记录Npc显示状态

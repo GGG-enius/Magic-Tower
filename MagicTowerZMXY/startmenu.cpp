@@ -4,12 +4,14 @@
 #include <QPixmap>
 #include <QPropertyAnimation>
 #include <QDebug>
+#include <QFile>
 StartMenu::StartMenu(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::StartMenu)
 {
     ui->setupUi(this);
     this->isActive=true;
+
     QButtonGroup* group=new QButtonGroup(this);
     group->setExclusive(true);
     group->addButton(ui->selBtn1);
@@ -30,6 +32,9 @@ StartMenu::StartMenu(QWidget *parent)
         // ui->selBtn1->installEventFilter(this);
         // ui->selBtn2->installEventFilter(this);
     });
+    if(isFileEmpty(GAMEDATA_FILE_NAME)){
+        ui->selBtn2->setDisabled(true);
+    }
 }
 
 
@@ -73,6 +78,24 @@ void StartMenu::zoomUp(QAbstractButton* SelBtn)
 
     //执行动画
     animation->start();
+}
+
+bool StartMenu::isFileEmpty(const QString &filePath)
+{
+    QFile file(filePath);
+    if(!file.exists()){
+        qDebug()<<"文件不存在";
+        return false;
+    }
+
+    if(!file.open(QIODevice::ReadOnly)){
+        qDebug()<<"文件打开失败";
+        return false;
+    }
+
+    bool isEmpty=(file.size()==0);
+    file.close();
+    return isEmpty;
 }
 
 bool StartMenu::isStartMenuActive()

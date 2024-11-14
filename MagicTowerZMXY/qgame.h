@@ -100,7 +100,7 @@ private:
     QRect infoRect;
 
     QPoint ptCurNpcPos;
-
+    IDTILE ptCurNpcID;
 
     ROLEINFO temp;
 
@@ -124,5 +124,6 @@ private:
 signals:
     //发送状态栏更新信号
     void updateStatusBar(const QString &message);
+    void victory();
 };
 #endif // QGAME_H

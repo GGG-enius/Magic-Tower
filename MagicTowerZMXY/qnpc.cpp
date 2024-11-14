@@ -11,7 +11,7 @@ NPCTILE QNpc::NpcData[MAX_NPC] ={
     {{1,1,1,1},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //墙2----1
     {{2,2,2,2},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //墙3----2
     {{3,3,3,3},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //墙4----3
-    {{4,4,4,4},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //蓝熔岩--4
+    {{4,439,4,439},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //蓝熔岩--4
     {{5,5,5,5},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //墙5----5
     {{6,6,6,6},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //墙6----6
     {{7,7,7,7},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                       //墙7----7
@@ -19,9 +19,9 @@ NPCTILE QNpc::NpcData[MAX_NPC] ={
     {{9,9,9,9},SI_SECRET, true,{0,0,0,0,0,0,0,0,0}},                      //机关1--9
     {{10,10,10,10},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //墙9----10
     {{11,11,11,11},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //墙10---11
-    {{12,12,12,12},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //红熔岩--12
-    {{13,13,13,13},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //星星1--13
-    {{14,14,14,14},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //星星2--14
+    {{12,440,12,440},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //红熔岩--12
+    {{13,441,13,441},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //星星1--13
+    {{14,442,14,442},SI_WALL, true, {0,0,0,0,0,0,0,0,0}},                   //星星2--14
     {{15,15,15,15},SI_EXIT, true,{0,0,0,0,0,0,0,0,0}},                    //下楼---15
     {{16,16,16,16},SI_ENTRY, true,{0,0,0,0,0,0,0,0,0}},                   //上楼---16
     {{17,17,17,17},SI_FLOOR, true,{0,0,0,0,0,0,0,0,0}},                   //地板1--17
@@ -246,6 +246,7 @@ void QNpc::initNpc()
 //根据提供的idTile 从 NpcData 数组中加载一个 NPC 的数据
 void QNpc::load(IDTILE idTile)
 {
+    this->m_id=idTile;
     for(int i=0;i<MAX_NPC;i++)
     {
         //检查传入的 idTile 是否等于当前遍历的元素的任一 idTile
@@ -286,6 +287,7 @@ void QNpc::load(IDTILE idTile)
 
 void QNpc::load(QNpc &npc)
 {
+    this->m_id=npc.m_id;
     for(int i=0;i<MAX_NPC_TILE;i++)
     {
         m_idTile[i] = npc.m_idTile[i];
@@ -294,6 +296,8 @@ void QNpc::load(QNpc &npc)
     m_idScript = npc.m_idScript;
     m_bShow = npc.m_bShow;
 }
+
+
 
 //返回当前的图块 ID，如果 NPC 被隐藏，则返回地板图块 TILE_FLOOR
 INDEX QNpc::getTileID()
@@ -355,13 +359,15 @@ void QNpc::npcOnTimer()
 
 void QNpc::startNpcTimer()
 {
-    if(!this->doorFlag)
+    if(!this->isNpcTimerActive())
     {
-        this->npcTimer->start(300);
-    }else{
-        this->npcTimer->start(100);
+        if(!this->doorFlag)
+        {
+            this->npcTimer->start(300);
+        }else{
+            this->npcTimer->start(100);
+        }
     }
-
 }
 
 void QNpc::stopNpcTimer()
@@ -377,7 +383,7 @@ bool QNpc::isNpcTimerActive()
 bool QNpc::isAutoAnimation()
 {
     if(this->m_bShow&&(this->m_idScript==SI_MONSTER||this->m_idScript==SI_CELESTIAL||
-    this->m_idScript==SI_SHOP||this->m_idScript==SI_NPC||this->m_idScript==SI_ROLE))
+    this->m_idScript==SI_SHOP||this->m_idScript==SI_NPC||this->m_idScript==SI_ROLE||this->m_idScript==SI_WALL))
     {
         return true;
     }
@@ -389,7 +395,10 @@ void QNpc::setDoorFlag()
     this->doorFlag=true;
 }
 
-
+IDTILE QNpc::id() const
+{
+    return m_id;
+}
 
 //原版数据
 // void QNpc::initNpc()
