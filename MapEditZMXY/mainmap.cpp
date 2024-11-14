@@ -16,7 +16,7 @@ int MainMap::tileIDMapping[PIC_ABLE][4]={
     {1,1,1,1},
     {2,2,2,2},
     {3,3,3,3},
-    {4,4,4,4},
+    {4,439,4,439},
     {5,5,5,5},
     {6,6,6,6},
     {7,7,7,7},
@@ -24,9 +24,9 @@ int MainMap::tileIDMapping[PIC_ABLE][4]={
     {9,9,9,9},
     {10,10,10,10},
     {11,11,11,11},
-    {12,12,12,12},
-    {13,13,13,13},
-    {14,14,14,14},
+    {12,440,12,440},
+    {13,441,13,441},
+    {14,442,14,442},
     {15,15,15,15},
     {16,16,16,16},
     {17,17,17,17},
@@ -639,7 +639,11 @@ QString MainMap::tileURL[TILE_IMAGE_TOTAL]={
     ":/Image/Role/WuKong0029.png",
     ":/Image/Role/WuKong0030.png",
     ":/Image/Role/WuKong0031.png",
-    ":/Image/Role/WuKong0032.png"
+    ":/Image/Role/WuKong0032.png",
+    ":/Image/Wall/Wall0016.png",
+    ":/Image/Wall/Wall0017.png",
+    ":/Image/Wall/Wall0018.png",
+    ":/Image/Wall/Wall0019.png"
 };
 int MainMap::curLayer=0;
 int MainMap::mapBuf[MAP_LAYER][CURMAP_W][CURMAP_H];

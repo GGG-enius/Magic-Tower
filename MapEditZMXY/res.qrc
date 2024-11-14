@@ -458,5 +458,9 @@
         <file>Image/Role/WuKong0030.png</file>
         <file>Image/Role/WuKong0031.png</file>
         <file>Image/Role/WuKong0032.png</file>
+        <file>Image/Wall/Wall0016.png</file>
+        <file>Image/Wall/Wall0017.png</file>
+        <file>Image/Wall/Wall0018.png</file>
+        <file>Image/Wall/Wall0019.png</file>
     </qresource>
 </RCC>
