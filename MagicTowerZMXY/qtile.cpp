@@ -12,7 +12,8 @@ QImage QTile::tileData[MAX_TILE];
 QTile::QTile(QWidget *parent)
     : QWidget{parent}
 {
-
+    this->setWindowFlag(Qt::FramelessWindowHint);
+    this->setAttribute(Qt::WA_TranslucentBackground);
 }
 
 

@@ -14,7 +14,7 @@ QTalk::QTalk(QWidget *parent)
 {
     this->isActive=false;
     this->timerTalk=new QTimer(this);
-
+    // this->tile=new QTile(this);
     connect(this->timerTalk,&QTimer::timeout,[=](){
         // qDebug()<<"------------------";
         OnTimer();

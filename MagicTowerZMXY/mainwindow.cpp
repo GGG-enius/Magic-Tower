@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     this->mainSound= new QSoundEffect(this);
     // game = new QGame(this);
     // this->statusBarRoleInfo=new QLabel;
@@ -20,7 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->endSound= new QSoundEffect(this);
     this->startMenu=new StartMenu(this);
     this->startMenu->show();
-
+    this->game=nullptr;
+    this->end= nullptr;
+    this->statusBarRoleInfo=nullptr;
 
     connect(this->startMenu,&StartMenu::newStart,[=](){
         this->mainSound->stop();
@@ -42,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
                 this->endSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE7));
                 this->endSound->play();
                 this->endSound->setLoopCount(QSoundEffect::Infinite);
-                QTimer::singleShot(1500,this,[=](){
+                QTimer::singleShot(2000,this,[=](){
                     this->end->playEndVideo();
                 });
 
@@ -77,7 +80,7 @@ MainWindow::MainWindow(QWidget *parent)
                     this->endSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE7));
                     this->endSound->play();
                     this->endSound->setLoopCount(QSoundEffect::Infinite);
-                    QTimer::singleShot(1500,this,[=](){
+                    QTimer::singleShot(2000,this,[=](){
                         this->end->playEndVideo();
                     });
 
@@ -107,7 +110,7 @@ void MainWindow::paintEvent(QPaintEvent *)
     if(this->end&&this->end->isActiving())
     {
         painter.fillRect(this->rect(), Qt::black);
-    }else{
+    }else {
         pixmap.load(":/res/Image/BG/startBG.png");
         painter.drawPixmap(0,0,this->width(),this->height(),pixmap);
     }
@@ -146,7 +149,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     this->endSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE7));
                     this->endSound->play();
                     this->endSound->setLoopCount(QSoundEffect::Infinite);
-                    QTimer::singleShot(1500,this,[=](){
+                    QTimer::singleShot(2000,this,[=](){
                         this->end->playEndVideo();
                     });
 
@@ -199,7 +202,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                     this->endSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE7));
                     this->endSound->play();
                     this->endSound->setLoopCount(QSoundEffect::Infinite);
-                    QTimer::singleShot(1500,this,[=](){
+                    QTimer::singleShot(2000,this,[=](){
                         this->end->playEndVideo();
                     });
 
@@ -231,7 +234,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
                         this->endSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE7));
                         this->endSound->play();
                         this->endSound->setLoopCount(QSoundEffect::Infinite);
-                        QTimer::singleShot(1500,this,[=](){
+                        QTimer::singleShot(2000,this,[=](){
                             this->end->playEndVideo();
                         });
 

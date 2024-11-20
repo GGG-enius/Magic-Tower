@@ -5,7 +5,7 @@ QInfo::QInfo(QWidget *parent)
     :  QWidget{parent},borderColor(Qt::darkGray), borderWidth(5)
 {
     this->isActive=false;
-
+    // this->tile = new QTile(this);
     connect(this,&QInfo::infoUpdated,[=](ROLEINFO info,QString name){
         this->setRoleInfo(info);
         this->setSceneName(name);

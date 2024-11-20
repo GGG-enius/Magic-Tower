@@ -1,5 +1,5 @@
 #include "qfight.h"
-
+#include <cstring>
 QFight::QFight(QWidget *parent)
     : QWidget{parent}
 {
@@ -9,7 +9,7 @@ QFight::QFight(QWidget *parent)
     fightTimer = new QTimer(this);
     scenceTimer = new QTimer(this);
     tile = new QTile(this);
-
+    memset(this->m_idTile,0,sizeof(this->m_idTile));
     this->fightSound = new QSoundEffect(this);
 
 

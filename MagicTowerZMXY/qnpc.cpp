@@ -1,5 +1,5 @@
 #include "qnpc.h"
-
+#include <cstring>
 //每个 NPCTILE 结构体的实例代表游戏中 NPC 的一个配置
 //idTile[0] 和 idTile[1] 可以是相同（通常用来简单表示一个实体的静态图像）或不同（表示这个实体有多个帧或动画)
 //idScript表达 NPC 或物体的类型、功能或交互方式
@@ -207,6 +207,7 @@ QNpc::QNpc(QWidget *parent)
     m_nTileIndex = 0;//初始化为 0 表示对象创建时，默认使用第一个图块。这意味着 CNpc 对象在创建时，默认显示第一帧或第一个状态。
     m_bShow = false;//默认不可见
     this->doorFlag=false;
+    // memset(this->m_idTile,0,sizeof(this->m_idTile));
     npcTimer = new QTimer(this);
     connect(npcTimer, &QTimer::timeout, this, &QNpc::npcOnTimer);
     //npcTimer->start(200); //测试成功，在Qscene中触发

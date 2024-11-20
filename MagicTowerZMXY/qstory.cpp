@@ -11,7 +11,10 @@ QStory::QStory(QWidget *parent)
 {
 
     this->setFixedSize(MAX_WIDTH, MAX_HEIGHT);
+    // timer=nullptr;
+    // startSound=nullptr;
     //尝试打开故事文件
+    this->changeColor=true;
     QFile storyFile(STORY_FILE);
     //                                        以文本模式打开
     if(storyFile.open(QIODeviceBase::ReadOnly|QIODeviceBase::Text))

@@ -39,6 +39,7 @@ QGame::QGame(QWidget *parent)
         // qDebug()<<"2";
         this->storyFlag=false;
         background->setActive(true);
+        this->background->show();
         info->setActive(true);
 
         emit scene->startAnimation();
@@ -187,6 +188,10 @@ void QGame::initGame(bool value)
     }
     else
     {
+        this->storyFlag=false;
+        background->setActive(true);
+        this->background->show();
+        info->setActive(true);
         emit scene->startAnimation();
 
         mainSound->setSource(QUrl::fromLocalFile(SOUND_BG_FILE1));
@@ -394,7 +399,7 @@ bool QGame::handleObjectInteraction()
             }
             else
             {
-                QString message = QString("获得盔甲，防御力力+%1").arg(npcInfo.nDefense);
+                QString message = QString("获得盔甲，防御力+%1").arg(npcInfo.nDefense);
                 emit updateStatusBar(message);
             }
         }

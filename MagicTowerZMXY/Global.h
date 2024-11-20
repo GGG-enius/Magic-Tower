@@ -20,21 +20,13 @@ typedef  int		IDTALK;                 ///<对话ID
 //Script
 typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号，(x,y)坐标
 //Game Const
-#ifdef _DEBUG
-#define TILE_FILE_NAME			"..\\Tile.txt"              ///<图块文件
-#define MAP_FILE_NAME			"..\\Map.txt"               ///<地图文件
-#define NPC_FILE_NAME			"..\\Npc.txt"               ///<NPC文件
-#define STORY_FILE				":\\res\\story.txt"           ///<故事情节文件
-#define SOUND_INIT_FILE			":\\res\\Sound_830.wav"			///<游戏开头动画背景音乐
-#define SOUND_BG_FILE			"..\\Sound_874.wav"			///<背景音乐
-#define SOUND_FIGHT_FILE		"..\\Sound_13.wav"			///<攻击音乐
-#else
-#define TILE_FILE_NAME			"../../IOFile/Tile.bin"
-#define MAP_FILE_NAME			"../../IOFile/Map.bin"
-#define NPC_FILE_NAME			"../../IOFile/Npc.bin"
-#define STAIR_FILE_NAME         "../../IOFile/Stair.bin"
-#define GAMEDATA_FILE_NAME      "../../IOFile/GameData.bin"
-#define XIEMU_FILE              "../../End/End.mp4"
+
+#define TILE_FILE_NAME			"IOFile/Tile.bin"
+#define MAP_FILE_NAME			"IOFile/Map.bin"
+#define NPC_FILE_NAME			"IOFile/Npc.bin"
+#define STAIR_FILE_NAME         "IOFile/Stair.bin"
+#define GAMEDATA_FILE_NAME      "IOFile/GameData.bin"
+#define XIEMU_FILE              "End/End.mp4"
 #define STORY_FILE				":/res/story.txt"
 #define SOUND_START             ":/res/wav/Sound_800.wav"           ///<开始界面音乐
 #define SOUND_INIT_FILE			":/res/wav/Sound_830.wav"           ///<剧情音乐
@@ -51,7 +43,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define SOUND_VICTORY_FILE      ":/res/wav/Sound_15.wav"            ///<胜利音效
 #define SOUND_DOOR_FILE         ":/res/wav/Sound_12.wav"            ///<开门音效
 #define SOUND_DEFEATED_FILE     ":/res/wav/Sound_16.wav"            ///<失败音效
-#endif
+
 
 #define BORDER_COLOR		QColor(200, 100, 0)             ///<边框颜色
 #define STORY_BG_COLOR		QColor(0, 0 ,0)                   ///<故事情节背景颜色
@@ -78,7 +70,7 @@ typedef  int        SCRIPTPARAM;            ///<脚本参数包括相应的ID号
 #define MAX_BUFFER			450				///<故事情节缓冲区大小
 
 //TILE
-#define TILE_BG				7         ///<背景Tile的ID
+#define TILE_BG				10         ///<背景Tile的ID
 #define TILE_FLOOR			18          ///<地板Tile的ID
 #define TILE_CELESTIAL		124			///<仙子Tile的ID
 #define TILE_ROLE			115			///<主角Tile的ID
