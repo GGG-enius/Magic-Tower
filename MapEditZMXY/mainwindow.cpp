@@ -265,7 +265,7 @@ bool MainWindow::readNpcFile()
 
 bool MainWindow::writeNpcFile()
 {
-    QFile npcFile("../../IOFile/Npc.bin");
+    QFile npcFile(NPC_FILE_NAME);
     if(!npcFile.open(QIODeviceBase::WriteOnly)){
         qDebug()<<npcFile.errorString();
         return false;

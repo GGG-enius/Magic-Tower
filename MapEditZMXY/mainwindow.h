@@ -7,7 +7,7 @@
 
 
 
-#define NPC_FILE_NAME		"../../IOFile/Npc.bin"
+#define NPC_FILE_NAME		"../MagicTowerZMXY/IOFile/Npc.bin"
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

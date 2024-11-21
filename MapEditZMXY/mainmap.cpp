@@ -907,7 +907,7 @@ bool MainMap::readImageFile()
 
 bool MainMap::writeImageFile()
 {
-    QFile tileFile("../../IOFile/Tile.bin");
+    QFile tileFile(TILE_FILE_NAME);
     if(!tileFile.open(QIODeviceBase::WriteOnly)){
         qDebug()<<tileFile.errorString();
         return false;
@@ -965,7 +965,7 @@ bool MainMap::readMapFile()
 
 bool MainMap::writeMapFile()
 {
-    QFile mapFile("../../IOFile/Map.bin");
+    QFile mapFile(MAP_FILE_NAME);
     if(!mapFile.open(QIODeviceBase::WriteOnly)){
         qDebug()<<mapFile.errorString();
         return false;
@@ -1010,7 +1010,7 @@ bool MainMap::readStairFile()
 
 bool MainMap::writeStairFile()
 {
-    QFile stairFile("../../IOFile/Stair.bin");
+    QFile stairFile(STAIR_FILE_NAME);
     if(!stairFile.open(QIODeviceBase::WriteOnly)){
         qDebug()<<stairFile.errorString();
         return false;

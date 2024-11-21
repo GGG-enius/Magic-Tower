@@ -9,9 +9,10 @@
 // #include <QImage>
 #include <QMouseEvent>
 // #include <QKeyEvent>
-#define TILE_FILE_NAME		"../../IOFile/Tile.bin"
-#define MAP_FILE_NAME		"../../IOFile/Map.bin"
-#define STAIR_FILE_NAME     "../../IOFile/Stair.bin"
+
+#define TILE_FILE_NAME		"../MagicTowerZMXY/IOFile/Tile.bin"
+#define MAP_FILE_NAME		"../MagicTowerZMXY/IOFile/Map.bin"
+#define STAIR_FILE_NAME     "../MagicTowerZMXY/IOFile/Stair.bin"
 class MainMap : public QWidget
 {
     Q_OBJECT

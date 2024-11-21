@@ -26,7 +26,7 @@ SelectTile::SelectTile(QWidget *parent)
             emit this->updateDefault();
         });
     }
-
+    TileGroup->button(115)->setDisabled(true);
     TileGroup->button(6)->setChecked(true);
     // ui->Tile0002->m_setStyleSheet(":/Wall/Wall0007.png",":/Wall/Wall0007.png");
     // ui->Tile0003->m_setStyleSheet(":/Floor/Floor0002.png",":/Floor/Floor0002.png");
