@@ -23,8 +23,8 @@ QRole::QRole(QWidget *parent)
     //初始化角色属性结构体成员
     RoleInfo.nLevel = 1;
     RoleInfo.nHealth = 1000;
-    RoleInfo.nAttack = 10;
-    RoleInfo.nDefense = 10;
+    RoleInfo.nAttack = 25;
+    RoleInfo.nDefense = 15;
     RoleInfo.nMoney = 0;
     RoleInfo.nExperience = 0;
     RoleInfo.nYellowKey = 1;

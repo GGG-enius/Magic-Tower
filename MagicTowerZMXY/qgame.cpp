@@ -291,6 +291,8 @@ void QGame::procScript()
     SCRIPTPARAM Param1 = script.getScriptInfo().param1;
     SCRIPTPARAM Param2 = script.getScriptInfo().param2;
     SCRIPTPARAM Param3 = script.getScriptInfo().param3;
+    ROLEINFO roleinfo = scene->getRoleInfo();
+    NPCINFO npcinfo = scene->getNpcInfo(ptCurNpcPos);
     INDEX tmp[MAX_NPC_TILE]{0};
       switch (idFun)
       {
@@ -306,11 +308,15 @@ void QGame::procScript()
         emit scene->startAnimation();
         break;
      case SC_FIGHT:
-        running = false;
-        gameState = GS_FIGHT;
-        this->mainSound->stop();
-        scene->getNpcTile(ptCurNpcPos,tmp,ptCurNpcID);
-        fight->load(tmp, scene->getNpcInfo(ptCurNpcPos), scene->getRoleInfo());
+         running = false;
+         if(roleinfo.nAttack<=npcinfo.nDefense&&roleinfo.nDefense>=npcinfo.nAttack){
+             emit updateStatusBar("高手过招,点到为止");
+         }else{
+             gameState = GS_FIGHT;
+             this->mainSound->stop();
+             scene->getNpcTile(ptCurNpcPos,tmp,ptCurNpcID);
+             fight->load(tmp, npcinfo, roleinfo);
+         }
         break;
      case SC_TALK:
         running = false;
