@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/wav/Sound_13.wav</file>
+        <file>res/wav/Sound_800.wav</file>
+        <file>res/wav/Sound_801.wav</file>
+        <file>res/wav/Sound_802.wav</file>
+        <file>res/wav/Sound_803.wav</file>
+        <file>res/wav/Sound_804.wav</file>
+        <file>res/wav/Sound_805.wav</file>
+        <file>res/wav/Sound_806.wav</file>
+        <file>res/wav/Sound_807.wav</file>
+        <file>res/wav/Sound_830.wav</file>
+        <file>res/Icon/Icon0001.png</file>
+        <file>res/wav/Sound_11.wav</file>
+        <file>res/wav/Sound_12.wav</file>
+        <file>res/wav/Sound_14.wav</file>
+        <file>res/wav/Sound_15.wav</file>
+        <file>res/wav/Sound_16.wav</file>
+        <file>res/Image/Button/button1.png</file>
+        <file>res/Image/Button/button2.png</file>
+        <file>res/Image/BG/startBG.png</file>
+        <file>res/Image/BG/TileBG.png</file>
+        <file>res/story.txt</file>
+        <file>res/Image/Button/button3.png</file>
+        <file>res/Image/BG/GameOver.png</file>
+    </qresource>
+</RCC>
